@@ -24,7 +24,7 @@
                         </el-menu-item>
                         <el-menu-item index="/Github" style="font-size:17px">
                             <!-- <router-link to="https://github.com/hevnoo/myblog">Github</router-link> -->
-                            <a href="https://github.com/hevnoo/myblog" target="_blank" >Github</a>
+                            <a href="https://github.com/hevnoo/HevnWeb" target="_blank" >Github</a>
                         </el-menu-item>
                         <el-menu-item index="/About" style="font-size:17px">
                             <router-link to="/About" active-class='active'>About</router-link>
