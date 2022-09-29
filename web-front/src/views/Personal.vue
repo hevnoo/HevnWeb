@@ -31,6 +31,7 @@
     import imgDefault from '../assets/logo.png'
     import Cookie from 'js-cookie'
     export default {
+        name:'Personal',
         data() {
             return {
                 form: {

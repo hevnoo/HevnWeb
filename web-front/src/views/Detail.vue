@@ -19,6 +19,7 @@
 <script>
   import Comment from '@/components/Comment.vue'
   export default {
+    name:'Detail',
     data() {
       return {
         blogDetail:{}

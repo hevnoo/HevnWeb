@@ -5,11 +5,14 @@
 </template>
 
 <style lang="scss">
+  
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  // background-color: #e9ecef;
+  background-color: #e6e6ea;
 }
 
 #nav {

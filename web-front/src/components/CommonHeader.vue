@@ -37,7 +37,12 @@
                         </el-menu-item>
                         <el-menu-item index="/personal" v-else-if="isSignIn===1">
                             <router-link class="signBtn" to="/personal" active-class='active'>
-                                <img class="nav_img" style="width:30px;height: 30px;margin-left: 12px;border-radius: 50%;" :src="userinfo.head_img" alt="">
+                                <img class="nav_img" 
+                                    style="width:30px;
+                                    height: 30px;
+                                    margin-left: 12px;
+                                    border-radius: 50%;"
+                                :src="userinfo.head_img" alt="">
                                 {{userinfo.nickname}}
                             </router-link>
                         </el-menu-item>
@@ -52,6 +57,7 @@
 
 <script>
     export default {
+        name:'CommonHeader',
         data() {
             return {
                 userinfo: {}
@@ -84,8 +90,10 @@
 </script>
 
 <style lang="scss" scoped>
+
     header {
         // background: #2d2d2d;
+        background: #fff;
         color: #9d9d9d;
         box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
         // margin-bottom: 20px;

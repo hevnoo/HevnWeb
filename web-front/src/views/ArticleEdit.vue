@@ -17,6 +17,7 @@
 
 <script>
     export default {
+        naem:'ArticleEdit',
         data() {
             return {
                 title:'',

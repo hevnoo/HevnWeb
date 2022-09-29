@@ -49,6 +49,7 @@
 <script>
     import Cookie from 'js-cookie'
     export default {
+        name:'Login',
         data() {
             return {
                 loading: false,

@@ -33,6 +33,7 @@
 
 <script>
     export default {
+        naem:'Article',
         data() {
             return {
                 articleList:[]
