@@ -3,7 +3,8 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+    {
         path: "/",
         component: () =>
             import ('@/components/CommonLayout.vue'),
@@ -65,6 +66,11 @@ const routes = [{
         path: '/login',
         component: () =>
             import ('@/views/Login.vue')
+    },
+    {
+        path: '/loading',
+        component: () =>
+            import ('@/views/Loading.vue')
     }
 ];
 

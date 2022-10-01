@@ -1,5 +1,5 @@
 <template>
-    <div class="list">
+    <div class="container">
         <!-- 小导航栏 -->
         <div class="navs">
             <span class="navs_blog">博客推荐</span>
@@ -27,7 +27,9 @@
         name:'BlogList',
         data() {
             return {
+                List:[],
                 blogList:[],
+                the_blog:[],
                 // arrList:[],
             }
         },
@@ -38,35 +40,66 @@
                     .then(res => {
                         if(res.data.code === 0){
                             this.blogList = res.data.data;
+                            // this.$nextTick(()=>{
+                            //     this.change()
+                            // })
                             // 
                             // let arrs = this.blogList;
                             // this.arrList = arrs.map((item)=>{
                             //     return item.content.slice(0,20)
                             // })
-                            
                         }
                     }).catch(e=>{
                         console.log(e)
                     })
             },
-
+            // 根据搜索结果，更新列表数据
+            change(){
+                this.the_blog = this.$store.state.search.sou_list;
+                // console.log('更新',this.the_blog)
+                this.blogList = this.the_blog
+            }
         },
         computed:{
-
         },
         created() {
             this.getBlogList();
-        },
-        mounted(){
+            console.log('这：',this.blogList)
+            this.List = this.blogList;
+            // this.change();
 
+            // this.$nextTick(()=>{
+            //     return this.blogList = this.$store.state.search.sou_list
+            // });
+            // this.$nextTick(()=>{
+            //     this.change()
+            // })
+        },
+        updated(){
+            // this.getBlogList();
+            // this.change()
+            // this.$forceUpdate()
+            // console.log('有数据更新')
         }
     }
 </script>
 
 <style lang="scss" scoped>
 
+    .container{
+        width: 100%;
+        min-height: 100vh;
+        margin: 0 20px;
+        padding: 20px;
+        background: #f8f8fd;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
+    }
     // 小导航栏
     .navs{
+        height: 20px;
+        display: flex;
+        align-items: center;
         span{
             margin-right:50px;
             cursor: pointer;

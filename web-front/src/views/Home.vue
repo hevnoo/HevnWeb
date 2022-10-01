@@ -9,9 +9,9 @@
             <img src="../assets/img/home-img.png" alt="">
         </div> -->
         <div class="carousel_out">
-            <el-carousel class="carousel" trigger="click" :interval="5000" height="15.625rem">
+            <el-carousel class="carousel" trigger="click" :interval="10000" height="15.625rem">
                 <el-carousel-item class="carousel_item" v-for="item in imgList" :key="item.id">
-                    <img :src="item.idView" alt="" class="small">
+                    <img class="img" :src="item.idView" alt="">
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -36,10 +36,10 @@
                 src="//music.163.com/outchain/player?type=0&id=2761182502&auto=1&height=430">
             </iframe>
         </el-drawer>
-        <!-- 博客列表与右边栏 -->
+        <!-- 文章列表与右边栏 -->
         <div class="wrapper">
             <div class="blog_list">
-                <blog-list></blog-list>
+                <blog-list :key="$store.state.search.input_num"></blog-list>
             </div>
             <div class="list_right">
                 <one class="home_one"></one>
@@ -78,7 +78,7 @@
                 drawer: false,
                 imgList:[
                     {id:0,idView:require("@/assets/img/home-img.png")},
-                    {id:1,idView:require("@/assets/img/home-img.png")},
+                    {id:1,idView:require("@/assets/img/8.png")},
                     {id:2,idView:require('../assets/img/4.png')},
                 ]
             };
@@ -86,7 +86,23 @@
         methods: {
             format(percentage) {
                 return percentage === 100 ? '满' : `${percentage}%`;
-            }
+            },
+            // 触发更新事件
+            // updateTable(){
+            //     // 卸载
+            //     this.tableShow = 0
+            //     // 建议加上 nextTick 微任务 
+            //     // 否则在同一事件内同时将tableShow设置false和true有可能导致组件渲染失败
+            //     this.$nextTick(function(){
+            //         // 加载
+            //         this.tableShow= true
+            //     })
+            // },
+
+            created(){
+                // 
+                // console.log('打印其他模块的state：',this.$store.state.test.ttt)
+            },
         }
     }
 </script>
@@ -114,17 +130,17 @@
     // 全部文章列表
     .wrapper{
         width: 1130px;
-        // max-width: 1000;//800+300+30
+        // width: 770+300+其他
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between;//左右分布在两边
     }
     .blog_list {
-        width: 800px;
+        width: 770px;
         margin: 0 20px;
-        padding: 20px;
-        background: #f8f8fd;
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
+        // padding: 20px;
+        // background: #f8f8fd;
+        // -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
+        // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
     }
     .list_right{
         width: 300px;
@@ -154,7 +170,11 @@
         align-items: center;
         justify-content: center;
     }
-
+    .img{
+        //图片自适应
+        max-width: 100%;
+        min-height: 100%;
+    }
     .el-carousel__item h3 {
         color: #475669;
         font-size: 14px;

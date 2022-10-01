@@ -32,7 +32,8 @@
                     { name: '前端', type: 'success' },
                     { name: '后端', type: 'info' },
                     { name: 'Android', type: 'warning' },
-                    { name: 'Ios', type: 'danger' }
+                    { name: 'Ios', type: 'danger' },
+                    { name: 'game', type: 'success' }
                 ]
               
           }
@@ -42,11 +43,13 @@
   
   <style lang="scss" scoped>
       .container{
-          height: 250px;
+        //   height: 250px;
+        min-height: 100px;
           background-color: #f7f7fc;
           -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
           .three_header{
+            height: 20px;
               // margin-top: 20px;
               display: flex;
               justify-content:space-around;
@@ -64,7 +67,7 @@
           }
 
         .three_main{
-            margin: auto auto 20px 20px;
+            margin: auto 0 20px 20px;
             // display: flex;
             // justify-content:space-around;
         }

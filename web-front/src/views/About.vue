@@ -10,7 +10,11 @@
                         {{'列表内容 ' + item }}
                     </div>
                 </el-card> -->
-                <blog-list></blog-list>
+                <!-- <blog-list></blog-list> -->
+                <!-- 测试 -->
+                <div>{{$store.state.test.ttt}}</div>
+                <button @click="test()">点击测试</button>
+                <div>{{$store.state.test.youData}}</div>
             </div>
             <!-- 右边盒子 -->
             <div class="right">
@@ -22,15 +26,16 @@
 </template>
 
 <script>
-    import BlogList from "@/components/BlogList.vue";
+    // import BlogList from "@/components/BlogList.vue";
     export default {
         name: 'About',
         components:{
-            BlogList
+            // BlogList
         },
         data(){
             return{
                 bloglist : [],
+                myData:2022,
             }
         },
         methods:{
@@ -43,6 +48,10 @@
                 }).catch((e)=>{
                     console.log(e);
                 })
+            },
+            // 测试
+            test(){
+                this.$store.dispatch('test/do',this.myData)
             }
         },
         created(){

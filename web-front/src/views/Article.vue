@@ -33,7 +33,7 @@
 
 <script>
     export default {
-        naem:'Article',
+        name:'Article',
         data() {
             return {
                 articleList:[]
@@ -82,6 +82,7 @@
                     });
                 });
             },
+            // 获取我的博客列表接口
             getMyBlogList(){
                 this.$axios.get('/api/article/myList')
                     .then(res => {
