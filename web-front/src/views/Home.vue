@@ -39,7 +39,9 @@
         <!-- 文章列表与右边栏 -->
         <div class="wrapper">
             <div class="blog_list">
-                <blog-list :key="$store.state.search.input_num"></blog-list>
+                <!-- <blog-list :key="$store.state.search.input_num"></blog-list> -->
+                <blog-list v-if="this.$store.state.search.is_input === true"></blog-list>
+                <search-list v-else :key="$store.state.search.input_num"></search-list>
             </div>
             <div class="list_right">
                 <one class="home_one"></one>
@@ -64,6 +66,7 @@
 <script>
     // @ is an alias to /src
     import BlogList from "@/components/BlogList.vue";
+    import SearchList from "../components/SearchList.vue"
     import One from "@/components/One.vue";
     import Two from "@/components/Two.vue"
     import Three from "@/components/Three.vue"
@@ -71,7 +74,9 @@
     export default {
         name: "Home",
         components: {
-            BlogList,One,Two,Three
+            BlogList,
+            SearchList,
+            One,Two,Three
         },
         data() {
             return {
@@ -130,14 +135,15 @@
     // 全部文章列表
     .wrapper{
         width: 1130px;
-        // width: 770+300+其他
+        // width: 770+300+外边距20+外边距20+空隙20=1130;
         display: flex;
         justify-content: space-between;//左右分布在两边
     }
     .blog_list {
         width: 770px;
-        margin: 0 20px;
-        // padding: 20px;
+        // margin: 0 20px;
+        margin-left: 20px;
+        //再一次列表左边距20px
         // background: #f8f8fd;
         // -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
         // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;

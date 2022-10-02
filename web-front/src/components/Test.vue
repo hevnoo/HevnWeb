@@ -1,3 +1,4 @@
+<!-- 测试专用 -->
 <template>
     <div class="container">
       <div class="box">
@@ -30,7 +31,7 @@
 
 <script>
 export default {
-  name:'Remind'
+  name:'Test'
     
 }
 </script>

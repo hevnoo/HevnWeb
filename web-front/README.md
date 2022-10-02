@@ -2,9 +2,8 @@
 
 ## Project setup
 ```
-需要先启动前端：
 
-cnpm i
+yarn i/npm i
 
 npm run serve
 ```

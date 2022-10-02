@@ -1,16 +1,15 @@
+<!-- 这是搜索弹出的文章列表组件，类似于BlogList组件 -->
 <template>
     <div class="container">
         <!-- 小导航栏 -->
         <div class="navs">
-            <span class="navs_blog" style="color:#139eff">博客推荐</span>
-            <span class="navs_font">前端</span>
-            <span class="navs_back">后端</span>
-            <span class="navs_android">Android</span>
-            <span class="navs_others">其他</span>
+            <span class="navs_blog" style="color:#139eff">综合排序</span>
+            <span class="navs_font">热门</span>
+            <span class="navs_back">最新</span>
         </div>
         <el-divider class="divider"></el-divider>
         <!-- 博客列表 -->
-        <div class="card" v-for="item in blogList" :key="item.id">
+        <div class="card" v-for="item in searchList" :key="item.id">
             <router-link :to="'/detail/'+item.id">
                 <p class="title">{{item.title}}</p>
             </router-link>
@@ -24,33 +23,33 @@
 
 <script>
     export default {
-        name:'BlogList',
+        name:'SearchList',
         data() {
             return {
                 List:[],
-                blogList:[],
+                searchList:[],
 
                 // arrList:[],
             }
         },
         methods:{
-            // 获取文章
+            // 获取处理后的文章列表
             getBlogList () {
-                this.$axios.get('/api/article/allList')
-                    .then(res => {
-                        if(res.data.code === 0){
-                            this.blogList = res.data.data;
-                            // 
-                            // let arrs = this.blogList;
-                            // this.arrList = arrs.map((item)=>{
-                            //     return item.content.slice(0,20)
-                            // })
-                        }
-                    }).catch(e=>{
-                        console.log(e)
-                    })
+                // this.$axios.get('/api/article/allList')
+                //     .then(res => {
+                //         if(res.data.code === 0){
+                //             this.blogList = res.data.data;
+                //             // 
+                //             // let arrs = this.blogList;
+                //             // this.arrList = arrs.map((item)=>{
+                //             //     return item.content.slice(0,20)
+                //             // })
+                //         }
+                //     }).catch(e=>{
+                //         console.log(e)
+                //     })
                 // 
-                // this.blogList = this.$store.state.search.filterList;
+                this.searchList = this.$store.state.search.filterList;
             },
 
             // 根据搜索结果，更新列表数据
@@ -82,17 +81,15 @@
     .container{
         width: 100%;
         min-height: 100vh;
-        // margin: 0 20px;
-        margin-left: 20px;
-        //列表左边距20px
-        padding: 20px;//防止塌陷
+        margin: 0 20px;
+        padding: 20px;
         background: #f8f8fd;
         -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
     }
     // 小导航栏
     .navs{
-        height: 20px;
+        height: 10px;
         display: flex;
         align-items: center;
         span{

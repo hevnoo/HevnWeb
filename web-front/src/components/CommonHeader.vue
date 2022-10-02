@@ -27,13 +27,16 @@
                                 </el-input>
                         </el-menu-item>
                         <!--  -->
-                        <el-menu-item index="/" style="font-size:17px">
-                            <router-link to="/" active-class='active'><i class="iconfont icon-home"></i>首页</router-link>
+                        <el-menu-item index="/" style="font-size:17px" @click="doHome()">
+                            <router-link to="/" active-class='active'>
+                                <i class="iconfont icon-home"></i>
+                                首页
+                            </router-link>
                         </el-menu-item>
-                        <el-menu-item index="/loading" style="font-size:17px">
+                        <el-menu-item index="/github" style="font-size:17px">
                             <!-- <router-link to="https://github.com/hevnoo/myblog">Github</router-link> -->
                             <!-- <a href="https://github.com/hevnoo/HevnWeb" target="_blank" >Github</a> -->
-                            <router-link to="/loading" active-class="active" target="_blank">Github</router-link>
+                            <router-link to="/github" active-class="active" target="_blank">Github</router-link>
                         </el-menu-item>
                         <el-menu-item index="/about" style="font-size:17px">
                             <router-link to="/about" active-class='active'>About</router-link>
@@ -112,8 +115,24 @@
                     this.$store.dispatch('search/dosearch',this.filter_list);
                     this.n = !this.n;
                     this.$store.commit('search/KEYNUM',this.n)
+                    this.$store.state.search.is_input = false;
+                }else{
+                    this.$store.dispatch('search/dosearch',this.blog_list);
+                    this.$store.state.search.is_input = true;
+                    this.n = !this.n;
                 }
+                // 1.上面的搜索栏：当输入内容为空时，就显示BlogList组件；否则显示SearchList组件。
+                // 2.用v-if==...true/false...控制要显示哪个组件。
+                // 3.给Home组件里的子组件SearchList绑定key，当key值（this.n）改变则重新加载该子组件。
+                // 4.重载组件的目的是为了用本组件传过去的列表数据进行重新渲染。
+                // 5.点击search()事件，可以将筛选好的数据传给store并让SearchList读取。
 
+                // this.$store.state.search.is_input = !this.$store.state.search.is_input;
+                // this.$store.state.search.is_input = false;
+
+            },
+            doHome(){
+                this.$store.state.search.is_input = true;
             }
         },
         computed: {
@@ -128,11 +147,12 @@
             //         return p.title.indexOf(val) !== -1 || p.content.indexOf(val) !== -1;
             //     })
             keyWard:{
-                immediate:true,
+                // immediate:true,
                 handler(val){
                     this.filter_list = this.blog_list.filter((p)=>{
                         return p.title.indexOf(val) !== -1 || p.content.indexOf(val) !== -1;
-                    })
+                    });
+                    // this.$store.commit('search/KEYLIST',this.filter_list);
                 }
             }
         },

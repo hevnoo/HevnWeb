@@ -8,7 +8,7 @@
 <script>
 import Remind from '../components/Remind.vue';
 export default {
-  name:'Load',
+  name:'Github',
   components:{
     Remind
   },

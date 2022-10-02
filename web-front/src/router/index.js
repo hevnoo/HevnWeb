@@ -68,9 +68,9 @@ const routes = [
             import ('@/views/Login.vue')
     },
     {
-        path: '/loading',
+        path: '/Github',
         component: () =>
-            import ('@/views/Loading.vue')
+            import ('@/views/Github.vue')
     }
 ];
 
