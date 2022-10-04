@@ -83,7 +83,7 @@
             hanleSelect(index) {
                 this.activeIndex = index
             },
-            // 
+            // 获取用户信息
             getUserInfo() {
                 this.$axios.get('/api/user/info')
                 .then((res) => {
@@ -136,8 +136,9 @@
             }
         },
         computed: {
+            // 是否登录
             isSignIn() {
-                return this.$store.state.isSignIn
+                return this.$store.state.tokens.isSignIn;
             }
         },
         watch:{

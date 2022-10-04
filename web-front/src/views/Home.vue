@@ -38,7 +38,7 @@
         </el-drawer>
         <!-- 文章列表与右边栏 -->
         <div class="wrapper">
-            <div class="blog_list">
+            <div class="blog_list" :key="$store.state.search.page_num">
                 <!-- <blog-list :key="$store.state.search.input_num"></blog-list> -->
                 <blog-list v-if="this.$store.state.search.is_input === true"></blog-list>
                 <search-list v-else :key="$store.state.search.input_num"></search-list>
@@ -105,8 +105,7 @@
             // },
 
             created(){
-                // 
-                // console.log('打印其他模块的state：',this.$store.state.test.ttt)
+ 
             },
         }
     }
@@ -152,6 +151,9 @@
         width: 300px;
         // height: 1200px;
         // min-height: calc(100vh - 200px);
+        // position:sticky;
+        // bottom:50px;
+        // z-index:2;
         // background: #f8f8fd;
         // -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
         // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
@@ -163,18 +165,23 @@
         }
         .home_three{
             margin-bottom: 20px;
+            position:sticky;
+            top:70px;
+            z-index:2;
         }
     }
 
     // 轮播图
     .carousel_out{
         margin-bottom: 20px;
+        
     }
     .carousel_item{
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index:1;//1<2
     }
     .img{
         //图片自适应

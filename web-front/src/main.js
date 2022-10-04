@@ -22,12 +22,12 @@ Vue.use(ElementUI);
 Vue.use(mavonEditor)
 
 router.beforeEach((to,from,next)=>{
-  store.commit('setToken',Cookie.get('token'))
-  if(store.state.token){
-    store.commit('changIsSignIn',1)
+  store.commit('tokens/SETTOKEN',Cookie.get('token'))
+  if(store.state.tokens.token){
+    store.commit('tokens/ISSIGNIN',1)
   }
   if(to.meta.requireAuth){
-    if(store.state.token){
+    if(store.state.tokens.token){
       next()
     }else{
       next({path:'/login'})

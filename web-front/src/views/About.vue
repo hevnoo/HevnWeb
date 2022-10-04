@@ -1,27 +1,8 @@
 <template>
-    <div class="about_body">
-        <!-- content为包裹左右两个盒子 -->
-        <div class="car_content">
-            <!-- 左边盒子 -->
-            <div class="left">
-                <!-- 博客列表卡片 -->
-                <!-- <el-card class="box-card">
-                    <div v-for="item in bloglist" :key="item" class="text item">
-                        {{'列表内容 ' + item }}
-                    </div>
-                </el-card> -->
-                <!-- <blog-list></blog-list> -->
-                <!-- 测试 -->
-                <div>{{$store.state.test.ttt}}</div>
-                <button @click="test()">点击测试</button>
-                <div>{{$store.state.test.youData}}</div>
-            </div>
-            <!-- 右边盒子 -->
-            <div class="right">
-                
-            </div>
-
-        </div>
+    <div class="container">
+        <el-empty class="empty" description="There's nothing here">
+            <router-link to="/LoginTest"><button>测试按钮</button></router-link>
+        </el-empty>
     </div>
 </template>
 
@@ -34,28 +15,14 @@
         },
         data(){
             return{
-                bloglist : [],
-                myData:2022,
+                
             }
         },
         methods:{
-            getlist(){
-                this.$axios.get('/api/article/allList')
-                .then((res)=>{
-                    // console.log(res.data.data);
-                    this.bloglist = res.data.data;
-                    
-                }).catch((e)=>{
-                    console.log(e);
-                })
-            },
-            // 测试
-            test(){
-                this.$store.dispatch('test/do',this.myData)
-            }
+            
         },
         created(){
-            this.getlist();
+
         }
     }
 </script>
@@ -63,13 +30,11 @@
 <style lang="scss" scoped>
 
 
-    .about_body{
+    .container{
         // min-height: 100vh;
         min-height: calc(100vh - 200px);
-        .car_content{
-            display: flex;
-            justify-content: center;
-            // align-items: center;
+        .empty{
+            // margin-top: 30px;
         }
     }
   

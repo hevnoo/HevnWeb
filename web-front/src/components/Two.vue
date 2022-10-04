@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="two_header">
-            <div class="header_left">社区推荐</div>
+            <div class="header_left">精彩内容</div>
             <!-- <div class="header_right">更多</div> -->
         </div>
         <el-divider></el-divider>
@@ -15,8 +15,12 @@
         </div>
         <el-divider></el-divider>
         <!-- 主体文字 -->
-        <div class="two_main" v-for="item in oneList" :key="item.id">
-            {{item.id+1}} {{item.datas}}
+        <div class="main_out">
+            <div class="two_main" v-for="item in oneList" :key="item.id">
+                <!-- {{item.id+1}} -->
+                <button class="button" :style="{backgroundColor:item.color}">{{item.id+1}}</button>
+                <span class="text">{{item.datas}}</span>
+            </div>
         </div>
     </div>
   </template>
@@ -30,10 +34,9 @@
       data(){
           return{
                 oneList:[
-                    {id:0,datas:'活动一—————————'},
-                    {id:1,datas:'活动二—————————'},
-                    {id:2,datas:'活动三—————————'},
-                    {id:3,datas:'活动四—————————'},
+                    {id:0,datas:'如何查询已经执行过的流程信息？',color:'#e04a1d'},
+                    {id:1,datas:'为什么vue和react都选择了Hocks？',color:'#f88217'},
+                    {id:2,datas:'在vue中如何更优雅的封装第三方组件？',color:'#ffb916'},
                 ],
                 imgList:[
                     {id:0,idView:require("@/assets/img/m1.webp")},
@@ -69,16 +72,33 @@
         //       padding-top: 20px;
         //   }
         }
-        .two_main{
-            // margin-top: 20px;
-            margin:20px auto 0 auto;
+        .main_out{
             display: flex;
-            justify-content: center;
-            cursor: pointer;
-            &:last-child{
-                padding-bottom: 30px;
+            flex-direction: column;
+            
+            .two_main{
+                margin:0 20px 20px 20px;
+                cursor: pointer;
+                display: flex;
+                &:last-child{
+                    padding-bottom: 10px;
+                }
+                .button{
+                    width: 25px;
+                    height: 25px;
+                    margin-right: 5px;
+                    outline:none;//点击不显示边框
+                    border: 2px solid transparent;
+                    border-color: transparent;//边框透明
+                    border-radius: 20%;
+
+                }
+                .text{
+                    flex:1;
+                }
             }
         }
+
     }
     //   走马灯
     .carousel_out{
@@ -87,6 +107,7 @@
         .carousel{
             // width: 270px;
             // height:150px;
+            z-index:1;//1<2
         }
     }
     .img{

@@ -42,6 +42,7 @@
             }
         },
         methods: {
+            // 更新用户信息
             save() {
                 this.$axios.post('/api/user/updateUser', {
                     nickname: this.form.nickname,
@@ -76,6 +77,7 @@
                 }
                 return isJPG && isLt2M;
             },
+            // 获取用户信息
             getUserInfo() {
                 this.$axios.get('/api/user/info').then((res) => {
                     let result = res.data
@@ -91,10 +93,13 @@
                     console.log(e)
                 })
             },
+            // 退出登录按钮
             signOut() {
                 Cookie.remove('token')
-                this.$store.commit('setToken', '')
-                this.$store.commit('changIsSignIn', 0)
+                // this.$store.commit('token/setToken', '')
+                // this.$store.commit('token/changIsSignIn', 0)
+                this.$store.commit('tokens/SETTOKEN', '')
+                this.$store.commit('tokens/ISSIGNIN', 0)
                 this.$router.push({
                     name: 'home'
                 })

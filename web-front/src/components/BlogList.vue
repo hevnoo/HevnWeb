@@ -2,11 +2,10 @@
     <div class="container">
         <!-- 小导航栏 -->
         <div class="navs">
-            <span class="navs_blog" style="color:#139eff">博客推荐</span>
-            <span class="navs_font">前端</span>
-            <span class="navs_back">后端</span>
-            <span class="navs_android">Android</span>
-            <span class="navs_others">其他</span>
+            <span class="nav navs_blog" style="color:#139eff">博客推荐</span>
+            <span class="nav navs_font">前端</span>
+            <span class="nav navs_back">后端</span>
+            <span class="nav navs_android">Android</span>
         </div>
         <el-divider class="divider"></el-divider>
         <!-- 博客列表 -->
@@ -19,6 +18,17 @@
             <p class="time">{{item.create_time}}</p>
             <el-divider></el-divider>
         </div>
+        <el-pagination
+        class="page"
+        background
+        layout="prev, pager, next"
+        :total="pageList.length"
+        :page-size="pageSize"
+        :current-page="currentPage"
+        @size-change="handleSizeChange" 
+        @current-change="handleCurrentChange"
+        >
+        </el-pagination>
     </div>
 </template>
 
@@ -27,10 +37,13 @@
         name:'BlogList',
         data() {
             return {
-                List:[],
                 blogList:[],
-
-                // arrList:[],
+                pageList:[],
+                pageSize:10,
+                // currentPage:1,
+                currentPage:this.$store.state.search.page_num,
+                // dates:'',
+                // create_date:'',
             }
         },
         methods:{
@@ -40,7 +53,24 @@
                     .then(res => {
                         if(res.data.code === 0){
                             this.blogList = res.data.data;
+                            this.pageList = this.blogList;
                             // 
+                            // this.dates = this.blogList.map((p)=>{
+                            //     return p.create_time;
+                            // })
+                            // this.create_date = this.dates.map((item)=>{
+                            //     return new Date(item)
+                            // }).map((x)=>{
+                            //     return x.getTime()
+                            // })
+                            // 时间顺序
+                            this.blogList.sort((a,b)=>{
+                                return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
+                            })
+                            // 分页截取
+                            this.blogList = this.blogList.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)
+                            
+
                             // let arrs = this.blogList;
                             // this.arrList = arrs.map((item)=>{
                             //     return item.content.slice(0,20)
@@ -52,13 +82,29 @@
                 // 
                 // this.blogList = this.$store.state.search.filterList;
             },
-
+            //每页条数改变时触发 选择一页显示多少行
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+                this.currentPage = 1;
+                this.pageSize = val;
+            },
+            //当前页改变时触发 跳转其他页
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.currentPage = val;
+                this.$store.commit('search/DOPAGE',this.currentPage);
+            }
             // 根据搜索结果，更新列表数据
             // change(){
             //     this.blogList= this.$store.state.search.sou_list;
             // }
         },
         computed:{
+        },
+        watch:{
+            // currentPage(val){
+            //     return this.currentPage = val;
+            // }
         },
         created() {
             this.getBlogList();
@@ -95,7 +141,7 @@
         height: 20px;
         display: flex;
         align-items: center;
-        span{
+        .nav{
             margin-right:50px;
             cursor: pointer;
         }

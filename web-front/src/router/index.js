@@ -71,7 +71,12 @@ const routes = [
         path: '/Github',
         component: () =>
             import ('@/views/Github.vue')
-    }
+    },
+    {
+        path: '/loginTest',
+        component: () =>
+            import ('@/views/LoginTest.vue')
+    },
 ];
 
 const router = new VueRouter({

@@ -48,8 +48,9 @@
             }
         },
         computed: {
+            // 是否登录
             isSignIn() {
-                return this.$store.state.isSignIn
+                return this.$store.state.tokens.isSignIn;
             }
         },
         methods:{

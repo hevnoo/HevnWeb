@@ -16,6 +16,9 @@ export default {
         KEYNUM(state,value){
             state.input_num = value
         },
+        DOPAGE(state,value){
+            state.page_num = value
+        },
         // 传过滤数据
         // KEYLIST(state,value){
         //     state.filterList = value
@@ -23,6 +26,7 @@ export default {
     },
     state: {
         input_num:0,
+        page_num:1,
         // 对应Home组件里的子组件绑定的key值
         is_input:true,
         // 取反决定展示哪个组件
