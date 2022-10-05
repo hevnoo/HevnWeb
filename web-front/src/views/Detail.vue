@@ -1,3 +1,4 @@
+<!-- 我的博客详情按钮 -->
 <template>
   <div class="blog-content-box" style="margin-top:30px">
     <div class="wrapper">
@@ -29,6 +30,7 @@
       Comment
     },
     methods:{
+      // 获取博客详情
       getDetail() {
         this.$axios.get('/api/article/detail',{
           params:{

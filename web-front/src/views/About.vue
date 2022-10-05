@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <el-empty class="empty" description="There's nothing here">
-            <router-link to="/LoginTest"><button>测试按钮</button></router-link>
+            <router-link to="/"><button>测试</button></router-link>
         </el-empty>
     </div>
 </template>

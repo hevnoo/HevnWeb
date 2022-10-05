@@ -1,3 +1,4 @@
+<!-- 我的博客 -->
 <template>
     <div class="wrapper">
         <h1 class="title">文章列表</h1>
@@ -51,6 +52,7 @@
                 let id = row.id;
                 this.$router.push({path:`/article/edit/${id}`})
             },
+            // 删除博客
             handleDelect(row){
                 let id = row.id
                 this.$confirm('此操作将删除该文章, 是否继续?', '提示', {

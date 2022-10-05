@@ -8,6 +8,7 @@ export default function setAxios() {
     axios.interceptors.request.use(
         config => {
             if (store.state.tokens.token) {
+                //  服务端验证规则
                 config.headers['Authorization'] = `Bearer ${store.state.tokens.token}`
             }
             return config

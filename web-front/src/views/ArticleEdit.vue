@@ -1,3 +1,4 @@
+<!-- 编辑文章按钮 -->
 <template>
     <div class="edit_wrap wrapper">
        <div class="backBtn">
@@ -28,6 +29,7 @@
             goBack(){
                 this.$router.go(-1)
             },
+            // 更新博客和添加博客
             save(){
                 if(this.$route.params.id){
                     this.$axios.post('/api/article/update',{
@@ -66,6 +68,7 @@
                 })
                 }     
             },
+            // 获取博客详情
             getDetail() {
                 this.$axios.get('/api/article/detail',{
                 params:{

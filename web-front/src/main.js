@@ -9,34 +9,42 @@ import 'mavon-editor/dist/css/index.css'
 import '@/assets/scss/reset.scss'
 import '@/assets/font/iconfont.css'
 import '@/assets/scss/common.scss'
+//
 import setAxios from './setAxios'
 import Cookie from 'js-cookie'
-// 
 import store from "./store/index";
 
 
 setAxios()
 Vue.config.productionTip = false;
-Vue.prototype.$axios = axios
+Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
-Vue.use(mavonEditor)
-
+Vue.use(mavonEditor);
+// 鉴权
 router.beforeEach((to,from,next)=>{
-  store.commit('tokens/SETTOKEN',Cookie.get('token'))
+  store.commit('tokens/SETTOKEN',Cookie.get('token'));
   if(store.state.tokens.token){
-    store.commit('tokens/ISSIGNIN',1)
+    store.commit('tokens/ISSIGNIN',1);
   }
   if(to.meta.requireAuth){
     if(store.state.tokens.token){
-      next()
+      next();
     }else{
-      next({path:'/login'})
+      next({path:'/login'});
     }
   }else{
     next()
   }
-  
 })
+//标签名
+router.afterEach((to,from)=>{
+  // document.title = to.meta.title;
+  document.title = `HevnWeb ${to.meta.title}`;
+  if(from == ''){
+    console.log(from);
+  }
+})
+//
 
 new Vue({
   router,
