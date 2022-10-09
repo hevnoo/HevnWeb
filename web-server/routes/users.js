@@ -3,14 +3,17 @@ var router = express.Router();
 const querySql = require('../db/index')
 const { PWD_SALT, PRIVATE_KEY, EXPIRESD } = require('../utils/constant')
 const { md5, upload } = require('../utils/index')
+// 用于生成jwt字符串
 const jwt = require('jsonwebtoken')
 
 
 /* 注册接口 */
 router.post('/register', async(req, res, next) => {
-    let { username, password, nickname } = req.body
+    let { username, password, nickname } = req.body// 解构赋值，将req.body的请求体信息赋值。
+    
     try {
         let user = await querySql('select * from user where username = ?', [username])
+        // 问号占位符，后面既是赋值给占位符。
         if (!user || user.length === 0) {
             //password = md5(`${password}${PWD_SALT}`)
             await querySql('insert into user(username,password,nickname) value(?,?,?)', [username, password, nickname])
@@ -37,6 +40,7 @@ router.post('/login', async(req, res, next) => {
             if (!result || result.length === 0) {
                 res.send({ code: -1, msg: '账号或者密码不正确' })
             } else {
+                // 调用jsonwebtoken包提供的sign()方法，将用户信息加密成字符串，并响应给客户端！
                 let token = jwt.sign({ username }, PRIVATE_KEY, { expiresIn: EXPIRESD })
                 res.send({ code: 0, msg: '登录成功', token: token })
             }
@@ -49,8 +53,10 @@ router.post('/login', async(req, res, next) => {
 
 //获取用户信息接口
 router.get('/info', async(req, res, next) => {
+    console.log('用户信息：',req.user)
     let { username } = req.user
     try {
+        //按用户名查找出对应的用户信息：
         let userinfo = await querySql('select nickname,head_img from user where username = ?', [username])
         res.send({ code: 0, msg: '成功', data: userinfo[0] })
     } catch (e) {

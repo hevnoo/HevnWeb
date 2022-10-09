@@ -9,6 +9,7 @@ function query (sql,params) {
   return new Promise((resolve, reject) => {
     //获取连接
     pool.getConnection((err, conn) => {
+      // 
       if (err){
         reject(err)
         return

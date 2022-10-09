@@ -2,6 +2,8 @@
     <div class="comment-box">
         <div v-if="isSignIn===0" class="signInText">登录留言吧</div>
         <div v-else class="input-box">
+            <el-divider></el-divider>
+            <h3 class="_title">开始评论吧</h3>
             <div class="input-top">
                 <div class="img">
                     <img class="avatar" :src="userinfo.head_img" alt="">
@@ -15,8 +17,10 @@
                 <a href="javascript:void(0)" class="submit" @click="publicComment">发表评论</a>
             </div>
         </div>
+        <!-- 全部评论列表 -->
+        <el-divider></el-divider>
         <div class="all_comment">
-            <p class="title">全部评论<span class="total">{{comments.length}}</span>条</p>
+            <p class="title">全部评论<span class="total">{{comments.length}}</span>条：</p>
             <div class="comment-list">
                 <div class="comment-item" v-for="item in comments" :key="item.id">
                     <div class="item_l">
@@ -54,6 +58,7 @@
             }
         },
         methods:{
+            //用户信息
             getUserInfo() {
                 this.$axios.get('/api/user/info').then((res)=>{
                     let result = res.data
@@ -64,6 +69,7 @@
                     console.log(e)
                 })
             },
+            //发表评论
             publicComment() {
                 this.$axios.post('/api/comment/public',{
                     article_id:this.$route.params.id,
@@ -78,6 +84,7 @@
                     console.log(e)
                 })
             },
+            //获取评论列表
             getCommentList() {
                 this.$axios.get('/api/comment/list',{
                     params:{
@@ -103,8 +110,8 @@
 <style lang="scss" scoped>
 .comment-box {
     padding: 50px 30px;
-    -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.157), 0 0px 3px rgba(0, 0, 0, 0.227);
-    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.157), 0 0px 3px rgba(0, 0, 0, 0.227);
+    // -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.157), 0 0px 3px rgba(0, 0, 0, 0.227);
+    // box-shadow: 0 0px 3px rgba(0, 0, 0, 0.157), 0 0px 3px rgba(0, 0, 0, 0.227);
     background: #fafafa;
     .signInText {
         text-align: center;
@@ -112,6 +119,14 @@
         font-size: 18px;
         cursor: pointer;
     }
+}
+._title{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    border-left: 4px solid #3b99fc;
+    padding-left: 20px;
 }
 .input-box {
     .input-top {
@@ -171,7 +186,7 @@
     }
 }
 .all_comment {
-    border-top: 1px solid #eee;
+    // border-top: 1px solid #eee;
     padding: 30px 0;
     margin: 30px 0 0 0;
     .title {
@@ -187,7 +202,7 @@
             display: -ms-flexbox;
             display: flex;
             padding: 20px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(238, 238, 238, 0.625);
             .item_l {
                 width: 100px;
                 text-align: center;
@@ -217,6 +232,9 @@
                     color: #666;
                     .comment_text {
                         min-height: 70px;
+                        background-color: #f9fafbf0;
+                        // border: 1px solid #e6e6eac4;
+                        // border-radius: 5%;
                     }
                     .comment_time {
                         text-align: right;

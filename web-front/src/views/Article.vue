@@ -1,4 +1,4 @@
-<!-- 我的博客 -->
+<!-- 管理我的博客 -->
 <template>
     <div class="wrapper">
         <h1 class="title">文章列表</h1>

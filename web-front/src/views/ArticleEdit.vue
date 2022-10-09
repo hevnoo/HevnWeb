@@ -8,7 +8,7 @@
        <el-input v-model="title" placeholder="请输入标题"></el-input>
        <div class="edit_title">文章内容 (Markdown编辑器)</div>
        <div class="markdown">
-            <mavon-editor v-model="content"/>
+            <mavon-editor class="mavon" v-model="content"/>
        </div>
        <div class="save_btn">
            <el-button type="primary" @click="save">保存</el-button>
@@ -109,6 +109,9 @@
     .save_btn {
         margin: 40px 0;
     }
+}
+.mavon{
+    z-index: 1;
 }
 
 </style>

@@ -1,24 +1,24 @@
-<!-- 我的博客详情按钮 -->
+<!-- 文章详情页 -->
 <template>
-  <div class="blog-content-box" style="margin-top:30px">
-    <div class="wrapper">
-      <h1 class="title">{{blogDetail.title}}</h1>
-      <div class="time">
-        <span class="date"><i class="iconfont icon-date"></i>{{blogDetail.create_time}}</span>
+  <div class="container">
+    <div class="box_out">
+      <div class="box">
+        <div class="left">
+          <detail-list></detail-list>
+        </div>
+        <div class="right">
+          <detail-side class="side"></detail-side>
+        </div>
       </div>
-      <div class="detail">
-        <mavon-editor v-model="blogDetail.content"
-            defaultOpen="preview"
-            :toolbarsFlag="false"
-            :subfield="false"/>
-      </div>
-      <comment></comment>
     </div>
+
   </div>
 </template>
 
 <script>
-  import Comment from '@/components/Comment.vue'
+import DetailList from '../components/DetailList.vue'
+import DetailSide from '../components/DetailSide.vue';
+  // import Comment from '@/components/Comment.vue'
   export default {
     name:'Detail',
     data() {
@@ -27,55 +27,42 @@
       }
     },
     components:{
-      Comment
+        DetailList,
+        DetailSide
     },
+ 
     methods:{
-      // 获取博客详情
-      getDetail() {
-        this.$axios.get('/api/article/detail',{
-          params:{
-            article_id:this.$route.params.id
-          }
-        }).then(res => {
-            if(res.data.code === 0){
-                this.blogDetail = res.data.data
-            }
-          }).catch(e=>{
-              console.log(e)
-        })
-      }
+
     },
     created() {
-      this.getDetail()
     },
   }
 </script>
 
 <style lang="scss" scoped>
-.blog-content-box {
-  min-height: calc(100vh - 220px);
-}
-.wrapper {
-  padding: 20px;
-  background: #f8f8fd;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
-  .title {
-    text-align: center;
-    font-weight: 500;
-    font-size: 28px;
-  }
-  .time {
-    margin: 10px 0 40px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
-    text-align: center;
-    color: #999;
-    .iconfont {
-      color: #666;
-      margin-right: 5px;
+
+  .box_out{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .box{
+      width: 1200px;
+      // margin: auto 170px;
+      display: flex;
+      justify-content: space-between;
+      .left{
+        width: 900px;
+      }
+      .right{
+        width: 280px;
+        margin-top: 30px;
+      }
     }
   }
-}
+  .side{
+    position:sticky;
+    top:70px;
+    z-index:2;
+  }
 
 </style>

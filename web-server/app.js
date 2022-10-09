@@ -29,7 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressJWT({
     secret: PRIVATE_KEY
 }).unless({
-    path: ['/api/user/register', '/api/user/login', '/api/user/upload', '/api/article/allList', '/api/article/detail', '/api/comment/list'] //白名单,除了这里写的地址，其他的URL都需要验证
+    path: ['/api/user/register', '/api/user/login', '/api/user/upload', '/api/article/allList', '/api/article/detail', '/api/comment/list'] 
+    //白名单,除了这里写的地址，其他的URL都需要验证
 }));
 
 app.use('/api/article', artRouter);
@@ -41,7 +42,7 @@ app.use(function(req, res, next) {
     next(createError(404));
 });
 
-// error handler
+//捕获解析jwt后产生的错误 error handler
 app.use(function(err, req, res, next) {
     console.log(err)
     if (err.name === 'UnauthorizedError') {
