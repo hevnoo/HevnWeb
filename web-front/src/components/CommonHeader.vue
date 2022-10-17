@@ -54,7 +54,7 @@
                                     height: 30px;
                                     margin-left: 12px;
                                     border-radius: 50%;"
-                                :src="userinfo.head_img" alt="">
+                                :src="userinfo.head_img==null?imgDefault:userinfo.head_img" alt="">
                                 {{userinfo.nickname}}
                             </router-link>
                         </el-menu-item>
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+    import imgDefault from '../assets/logo.jpg'
+
     export default {
         name:'CommonHeader',
         data() {
@@ -77,6 +79,8 @@
                 blog_list:[],
                 filter_list:[],
                 n:1,
+                imgDefault: imgDefault,
+
             }
         },
         methods: {
@@ -85,15 +89,19 @@
             },
             // 获取用户信息
             getUserInfo() {
-                this.$axios.get('/api/user/info')
-                .then((res) => {
-                    let result = res.data
-                    if (result.code === 0) {
-                        this.userinfo = result.data
-                    }
-                }).catch(e => {
-                    console.log(e)
-                })
+                let isGet = this.$store.state.tokens.isSignIn
+                if(isGet != 0){
+                    this.$axios.get('/api/user/info')
+                    .then((res) => {
+                        let result = res.data
+                        if (result.code === 0) {
+                            this.userinfo = result.data
+                        }
+                    }).catch(e => {
+                        console.log(e)
+                    })
+                }
+                
             },
             // 获取全部博客列表
             getBlogList(){

@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <el-empty class="empty" description="There's nothing here">
-            <router-link to="/"><button>测试</button></router-link>
+            <!-- <router-link to="/"><button>测试</button></router-link> -->
+            <div class="remind">{{remind | mySlice}}</div>
+            <!-- <button @click="get()">混合</button> -->
         </el-empty>
     </div>
 </template>
@@ -15,11 +17,13 @@
         },
         data(){
             return{
-                
+                remind:'Please try another pages xxx',
             }
         },
         methods:{
-            
+            // get(){
+            //     this.$doMixin()
+            // }
         },
         created(){
 
@@ -37,7 +41,10 @@
             // margin-top: 30px;
         }
     }
-  
+    .remind{
+        font-size: 12;
+
+    }
 
 
 </style>

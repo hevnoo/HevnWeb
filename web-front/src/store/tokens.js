@@ -11,6 +11,7 @@ export default {
         }
     },
     state: {
+        //登录标识，未登录就是0，登录就是1
         isSignIn: 0,
         token:''
     },

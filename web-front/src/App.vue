@@ -15,6 +15,10 @@
   background-color: #e6e6ea;
 }
 
+.router-link-active{
+  color: #139eff;
+  // background-color: #139eff;
+}
 #nav {
   padding: 30px;
 

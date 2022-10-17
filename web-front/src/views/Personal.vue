@@ -28,8 +28,9 @@
 </template>
 
 <script>
-    import imgDefault from '../assets/logo.png'
+    import imgDefault from '../assets/logo.jpg'
     import Cookie from 'js-cookie'
+
     export default {
         name:'Personal',
         data() {
@@ -38,7 +39,8 @@
                     nickname: this.nickname
                 },
                 imageUrl: null,
-                imgDefault: imgDefault
+                imgDefault: imgDefault,
+                
             }
         },
         methods: {
@@ -85,6 +87,7 @@
                         this.form.nickname = result.data.nickname
                         if (result.data.head_img === '' || result.data.head_img === null) {
                             this.imageUrl = null
+                            // this.imggeUrl = '../assets/img/head_img.jpg'
                         } else {
                             this.imageUrl = result.data.head_img
                         }

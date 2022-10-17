@@ -36,11 +36,14 @@
                 src="//music.163.com/outchain/player?type=0&id=2761182502&auto=1&height=430">
             </iframe>
         </el-drawer>
+        <!-- <nav-list class="nav" style="margin-left:200px"></nav-list> -->
         <!-- 文章列表与右边栏 -->
         <div class="wrapper">
             <div class="blog_list" :key="$store.state.search.page_num">
-                <!-- <blog-list :key="$store.state.search.input_num"></blog-list> -->
-                <blog-list v-if="this.$store.state.search.is_input === true"></blog-list>
+                <Nav class="nav_"></Nav>
+                <!-- <el-divider></el-divider> -->
+                <router-view v-if="this.$store.state.search.is_input === true"></router-view>
+                <!-- <blog-list v-if="this.$store.state.search.is_input === true"></blog-list> -->
                 <search-list v-else :key="$store.state.search.input_num"></search-list>
             </div>
             <div class="list_right">
@@ -65,7 +68,8 @@
 
 <script>
     // @ is an alias to /src
-    import BlogList from "@/components/BlogList.vue";
+    // import BlogList from "@/components/BlogList.vue";
+    import Nav from '../components/Nav.vue'
     import SearchList from "../components/SearchList.vue"
     import One from "@/components/One.vue";
     import Two from "@/components/Two.vue"
@@ -74,9 +78,10 @@
     export default {
         name: "Home",
         components: {
-            BlogList,
+            // BlogList,
             SearchList,
-            One,Two,Three
+            One,Two,Three,
+            Nav
         },
         data() {
             return {
@@ -146,6 +151,10 @@
         // background: #f8f8fd;
         // -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
         // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
+    }
+    .nav_{
+        // height: 20px;
+        // margin:20px auto 0 40px;
     }
     .list_right{
         width: 300px;

@@ -189,7 +189,7 @@
     }
 </script>
 
-<!-- 下面去掉scoped才能修改label字体颜色 -->
+
 <style lang="scss" scoped>
 
     .container{

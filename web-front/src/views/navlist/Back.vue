@@ -1,15 +1,6 @@
 <template>
     <div class="container">
-        <!-- 小导航栏 -->
-        <!-- <div class="navs">
-            <span class="nav navs_blog" style="color:#139eff">博客推荐</span>
-            <span class="nav navs_font">前端</span>
-            <span class="nav navs_back">后端</span>
-            <span class="nav">移动开发</span>
-            <span class="nav">编程语言</span>
-        </div> -->
-        <!-- <Nav class="nav"></Nav> -->
-        <!-- <el-divider class="divider"></el-divider> -->
+
         <!-- 博客列表 -->
         <div class="card" v-for="item in blogList" :key="item.id">
             <router-link :to="'/detail/'+item.id">
@@ -43,9 +34,9 @@
 </template>
 
 <script>
-// import Nav from './Nav.vue'
+// import Nav from '@/components/Nav.vue'
     export default {
-        name:'BlogList',
+        name:'Back',
         components:{
         //   Nav  
         },
@@ -61,25 +52,26 @@
             }
         },
         methods:{
-            // 获取文章
-            getBlogList () {
+            //先获取全部文章
+            getAllList () {
                 this.$axios.get('/api/article/allList')
                     .then(res => {
                         if(res.data.code === 0){
                             this.blogList = res.data.data;
+                        }
+                    }).catch(e=>{
+                        console.log(e)
+                    })
+            },
+            // 获取文章
+            getBlogList () {
+                this.$axios.get('/api/article/navBlog',{
+                    params:{ label : this.$route.params.clickVal }
+                })
+                    .then(res => {
+                        if(res.data.code === 0){
+                            this.blogList = res.data.data;
                             this.pageList = this.blogList;
-                            // this.allLabel = this.blogList[0].label.split(',')
-                            // console.log(this.allLabel)
-      
-                            // 
-                            // this.dates = this.blogList.map((p)=>{
-                            //     return p.create_time;
-                            // })
-                            // this.create_date = this.dates.map((item)=>{
-                            //     return new Date(item)
-                            // }).map((x)=>{
-                            //     return x.getTime()
-                            // })
                             // 时间顺序
                             this.blogList.sort((a,b)=>{
                                 return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
@@ -87,16 +79,11 @@
                             // 分页截取
                             this.blogList = this.blogList.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)
                             
-                            // let arrs = this.blogList;
-                            // this.arrList = arrs.map((item)=>{
-                            //     return item.content.slice(0,20)
-                            // })
                         }
                     }).catch(e=>{
                         console.log(e)
                     })
                 // 
-                // this.blogList = this.$store.state.search.filterList;
             },
             //每页条数改变时触发 选择一页显示多少行
             handleSizeChange(val) {
@@ -110,13 +97,12 @@
                 this.currentPage = val;
                 this.$store.commit('search/DOPAGE',this.currentPage);
             }
-            // 根据搜索结果，更新列表数据
-            // change(){
-            //     this.blogList= this.$store.state.search.sou_list;
-            // }
+
         },
 
         created() {
+            this.getAllList()
+            this.label=this.$route.params.clickVal;
             this.getBlogList();
 
         },
@@ -140,6 +126,7 @@
     // 小导航栏
     .nav{
         // height: 20px;
+
     }
     // .navs{
     //     height: 20px;

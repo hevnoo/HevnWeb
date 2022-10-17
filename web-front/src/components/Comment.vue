@@ -6,7 +6,7 @@
             <h3 class="_title">开始评论吧</h3>
             <div class="input-top">
                 <div class="img">
-                    <img class="avatar" :src="userinfo.head_img" alt="">
+                    <img class="avatar" :src="userinfo.head_img==null?imgDefault:userinfo.head_img" alt="">
                     <p class="username">{{userinfo.nickname}}</p>
                 </div>
                 <div class="text">
@@ -24,7 +24,7 @@
             <div class="comment-list">
                 <div class="comment-item" v-for="item in comments" :key="item.id">
                     <div class="item_l">
-                        <img class="avatar" :src="item.head_img" alt="">
+                        <img class="avatar" :src="item.head_img==null?imgDefault:item.head_img" alt="">
                         <p class="username">{{item.nickname}}</p>
                     </div>
                     <div class="item_r">
@@ -42,13 +42,15 @@
 </template>
 
 <script>
+import imgDefault from '../assets/logo.jpg'
     export default {
         name:'Comment',
         data() {
             return {
                 userinfo:{},
                 submitText:'',
-                comments:[]
+                comments:[],
+                imgDefault: imgDefault,
             }
         },
         computed: {
@@ -60,14 +62,17 @@
         methods:{
             //用户信息
             getUserInfo() {
-                this.$axios.get('/api/user/info').then((res)=>{
-                    let result = res.data
-                    if(result.code === 0){
-                        this.userinfo = result.data
+                let isGet = this.$store.state.tokens.isSignIn
+                if(isGet!=0){
+                    this.$axios.get('/api/user/info').then((res)=>{
+                    // let result = res.data
+                    if(res.data.code === 0){
+                        this.userinfo = res.data.data;
                     }
                 }).catch(e=>{
                     console.log(e)
                 })
+                }
             },
             //发表评论
             publicComment() {

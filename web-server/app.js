@@ -10,10 +10,10 @@ const { PRIVATE_KEY } = require('./utils/constant')
 var artRouter = require('./routes/article');
 var usersRouter = require('./routes/users');
 var commentRouter = require('./routes/comment')
+var labelRouter = require('./routes/label')
 
 var app = express();
 
-// console.log(1)
     // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -29,19 +29,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressJWT({
     secret: PRIVATE_KEY
 }).unless({
-    path: ['/api/user/register', '/api/user/login', '/api/user/upload', '/api/article/allList', '/api/article/detail', '/api/comment/list'] 
+    path: ['/api/user/register',
+        '/api/user/login',
+        '/api/user/upload',
+        '/api/article/allList',
+        '/api/article/detail',
+        '/api/comment/list',
+        '/api/article/navBlog',
+        '/api/label/allLabel',
+        '/api/label/addLabel',
+        '/api/label/theLabel',
+    ] 
     //白名单,除了这里写的地址，其他的URL都需要验证
 }));
 
 app.use('/api/article', artRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/comment', commentRouter)
+app.use('/api/label',labelRouter)
 
-// catch 404 and forward to error handler
+//------
+// 捕获404并转发到错误处理程序
 app.use(function(req, res, next) {
     next(createError(404));
 });
-
 //捕获解析jwt后产生的错误 error handler
 app.use(function(err, req, res, next) {
     console.log(err)
@@ -49,17 +60,18 @@ app.use(function(err, req, res, next) {
         //  这个需要根据自己的业务逻辑来处理
         res.status(401).send({ code: -1, msg: 'token验证失败' });
     } else {
-        // set locals, only providing error in development
+        // 设置局部变量，仅在开发中提供错误
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-        // render the error page
+        // 呈现错误页
         res.status(err.status || 500);
         res.render('error');
     }
-
 });
-app.listen(8087, () => { // 监听8088端口
+//-------
+
+app.listen(8087, () => { // 监听8080端口
     console.log('服务已启动 http://localhost:8087');
 })
 

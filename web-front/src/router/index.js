@@ -1,20 +1,65 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+
+
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: "/",
-        component: () =>
-            import ('@/components/CommonLayout.vue'),
-        children: [{
+        component: () => import ('@/components/CommonLayout.vue'),
+        children: [
+            {
                 path: '',
                 name: 'home',
+                redirect:'/blogList',
                 component: () => import ('@/views/Home.vue'),
-                    meta:{
-                        title:'首页',
-                    }
+                meta:{
+                    title:'首页',
+                },
+                children:[
+                    {
+                        path:'/blogList',
+                        name:'blogList',
+                        component: () => import ('@/components/BlogList.vue'),
+                        meta:{
+                            title:'首页',
+                        },
+                    },
+                    {
+                        path:'/front/:clickVal',
+                        name:'front',
+                        component: () => import ('@/views/navlist/Front.vue'),
+                        meta:{
+                            title:'首页-前端',
+                        },
+                    },
+                    {
+                        path:'/back/:clickVal',
+                        name:'back',
+                        component: () => import ('@/views/navlist/Back.vue'),
+                        meta:{
+                            title:'首页-后端',
+                        },
+                    },
+                    {
+                        path:'/mobile/:clickVal',
+                        name:'mobile',
+                        component: () => import ('@/views/navlist/Mobile.vue'),
+                        meta:{
+                            title:'首页-移动开发',
+                        },
+                    },
+                    {
+                        path:'/code/:clickVal',
+                        name:'code',
+                        component: () => import ('@/views/navlist/Code.vue'),
+                        meta:{
+                            title:'首页-编程语言',
+                        },
+                    },
+                ]
             },
             {
                 path: '/about',
@@ -44,7 +89,7 @@ const routes = [
                 name: 'article',
                 component: () => import ('@/views/Article.vue'),
                 meta: {
-                    title:'文章',
+                    title:'我的博客',
                     requireAuth: true //true为这个页面需要登录权限
                 },
             },
@@ -66,6 +111,7 @@ const routes = [
                     requireAuth: true //true为这个页面需要登录权限
                 }
             }
+            
         ]
     },
     {
@@ -82,6 +128,10 @@ const routes = [
             title:'Github',
         }
     },
+    // {
+    //     path:'/bloglist',
+    //     component: () => import ('../components/Bloglist.vue'),
+    // }
 
 ];
 //

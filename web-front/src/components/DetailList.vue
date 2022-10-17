@@ -15,7 +15,8 @@
               defaultOpen="preview" 
               :toolbarsFlag="false"
               :subfield="false"
-              :boxShadow="false" >
+              :boxShadow="false"
+               >
             </mavon-editor>
         </div>
         <!-- <el-divider></el-divider> -->

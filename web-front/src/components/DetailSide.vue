@@ -2,7 +2,7 @@
     <div class="container">
         <div class="box">
             <header class="header">
-                    <span class="logo"><img :src="imageUrl"></span>
+                    <span class="logo"><img :src="imageUrl==null?imgDefault:imageUrl"></span>
                     <span class="nick">
                         <!-- <p v-if="nickname!=''" v-text="nickname"></p>
                         <p v-else v-text="'username'"></p> -->
@@ -11,7 +11,7 @@
             </header>
             <main class="main">
                 <div class="_main">
-                    <span>发布时间：{{blogInfo.create_time}}</span>
+                    <span>发布时间：{{date}}</span>
                 </div>
             </main>
             <footer class="footer">
@@ -32,6 +32,8 @@
   </template>
   
   <script>
+  import imgDefault from '../assets/logo.jpg'
+
   export default {
         name:'DetailSide',
         components:{
@@ -39,9 +41,10 @@
         data(){
             return{
                 blogInfo:'',
+                date:'',
                 nickname: '',
                 imageUrl: null,
-                imgs:'../assets/img/head_img.jpg',
+                imgDefault: imgDefault,
                 cardForm:{
                     // 暂时自定义
                     like:'0',
@@ -61,9 +64,13 @@
                     if(res.data.code === 0){
                         this.blogInfo = res.data.data;
                         this.nickname = res.data.data.nickname;
+                        //转换日期
+                        let create_date = this.blogInfo.create_time;
+                        let times = create_date.split(' ');
+                        this.date = times[0].replace('-','年').replace('-','月')+'日';
+
                         if (res.data.data.head_img === '' || res.data.data.head_img === null) {
-                            // this.imageUrl = null;
-                            this.imageUrl = this.imgs;
+                            this.imageUrl = null;
                         } else {
                             this.imageUrl = res.data.data.head_img;
                         }
@@ -73,6 +80,7 @@
                 })
             }
         },
+
         created(){
             this.getDetail();
         }

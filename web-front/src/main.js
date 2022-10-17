@@ -13,14 +13,16 @@ import '@/assets/scss/common.scss'
 import setAxios from './setAxios'
 import Cookie from 'js-cookie'
 import store from "./store/index";
-
+import plugins from './plugins/index'
 
 setAxios()
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 Vue.use(mavonEditor);
-// 鉴权
+Vue.use(plugins)
+
+// 全局前置守卫鉴权
 router.beforeEach((to,from,next)=>{
   store.commit('tokens/SETTOKEN',Cookie.get('token'));
   if(store.state.tokens.token){
