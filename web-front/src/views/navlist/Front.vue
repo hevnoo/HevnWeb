@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-
         <!-- 博客列表 -->
         <div class="card" v-for="item in blogList" :key="item.id">
             <router-link :to="'/detail/'+item.id">
@@ -34,12 +33,13 @@
 </template>
 
 <script>
-// import Nav from '@/components/Nav.vue'
+import {hunhe} from '../../mixin/mixin.js'
     export default {
         name:'Front',
         components:{
-        //   Nav  
+
         },
+        mixins:[hunhe],
         data() {
             return {
                 queryLabel:'',
@@ -80,9 +80,9 @@
       
                             // 
                             // 时间顺序
-                            this.blogList.sort((a,b)=>{
-                                return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
-                            })
+                            // this.blogList.sort((a,b)=>{
+                            //     return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
+                            // })
                             // 分页截取
                             this.blogList = this.blogList.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)
                             
@@ -111,12 +111,19 @@
         },
 
         created() {
-            this.getAllList()
-            this.label=this.$route.params.clickVal;
-            // console.log('传值：',this.label)
-            this.getBlogList();
-
+            if(this.get('front')===null){
+                this.set('front',this.$route.params.clickVal);
+                // this.getAllList();
+                this.label=this.get('front');
+                this.getBlogList();
+            }else{
+                this.label=this.get('front');
+                this.getBlogList();
+            }
         },
+        beforeDestroy(){
+            this.remove('front')
+        }
 
     }
 </script>

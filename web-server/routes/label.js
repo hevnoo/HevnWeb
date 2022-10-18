@@ -28,6 +28,22 @@ router.get('/allLabel', async(req, res, next) => {
     }
 });
 
+//删除标签接口
+router.post('/deLabel', async(req, res, next) => {
+    let { label_id } = req.body
+    try {
+        let sql = 'delete from label where id = ? '
+        let result = await querySql(sql, [label_id])
+        res.send({ code: 0, msg: '删除成功', data: null })
+    } catch (e) {
+        console.log(e)
+        next(e)
+    }
+});
+
+
+
+
 //初始标签接口
 // router.post('/theLabel', async(req, res, next) => {
 //     try {

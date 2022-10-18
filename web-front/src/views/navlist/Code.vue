@@ -34,10 +34,12 @@
 </template>
 
 <script>
+import {hunhe} from '../../mixin/mixin.js'
     export default {
         name:'Code',
         components:{
         },
+        mixins:[hunhe],
         data() {
             return {
                 blogList:[],
@@ -71,9 +73,9 @@
                             this.pageList = this.blogList;
       
                             // 时间顺序
-                            this.blogList.sort((a,b)=>{
-                                return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
-                            })
+                            // this.blogList.sort((a,b)=>{
+                            //     return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
+                            // })
                             // 分页截取
                             this.blogList = this.blogList.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)
                             
@@ -98,11 +100,14 @@
         },
 
         created() {
-            this.getAllList()
-            this.label=this.$route.params.clickVal;
+            this.set('code',this.$route.params.clickVal);
+            // this.getAllList();
+            this.label=this.get('code');
             this.getBlogList();
-
         },
+        beforeDestroy(){
+            this.remove('code')
+        }
 
     }
 </script>

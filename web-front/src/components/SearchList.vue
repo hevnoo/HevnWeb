@@ -15,9 +15,23 @@
             </router-link>
             <!-- <p class="content" v-text="item.content.slice(0,70)"></p> -->
             <p class="content">{{item.content}}</p>
-            <p class="time">{{item.create_time}}</p>
+            <!-- <p class="time">{{item.create_time}}</p> -->
+            <footer class="footer">
+                <span class="_label">
+                    <span class="label" v-for="res in item.label.split(',')" :key="res">
+                        <el-tag type="warning" size="small" effect="dark">{{res}}</el-tag>
+                    </span>
+                </span>
+                <span class="time">
+                    <!-- <span><i class="iconfont icon-date" :style="{marginRight:'3px'}"></i>{{item.create_time.split(' ')[0]}}</span> -->
+                    <span v-if="item.viewed"><i class="el-icon-view" style="color:#7bb9ff;font-size: 16px;"></i>{{item.viewed}}</span>
+                    <span v-else><i class="el-icon-view" style="color:#7bb9ff;font-size: 16px;"></i>0</span>
+                    <span :style="{margin:'auto 20px auto 30px'}"><i class="iconfont icon-date" :style="{marginRight:'3px'}"></i>{{item.create_time.split(' ')[0]}}</span>
+                </span>
+            </footer>
             <el-divider></el-divider>
         </div>
+        
     </div>
 </template>
 
@@ -28,8 +42,7 @@
             return {
                 List:[],
                 searchList:[],
-
-                // arrList:[],
+                
             }
         },
         methods:{
@@ -50,29 +63,16 @@
                 //     })
                 // 
                 this.searchList = this.$store.state.search.filterList;
+                
             },
+            
+        },
 
-            // 根据搜索结果，更新列表数据
-            // change(){
-            //     this.blogList= this.$store.state.search.sou_list;
-            // }
-        },
-        computed:{
-        },
         created() {
             this.getBlogList();
-            // this.change();
 
-            // this.$nextTick(()=>{
-            //     return this.blogList = this.$store.state.search.sou_list
-            // });
-            // this.$nextTick(()=>{
-            //     this.change()
-            // })
         },
-        updated(){
 
-        }
     }
 </script>
 
@@ -127,7 +127,20 @@
             font-style: italic;
             font-family: Lora, "Times New Roman", serif;
             color: #808080bf;
-            margin-top: 20px;
+            // margin-top: 20px;
+        }
+    }
+    .footer{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        ._label{
+            .label{
+                margin-right: 10px;
+                margin-top: 20px;
+                opacity: 0.7;
+                cursor: pointer;
+            }
         }
     }
 

@@ -72,7 +72,7 @@
                             });
                             setTimeout(() => {
                                 location.reload()
-                            }, 1500);
+                            }, 800);
                         }
                     }).catch(e=>{
                         console.log(e)

@@ -16,10 +16,9 @@
         <el-divider></el-divider>
         <!-- 主体文字 -->
         <div class="main_out">
-            <div class="two_main" v-for="item in oneList" :key="item.id">
-                <!-- {{item.id+1}} -->
-                <button class="button" :style="{backgroundColor:item.color}">{{item.id+1}}</button>
-                <span class="text">{{item.datas}}</span>
+            <div class="two_main" v-for="item in viewList" :key="item.id">
+                <button class="button" :style="{backgroundColor:item.color}">{{item.newID+1}}</button>
+                <span class="text">{{item.title}}</span>
             </div>
         </div>
     </div>
@@ -33,10 +32,11 @@
       },
       data(){
           return{
+                viewList:[],
                 oneList:[
-                    {id:0,datas:'如何查询已经执行过的流程信息？',color:'#e04a1d'},
-                    {id:1,datas:'为什么vue和react都选择了Hocks？',color:'#f88217'},
-                    {id:2,datas:'在vue中如何更优雅的封装第三方组件？',color:'#ffb916'},
+                    {id:0,title:'空',color:'#e04a1d'},
+                    {id:1,datas:'',color:'#f88217'},
+                    {id:2,datas:'',color:'#ffb916'},
                 ],
                 imgList:[
                     {id:0,idView:require("@/assets/img/m1.webp")},
@@ -44,7 +44,39 @@
                     {id:2,idView:require('../assets/img/m3.webp')},
                 ]
           }
-      }
+      },
+      methods:{
+        //获取按热度排序的文章
+        getViewed(){
+            this.$axios.get('/api/article/getViewed')
+            .then((res)=>{
+                if(res.data.data==[]){
+                    // this.viewList=this.oneList;
+                    this.$set(this.viewList,'title',this.oneList[0].title);
+                }else{
+                    this.viewList=res.data.data;
+                    this.change();
+                }
+                
+                
+            }).catch((e)=>{
+                console.log(e)
+            })
+        },
+        //把颜色和newid添加进去
+        change(){
+            this.viewList=this.viewList.slice(0,3);
+            for(let i=0;i<this.viewList.length;i++){
+                this.$set(this.viewList[i],'color',this.oneList[i].color);
+                this.$set(this.viewList[i],'newID',this.oneList[i].id);
+            }
+        },
+
+      },
+      created(){
+        this.getViewed();
+        
+      },
   }
   </script>
   
@@ -95,6 +127,13 @@
                 }
                 .text{
                     flex:1;
+                    //省略号
+                    line-height: 20px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
                 }
             }
         }

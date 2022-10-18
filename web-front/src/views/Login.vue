@@ -155,12 +155,14 @@
                     if (valid) {
                         this.$axios.post('/api/user/register', this.regForm)
                             .then(res => {
-                                console.log(res)
                                 if (res.data.code === 0) {
                                     this.$message({
                                         message: '注册成功',
                                         type: 'success'
                                     });
+                                    setTimeout(()=>{
+                                        this.toSignIn()
+                                    },1500)
                                 } else {
                                     this.$message({
                                         message: res.data.msg,

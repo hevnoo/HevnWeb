@@ -3,18 +3,15 @@
         <div class="_navs">
             <!-- <span class="_nav"><router-link to="/" style="color:#139eff">{{navName.nav}}</router-link></span> -->
             <span class="_nav" id="all" @click="getAll()">
-                <router-link :to="{path:'/blogList'}"  active-class='active'>
+                <router-link :to="{path:'/blog'}"  active-class='active'>
                     <a :class="{'demo':is}" @click="q()">{{navName.nav}}</a>
                 </router-link>
-                <!-- <router-link :to="{path:'/'}" :class="{'demo':is}" @click="q()" active-class='active'>{{navName.nav}}</router-link> -->
             </span>
             <span class="_nav" id="front" @click="getFront()">
                 <a :class="{'demo':is1}" @click="q1()">{{navName.nav1}}</a>
-                <!-- <router-link :to="{name:'front',params:{clickVal:clickVal}}" active-class="active">{{navName.nav1}}</router-link> -->
             </span>
             <span class="_nav" id="back" @click="getBack()">
                 <a :class="{'demo':is2}" @click="q2()">{{navName.nav2}}</a>
-                <!-- <router-link :to="{name:'back',params:{clickVal:clickVal}}" active-class="active">{{navName.nav2}}</router-link> -->
             </span>
             <span class="_nav" id="mobile" @click="getMobile()">
                 <a :class="{'demo':is3}" @click="q3()">{{navName.nav3}}</a>
@@ -35,6 +32,13 @@
         },
         data(){
             return{
+                // nav_name:[
+                //     {id:0,nav:'博客推荐'},
+                //     {id:1,nav:'前端'},
+                //     {id:2,nav:'后端'},
+                //     {id:3,nav:'移动开发'},
+                //     {id:4,nav:'编程语言'},
+                // ],
                 navName:{
                     nav:'博客推荐',
                     nav1:'前端',
@@ -52,8 +56,9 @@
         },
         methods:{
             getAll(){
+                // this.$store.state.search.is_input=false;
                 // this.$router.push({
-                //     name:'blogList'
+                //     name:'blog'
                 // })
             },
             getFront(){

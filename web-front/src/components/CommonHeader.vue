@@ -107,9 +107,7 @@
             getBlogList(){
                 this.$axios.get('/api/article/allList')
                 .then((res)=>{
-                    // console.log(res);
                     this.blog_list = res.data.data;
-                    // console.log(this.blog_list);
                     
                 }).catch((e)=>{
                     console.log(e);

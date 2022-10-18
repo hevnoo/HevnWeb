@@ -2,30 +2,31 @@
     <div class="container">
       <div class="three_header">
           <div class="header_left">标签云</div>
-          <div class="header_right" style="color:#139eff" @click="dialogVisible = true">管理</div>
+          <!-- <div class="header_right" style="color:#139eff" @click="dialogVisible = true">管理</div> -->
+          <!--  -->
+            <el-popover
+            placement="left"
+            width="400"
+            trigger="click"
+            v-model="conVisible"
+            >
+                <h3 :style="{fontSize:'18px',fontWeight:'800'}">增加标签</h3>
+                    <el-input v-model="value" type="text"  placeholder="请输入标签名" :style="{margin:'20px auto'}"></el-input>
+                <div>
+                    <el-button @click="no()">取 消</el-button>
+                    <el-button type="primary" @click="yes()">确 定</el-button>
+                </div>
+                <div slot="reference" class="header_right" style="color:#139eff">管理</div>
+            </el-popover>
+          <!--  -->
       </div>
       <el-divider></el-divider>
-      <!--  -->
-        <el-dialog
-            title="标签管理"
-            :visible.sync="dialogVisible"
-            width="30%"
-            :before-close="handleClose">
-            <span>
-                <input v-model="value" type="text"  placeholder="请输入标签名">
-            </span>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="yes()">确 定</el-button>
-            </span>
-        </el-dialog>
-      <!-- <div class="one_main" v-for="item in oneList" :key="item.id">
-          {{item.datas}}
-      </div> -->
-        <el-tag 
-        class="three_main" v-for="item in options" :key="item.id" closable>
+<!--  -->
+        <el-tag class="three_main" 
+        v-for="item in options" :key="item.id" closable @close="dele(item.id)">
             {{item.label}}
         </el-tag>
+        <!-- <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button> -->
     </div>
   </template>
   
@@ -38,13 +39,13 @@
       data(){
           return{
               options:[],
-              dialogVisible: false,
               value:'',
+            //   visible: false,
+              conVisible: false,
           }
       },
       methods:{
             getLabel(){
-
                 this.$axios.get('/api/label/allLabel')
                 .then((res)=>{
                     let opt=res.data.data;
@@ -67,18 +68,65 @@
             },
             yes(){
                 this.add();
-                this.dialogVisible=false;
+            },
+            no(){
+                this.conVisible=false;
             },
             //添加标签
             add(){
-                this.$axios.post('/api/label/addLabel',{
+                if(this.value!=''){
+                    this.$axios.post('/api/label/addLabel',{
                     label:this.value
-                }).then((res)=>{
-                    console.log(res)
+                }).then(()=>{
+                    const h = this.$createElement;
+                    this.$notify({
+                    title: 'success',
+                    message: h('i', { style: 'color: teal'}, '标签添加成功')
+                    });
+                    this.conVisible= false;
+                    setTimeout(() => {
+                        location.reload()
+                        //重加载
+                    }, 500);
                 }).catch((e)=>{
                     console.log(e)
                 })
-            }
+                }else{
+                    alert('不能为空')
+                }
+                
+            },
+            //删除标签
+            dele(res){
+                this.$confirm('此操作将永久删除该标签, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$axios.post('/api/label/deLabel',{
+                    label_id:res
+                    })
+                    .then(()=>{
+                            this.$message({
+                            type: 'success',
+                            message: '删除成功!',
+                            });
+                            setTimeout(() => {
+                                location.reload()
+                            }, 500);
+                    }).catch((e)=>{
+                        console.log(e)
+                    })
+                
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+                //
+
+            },
       },
 
       created(){

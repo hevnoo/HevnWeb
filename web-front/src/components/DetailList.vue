@@ -22,7 +22,7 @@
         <!-- <el-divider></el-divider> -->
         <comment style="margin-top:80px"></comment>
       </div>
-
+      
     </div>
   </template>
   
@@ -47,7 +47,8 @@
             }
           }).then(res => {
               if(res.data.code === 0){
-                  this.blogDetail = res.data.data
+                  this.blogDetail = res.data.data;
+                  
               }
             }).catch(e=>{
                 console.log(e)
@@ -58,8 +59,10 @@
         this.getDetail()
       },
     }
+
   </script>
   
+
   <style lang="scss" scoped>
   .blog-content-box {
     min-height: calc(100vh - 220px);

@@ -23,7 +23,12 @@
                         <el-tag type="warning" size="small" effect="dark">{{res}}</el-tag>
                     </span>
                 </span>
-                <span class="time">{{item.create_time}}</span>
+                <span class="time">
+                    <!-- <span><i class="iconfont icon-date" :style="{marginRight:'3px'}"></i>{{item.create_time.split(' ')[0]}}</span> -->
+                    <span v-if="item.viewed"><i class="el-icon-view" style="color:#7bb9ff;font-size: 16px;"></i>{{item.viewed}}</span>
+                    <span v-else><i class="el-icon-view" style="color:#7bb9ff;font-size: 16px;"></i>0</span>
+                    <span :style="{margin:'auto 20px auto 30px'}"><i class="iconfont icon-date" :style="{marginRight:'3px'}"></i>{{item.create_time.split(' ')[0]}}</span>
+                </span>
             </footer>
 
             <el-divider></el-divider>
@@ -41,6 +46,7 @@
         </el-pagination>
     </div>
 </template>
+
 
 <script>
 // import Nav from './Nav.vue'
@@ -81,9 +87,9 @@
                             //     return x.getTime()
                             // })
                             // 时间顺序
-                            this.blogList.sort((a,b)=>{
-                                return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
-                            })
+                            // this.blogList.sort((a,b)=>{
+                            //     return new Date(b.create_time).getTime() - new Date(a.create_time).getTime()
+                            // })
                             // 分页截取
                             this.blogList = this.blogList.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)
                             

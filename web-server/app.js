@@ -39,6 +39,9 @@ app.use(expressJWT({
         '/api/label/allLabel',
         '/api/label/addLabel',
         '/api/label/theLabel',
+        '/api/label/deLabel',
+        '/api/article/getViewed',
+        '/api/article/upViewed',
     ] 
     //白名单,除了这里写的地址，其他的URL都需要验证
 }));

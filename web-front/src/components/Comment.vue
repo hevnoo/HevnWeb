@@ -80,7 +80,7 @@ import imgDefault from '../assets/logo.jpg'
                     article_id:this.$route.params.id,
                     content:this.submitText
                 }).then((res)=>{
-                    console.log(res)
+                    // console.log(res)
                     if(res.data.code === 0){
                         this.submitText = ''
                         this.getCommentList()
@@ -96,7 +96,7 @@ import imgDefault from '../assets/logo.jpg'
                         article_id:this.$route.params.id
                     }     
                 }).then((res)=>{
-                    console.log(res)
+                    // console.log(res)
                     if(res.data.code === 0){
                         this.comments = res.data.data
                     }

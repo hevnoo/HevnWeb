@@ -12,9 +12,7 @@ router.post('/add', async(req, res, next) => {
     try {
         // let labelVal = label.split(',')
         // let labelLen = labelVal.length
-        // console.log('处理后的长度',labelLen)
         // let labels = await querySql('select label from label where id=? ',[label])
-        // console.log('标签',labels)
         let user = await querySql('select id,head_img,nickname from user where username = ?', [username])
         // let user_id = user[0].id
         let {id:user_id,head_img,nickname} = user[0]
@@ -30,7 +28,7 @@ router.post('/add', async(req, res, next) => {
 // 获取全部博客列表接口
 router.get('/allList', async(req, res, next) => {
     try {
-        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,label from article'
+        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,label,viewed from article group by create_time desc'
         let result = await querySql(sql)
         res.send({ code: 0, msg: '获取成功', data: result })
     } catch (e) {
@@ -46,7 +44,7 @@ router.get('/myList', async(req, res, next) => {
         let userSql = 'select id from user where username = ?'
         let user = await querySql(userSql, [username])
         let user_id = user[0].id
-        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,label from article where user_id = ?'
+        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,label from article where user_id = ? group by create_time desc'
         // 去表里找作者id=用户id的文章信息
         let result = await querySql(sql, [user_id])
         res.send({ code: 0, msg: '获取成功', data: result })
@@ -78,7 +76,7 @@ router.get('/detail', async(req, res, next) => {
     let article_id = req.query.article_id
     // 通过前端传过来选中的文章的id
     try {
-        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,head_img,nickname,label from article where id = ?'
+        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,head_img,nickname,label,viewed from article where id = ?'
         // 当文章id=选中的文章id时
         let result = await querySql(sql, [article_id])
         res.send({ code: 0, msg: '获取成功', data: result[0] })
@@ -123,5 +121,33 @@ router.post('/delete', async(req, res, next) => {
         next(e)
     }
 });
+
+//获取按热度排序的文章
+router.get('/getViewed', async(req, res, next) => {
+    try {
+        let sql = 'select id,title,viewed from article group by viewed desc'
+        let result = await querySql(sql)
+        res.send({ code: 0, msg: '获取成功', data: result })
+    } catch (e) {
+        console.log(e)
+        next(e)
+    }
+});
+
+//自动更新文章阅读量接口
+router.post('/upViewed', async(req, res, next) => {
+    let { article_id, viewed } = req.body
+    try {
+        let sql = 'update article set viewed=? where id = ?'
+        let result = await querySql(sql, [viewed,article_id])
+        res.send({ code: 0, msg: '更新成功', data: null })
+    } catch (e) {
+        console.log(e)
+        next(e)
+    }
+});
+
+
+
 
 module.exports = router;
