@@ -57,7 +57,7 @@ router.get('/info', async(req, res, next) => {
     let { username } = req.user
     try {
         //按用户名查找出对应的用户信息：
-        let userinfo = await querySql('select nickname,head_img from user where username = ?', [username])
+        let userinfo = await querySql('select nickname,head_img,username from user where username = ?', [username])
         res.send({ code: 0, msg: '成功', data: userinfo[0] })
     } catch (e) {
         console.log(e)
@@ -86,6 +86,8 @@ router.post('/updateUser', async(req, res, next) => {
         next(e)
     }
 })
+
+
 
 
 module.exports = router;

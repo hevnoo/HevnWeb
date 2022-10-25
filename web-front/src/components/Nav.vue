@@ -1,180 +1,101 @@
 <template>
-    <div class="_container">
-        <div class="_navs">
-            <!-- <span class="_nav"><router-link to="/" style="color:#139eff">{{navName.nav}}</router-link></span> -->
-            <span class="_nav" id="all" @click="getAll()">
-                <router-link :to="{path:'/blog'}"  active-class='active'>
-                    <a :class="{'demo':is}" @click="q()">{{navName.nav}}</a>
-                </router-link>
-            </span>
-            <span class="_nav" id="front" @click="getFront()">
-                <a :class="{'demo':is1}" @click="q1()">{{navName.nav1}}</a>
-            </span>
-            <span class="_nav" id="back" @click="getBack()">
-                <a :class="{'demo':is2}" @click="q2()">{{navName.nav2}}</a>
-            </span>
-            <span class="_nav" id="mobile" @click="getMobile()">
-                <a :class="{'demo':is3}" @click="q3()">{{navName.nav3}}</a>
-            </span>
-            <span class="_nav" id="code" @click="getCode()">
-                <a :class="{'demo':is4}" @click="q4()">{{navName.nav4}}</a>
-            </span>
-        </div>
-    </div>
+  <div class="_container">
+      <div :class="currentIndex==item.id?'active':''" v-for="item in navList" :key="item.id" ref="refInfo" @click="getNav(item)">
+        <span class="item">{{item.nav}}</span>
+      </div>
+      <div class="right"></div>
+  </div>
 </template>
 
 <script>
+import {hunhe} from '@/mixin/mixin.js'
+  export default {
+      name: 'Nav',
+      components:{
 
-    export default {
-        name: 'Nav',
-        components:{
-
+      },
+      mixins:[hunhe],
+      data(){
+          return{
+              navList:[
+                  {id:0,nav:'博客推荐',path:'blog'},
+                  {id:1,nav:'前端',path:'front'},
+                  {id:2,nav:'后端',path:'back'},
+                  {id:3,nav:'移动开发',path:'mobile'},
+                  {id:4,nav:'编程语言',path:'code'},
+              ],
+              refInfo:'',
+              currentIndex:0,
+              text:null,
+          }
+      },
+      methods:{
+        getNav(res){
+            this.$router.push({
+                name:res.path,
+                params:{
+                  clickVal:res.nav
+                }
+            })
+            this.currentIndex=res.id;
         },
-        data(){
-            return{
-                // nav_name:[
-                //     {id:0,nav:'博客推荐'},
-                //     {id:1,nav:'前端'},
-                //     {id:2,nav:'后端'},
-                //     {id:3,nav:'移动开发'},
-                //     {id:4,nav:'编程语言'},
-                // ],
-                navName:{
-                    nav:'博客推荐',
-                    nav1:'前端',
-                    nav2:'后端',
-                    nav3:'移动开发',
-                    nav4:'编程语言',
-                },
-                clickVal:'',
-                is:true,
-                is1:false,
-                is2:false,
-                is3:false,
-                is4:false,
+        //先拿每一个值去和staorage的值作比较，得到相等值
+        getText(){
+          this.text=this.navList.map((m)=>{
+            return m.path
+          }).map((m1)=>{
+            return this.get(m1)
+          }).filter((f)=>{
+            return f!=undefined
+          })
+        },
+        //再按文字找到对应的id,让文字高亮
+        getStorage(){
+          if(this.text!=''){
+              let info = this.navList.filter((f)=>{
+                return this.text==f.nav
+              })
+              this.currentIndex=info[0].id;
             }
         },
-        methods:{
-            getAll(){
-                // this.$store.state.search.is_input=false;
-                // this.$router.push({
-                //     name:'blog'
-                // })
-            },
-            getFront(){
-                this.clickVal=document.getElementById('front').innerText;
-                this.$router.push({
-                    name:'front',
-                    params:{
-                        clickVal:this.clickVal,
-                    },
-                })
-                // this.clickVal='',
-                // this.clickVal=document.getElementById('front').innerText;
-            },
-            getBack(){
-                this.clickVal=document.getElementById('back').innerText;
-                this.$router.push({
-                    name:'back',
-                    params:{
-                        clickVal:this.clickVal,
-                    }
-                })
-            },
-            getMobile(){
-                this.clickVal=document.getElementById('mobile').innerText;
-                this.$router.push({
-                    name:'mobile',
-                    params:{
-                        clickVal:this.clickVal,
-                    }
-                })
-            },
-            getCode(){
-                this.clickVal=document.getElementById('code').innerText;
-                this.$router.push({
-                    name:'code',
-                    params:{
-                        clickVal:this.clickVal,
-                    }
-                })
-            },
-            //高亮效果
-            q(){
-                this.is=true
-                this.is1=false
-                this.is2=false
-                this.is3=false
-                this.is4=false
-            },
-            q1(){
-                this.is=false
-                this.is1=true
-                this.is2=false
-                this.is3=false
-                this.is4=false
-            },
-            q2(){
-                this.is=false
-                this.is1=false
-                this.is2=true
-                this.is3=false
-                this.is4=false
-            },
-            q3(){
-                this.is=false
-                this.is1=false
-                this.is2=false
-                this.is3=true
-                this.is4=false
-            },
-            q4(){
-                this.is=false
-                this.is1=false
-                this.is2=false
-                this.is3=false
-                this.is4=true
-            },
-        },
+        
+      },
+      created(){
+        this.getText();
+        this.getStorage();
+      },
 
-        created(){
-            // this.getAll();
-        },
-    }
+  }
 </script>
 
 <style lang="scss" scoped>
-
 ._container{
-    height: 55px;
-    width:100%;
-    margin-left: 20px;
-    background-color: #f8f8fd;
-    border-bottom: 1px solid #e6e6ea;
-    display: flex;
-    align-items: center;
+  height: 70px;
+  width:100%;
+  // margin-left: 20px;
+  background-color: #f8f8fd;
+  border-bottom: 1px solid #e6e6ea;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
-// ._nav::selection{
-//     background: red;
-// }
-.demo{
-    color: #139eff;
+.active{
+  background-image: linear-gradient(135deg,#6bc30d,#30b8f5);
+  background-clip:text;
+  -webkit-background-clip:text;
+  color: transparent;
 }
-._navs{
-        height: 20px;
-        // .router-link-active{
-        //     color: red;
-        // }
-        // margin:20px auto 0 40px;
-        // background-color: aquamarine;
-        ._nav{
-            margin-right:50px;
-            cursor: pointer;
-        }
-        &:first-child{
-            margin-left: 20px;
-        }
-    }
+.item{
+  font-size: 16px;
+  cursor: pointer;
+}
+.item:hover{
+  color: #139eff;
+}
+.right{
+  width: 100px;
+}
+//
 
 
 </style>

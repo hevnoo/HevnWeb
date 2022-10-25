@@ -4,7 +4,7 @@ import Vuex from "vuex";
 import tokens from "./tokens";
 import search from "./search"
 import test from "./test"
-
+import data from './data'
 // 
 Vue.use(Vuex);
 
@@ -28,6 +28,6 @@ export default new Vuex.Store({
     tokens,
     search,
     test,
-
+    data,
   }
 });

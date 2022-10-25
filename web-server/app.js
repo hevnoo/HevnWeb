@@ -11,6 +11,7 @@ var artRouter = require('./routes/article');
 var usersRouter = require('./routes/users');
 var commentRouter = require('./routes/comment')
 var labelRouter = require('./routes/label')
+var userListRouter = require('./routes/userList')
 
 var app = express();
 
@@ -33,15 +34,19 @@ app.use(expressJWT({
         '/api/user/login',
         '/api/user/upload',
         '/api/article/allList',
+        '/api/article/search',
         '/api/article/detail',
         '/api/comment/list',
         '/api/article/navBlog',
         '/api/label/allLabel',
         '/api/label/addLabel',
-        '/api/label/theLabel',
         '/api/label/deLabel',
         '/api/article/getViewed',
         '/api/article/upViewed',
+        '/api/article/upImg',
+        // '/api/userList/addUserList',
+        '/api/userList/userList',
+        // '/api/userList/upUserList',
     ] 
     //白名单,除了这里写的地址，其他的URL都需要验证
 }));
@@ -50,6 +55,7 @@ app.use('/api/article', artRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/comment', commentRouter)
 app.use('/api/label',labelRouter)
+app.use('/api/userList',userListRouter)
 
 //------
 // 捕获404并转发到错误处理程序
@@ -77,5 +83,6 @@ app.use(function(err, req, res, next) {
 app.listen(8087, () => { // 监听8080端口
     console.log('服务已启动 http://localhost:8087');
 })
+// app.listen(7070)
 
 module.exports = app;

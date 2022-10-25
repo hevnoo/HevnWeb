@@ -49,7 +49,14 @@ router.afterEach((to,from)=>{
 //
 
 new Vue({
+  //安装事件总线
+  beforeCreate() {
+    // 尽量早地执行挂载全局事件总线对象的操作
+    Vue.prototype.$bus = this;
+  },
+
   router,
   store,
+
   render: h => h(App)
 }).$mount("#app");

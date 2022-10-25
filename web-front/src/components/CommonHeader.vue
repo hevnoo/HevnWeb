@@ -3,7 +3,7 @@
         <div class="wrapper">
             <el-row>
                 <el-col :span="4">
-                    <router-link to="/" class="logo" style="color: rgb(59, 76, 113);font-weight:bold;">
+                    <router-link to="/" class="logo" active-class="active" style="color: rgb(59, 76, 113);font-weight:bold;">
                         HevnWeb
                     </router-link>
                 </el-col>
@@ -14,28 +14,20 @@
                         :default-active="$route.path" 
                         @select="hanleSelect" 
                         active-text-color="#139eff"
-                        text-color="black"
-                        >
-                        <!-- background-color="#2d2d2d"
-                        text-color="#9d9d9d"
-                        active-text-color="#fff"
-                        -->
+                        text-color="black" >
                         <!-- 搜索栏 -->
                         <el-menu-item class="input_out">
-                                <el-input class="input" placeholder="请输入内容" v-model="keyWard" size="medium">
-                                    <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
+                                <el-input class="input" placeholder="请输入内容" v-model="keywards" size="medium" clearable>
+                                    <el-button slot="append" icon="el-icon-search" @click="search()"> </el-button>
                                 </el-input>
                         </el-menu-item>
                         <!--  -->
-                        <el-menu-item index="/" style="font-size:17px" @click="doHome()">
-                            <router-link to="/" active-class='active'>
-                                <i class="iconfont icon-home"></i>
-                                首页
+                        <el-menu-item index="/home" style="font-size:17px">
+                            <router-link to="/home" active-class='active'>
+                                <i class="iconfont icon-home"></i>首页
                             </router-link>
                         </el-menu-item>
                         <el-menu-item index="/github" style="font-size:17px">
-                            <!-- <router-link to="https://github.com/hevnoo/myblog">Github</router-link> -->
-                            <!-- <a href="https://github.com/hevnoo/HevnWeb" target="_blank" >Github</a> -->
                             <router-link to="/github" active-class="active" target="_blank">Github</router-link>
                         </el-menu-item>
                         <el-menu-item index="/about" style="font-size:17px">
@@ -68,19 +60,18 @@
 </template>
 
 <script>
-    import imgDefault from '../assets/logo.jpg'
+    import imgDefault from '@/assets/logo.jpg'
 
     export default {
         name:'CommonHeader',
         data() {
             return {
                 userinfo: {},
-                keyWard: '',
+                keywards: '',
+                blogList:'',
                 blog_list:[],
-                filter_list:[],
-                n:1,
                 imgDefault: imgDefault,
-
+                isKey:1
             }
         },
         methods: {
@@ -101,45 +92,42 @@
                         console.log(e)
                     })
                 }
-                
             },
             // 获取全部博客列表
             getBlogList(){
                 this.$axios.get('/api/article/allList')
                 .then((res)=>{
                     this.blog_list = res.data.data;
-                    
                 }).catch((e)=>{
                     console.log(e);
                 })
             },
-            search(){
-                // 搜索栏
-                this.getBlogList();
-                // this.n = !this.n;
-                if(this.keyWard !== ''){
-                    this.$store.dispatch('search/dosearch',this.filter_list);
-                    this.n = !this.n;
-                    this.$store.commit('search/KEYNUM',this.n)
-                    this.$store.state.search.is_input = false;
-                }else{
-                    this.$store.dispatch('search/dosearch',this.blog_list);
-                    this.$store.state.search.is_input = true;
-                    this.n = !this.n;
-                }
-                // 1.上面的搜索栏：当输入内容为空时，就显示BlogList组件；否则显示SearchList组件。
-                // 2.用v-if==...true/false...控制要显示哪个组件。
-                // 3.给Home组件里的子组件SearchList绑定key，当key值（this.n）改变则重新加载该子组件。
-                // 4.重载组件的目的是为了用本组件传过去的列表数据进行重新渲染。
-                // 5.点击search()事件，可以将筛选好的数据传给store并让SearchList读取。
-
-                // this.$store.state.search.is_input = !this.$store.state.search.is_input;
-                // this.$store.state.search.is_input = false;
-
+            //获取搜索文章
+            getSearchList(){
+                this.$axios.get('/api/article/search',{
+                    params:{ keywards : this.keywards },
+                })
+                .then(res => {
+                    if(res.data.code === 0){
+                        this.blogList = res.data.data;
+                    }
+                }).catch(e=>{
+                    console.log(e)
+                })
             },
-            doHome(){
-                this.$store.state.search.is_input = true;
-            }
+            search(){
+                if(this.keywards!==''){
+                    this.$store.commit('search/KEY',++this.isKey);
+                    this.$router.push({
+                        name:'search',
+                        params:{
+                            keywards:this.keywards
+                        },
+                    })
+                }
+                
+            },
+
         },
         computed: {
             // 是否登录
@@ -148,19 +136,8 @@
             }
         },
         watch:{
-            // 监听input并按关键字筛选immediate:true;
-            // keyWard(val){
-            //     this.filter_list = this.blog_list.filter((p)=>{
-            //         return p.title.indexOf(val) !== -1 || p.content.indexOf(val) !== -1;
-            //     })
-            keyWard:{
-                // immediate:true,
-                handler(val){
-                    this.filter_list = this.blog_list.filter((p)=>{
-                        return p.title.indexOf(val) !== -1 || p.content.indexOf(val) !== -1;
-                    });
-                    // this.$store.commit('search/KEYLIST',this.filter_list);
-                }
+            keywards(val){
+                this.keywards=val
             }
         },
         created() {
@@ -205,20 +182,26 @@
         }
     }
     // 修改链接高亮显示
-    // .router-link-active{
-    //     background: skyblue;
-    //     font-size: 40px;
-    //     color: yellow;
+    // ::v-deep .router-link-active{
+    //     // background: skyblue;
+    //     color: yellow !important;
     // }
 
     .signBtn {
         // background: #3b99fc !important;
-        // color: #fff !important;
         line-height: 60px;
     }
     // 搜索栏
     .input_out{
         margin-right: 30px;
     }
+    ::v-deep .el-menu-item:hover {
+        background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
+        background-clip:text !important;
+        -webkit-background-clip:text !important;
+        color: transparent !important;
+        background-color: transparent !important;
+        font-size: 20px !important;
+	}
 
 </style>

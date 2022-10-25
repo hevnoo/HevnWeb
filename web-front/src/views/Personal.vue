@@ -44,6 +44,13 @@
             }
         },
         methods: {
+            //
+            upUserList(){
+                this.$axios.post('/api/userList/upUserList',{
+                    nickname: this.form.nickname,
+                    head_img: this.imageUrl
+                })
+            },
             // 更新用户信息
             save() {
                 this.$axios.post('/api/user/updateUser', {
@@ -51,6 +58,7 @@
                     head_img: this.imageUrl
                 }).then(res => {
                     console.log(res)
+                    this.upUserList();
                     if (res.data.code === 0) {
                         this.$message({
                             message: '更新成功',
@@ -58,7 +66,7 @@
                         });
                         setTimeout(() => {
                             location.reload()
-                        }, 1500)
+                        }, 800)
                     }
                 }).catch(e => {
                     console.log(e)
@@ -119,6 +127,7 @@
     .wrapper {
         min-height: calc(100vh - 200px);
         // min-height: 100vh;
+        // margin-top: 60px;
         .content {
             width: 40%;
             margin: 0 auto;

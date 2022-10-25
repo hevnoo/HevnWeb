@@ -7,11 +7,28 @@ Vue.use(VueRouter);
 
 const routes = [
     {
+        path:'/start',
+        name:'start',
+        component: () => import ('@/views/Start.vue'),
+        meta:{
+            title:'',
+        },
+    },
+    {
         path: "/",
+        redirect:'/start',
         component: () => import ('@/components/CommonLayout.vue'),
         children: [
+            // {
+            //     path:'',
+            //     name:'start',
+            //     component: () => import ('@/views/Start.vue'),
+            //     meta:{
+            //         title:'',
+            //     },
+            // },
             {
-                path: '',
+                path: '/home',
                 name: 'home',
                 redirect:'/blog',
                 component: () => import ('@/views/Home.vue'),
@@ -57,6 +74,14 @@ const routes = [
                         component: () => import ('@/views/navlist/Code.vue'),
                         meta:{
                             title:'首页-编程语言',
+                        },
+                    },
+                    {
+                        path:'/search/:keywards',
+                        name:'search',
+                        component: () => import ('@/components/SearchList.vue'),
+                        meta:{
+                            title:'搜索',
                         },
                     },
                 ]

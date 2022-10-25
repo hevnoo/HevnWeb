@@ -1,103 +1,182 @@
-<!-- 测试专用 -->
 <template>
-    <div class="container">
-      <div class="box">
-        <div class="header">
-          <span class="logo">HevnWeb</span>
+    <div class="_container">
+        <div class="_navs">
+            <!-- <span class="_nav"><router-link to="/" style="color:#139eff">{{navName.nav}}</router-link></span> -->
+            <span class="_nav" id="all" @click="getAll()">
+                <router-link :to="{path:'/blog'}"  active-class='active'>
+                    <a :class="{'demo':is}" @click="q()">{{navName.nav}}</a>
+                </router-link>
+            </span>
+            <span class="_nav" id="front" @click="getFront()">
+                <a :class="{'demo':is1}" @click="q1()">{{navName.nav1}}</a>
+            </span>
+            <span class="_nav" id="back" @click="getBack()">
+                <a :class="{'demo':is2}" @click="q2()">{{navName.nav2}}</a>
+            </span>
+            <span class="_nav" id="mobile" @click="getMobile()">
+                <a :class="{'demo':is3}" @click="q3()">{{navName.nav3}}</a>
+            </span>
+            <span class="_nav" id="code" @click="getCode()">
+                <a :class="{'demo':is4}" @click="q4()">{{navName.nav4}}</a>
+            </span>
         </div>
-        <!--  -->
-        <div class="main">
-          <div class="main_header">
-            <p class="card">
-              <i class="el-icon-warning-outline"
-              style="color:#fc5531">
-              </i>
-              <span>请注意您的账号安全</span>
-            </p>
-          </div>
-          <div class="main_footer">
-            <div class="one">
-              
-            </div>
-            <div class="two">
-              
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
 </template>
 
 <script>
-export default {
-  name:'Test'
-    
-}
+
+    export default {
+        name: 'Test',
+        components:{
+
+        },
+        data(){
+            return{
+                // nav_name:[
+                //     {id:0,nav:'博客推荐'},
+                //     {id:1,nav:'前端'},
+                //     {id:2,nav:'后端'},
+                //     {id:3,nav:'移动开发'},
+                //     {id:4,nav:'编程语言'},
+                // ],
+                navName:{
+                    nav:'博客推荐',
+                    nav1:'前端',
+                    nav2:'后端',
+                    nav3:'移动开发',
+                    nav4:'编程语言',
+                },
+                clickVal:'',
+                is:true,
+                is1:false,
+                is2:false,
+                is3:false,
+                is4:false,
+            }
+        },
+        methods:{
+            getAll(){
+                // this.$store.state.search.is_input=false;
+                // this.$router.push({
+                //     name:'blog'
+                // })
+            },
+            getFront(){
+                this.clickVal=document.getElementById('front').innerText;
+                this.$router.push({
+                    name:'front',
+                    params:{
+                        clickVal:this.clickVal,
+                    },
+                })
+                // this.clickVal='',
+                // this.clickVal=document.getElementById('front').innerText;
+            },
+            getBack(){
+                this.clickVal=document.getElementById('back').innerText;
+                this.$router.push({
+                    name:'back',
+                    params:{
+                        clickVal:this.clickVal,
+                    }
+                })
+            },
+            getMobile(){
+                this.clickVal=document.getElementById('mobile').innerText;
+                this.$router.push({
+                    name:'mobile',
+                    params:{
+                        clickVal:this.clickVal,
+                    }
+                })
+            },
+            getCode(){
+                this.clickVal=document.getElementById('code').innerText;
+                this.$router.push({
+                    name:'code',
+                    params:{
+                        clickVal:this.clickVal,
+                    }
+                })
+            },
+            //高亮效果
+            q(){
+                this.is=true
+                this.is1=false
+                this.is2=false
+                this.is3=false
+                this.is4=false
+            },
+            q1(){
+                this.is=false
+                this.is1=true
+                this.is2=false
+                this.is3=false
+                this.is4=false
+            },
+            q2(){
+                this.is=false
+                this.is1=false
+                this.is2=true
+                this.is3=false
+                this.is4=false
+            },
+            q3(){
+                this.is=false
+                this.is1=false
+                this.is2=false
+                this.is3=true
+                this.is4=false
+            },
+            q4(){
+                this.is=false
+                this.is1=false
+                this.is2=false
+                this.is3=false
+                this.is4=true
+            },
+        },
+
+        created(){
+            // this.getAll();
+        },
+    }
 </script>
 
 <style lang="scss" scoped>
-  .container{
-    min-height: 100vh;
+
+._container{
+    height: 55px;
+    width:100%;
+    // margin-left: 20px;
+    background-color: #f8f8fd;
+    border-bottom: 1px solid #e6e6ea;
     display: flex;
-    justify-content: center;
     align-items: center;
-    .box{
-      width: 400px;
-      height: 270px;
-      // border: 1px solid;
-      // border-radius: 5%;
-      background: #f8f8fd;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
+}
+// ._nav::selection{
+//     background: red;
+// }
+.demo{
+    color: #139eff;
+}
+._navs{
+        height: 20px;
+        // .router-link-active{
+        //     color: red;
+        // }
+        // margin:20px auto 0 40px;
+        // background-color: aquamarine;
+        ._nav{
+            margin-right:50px;
+            cursor: pointer;
+        }
+        &:first-child{
+            margin-left: 20px;
+        }
     }
-  }
-  .header{
-    width: 100%;
-    height: 70px;
-    background-color: #e6e6ea;;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .logo{
-      font-size: 30px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-  }
-  .main{
-    width: 100%;
-    height: 200px;
-    // background-color: pink;
-    border: 1px solid;
-    border-radius: 5%;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    flex-direction: column;
-    .main_header{
-      width: 100%;
-      height: 70px;
-      background-color: pink;
-      display: flex;
-      justify-content:center;
-      align-items: center;
-      .card{
-        width:350px;
-        height: 40px;
-        font-size: 17px;
-        font-weight: 600;
-        background-color: #fdf5e6;
-        border-radius: 5%;
-        display: flex;
-        align-items: center;
-        padding-left: 15px;
-      }
-    }
-    .main_footer{
-      // width: auto;
-      height: 130px;
-      background-color: aqua;
-    }
-  }
+._nav:hover{
+    color: #139eff;
+}
 
 </style>

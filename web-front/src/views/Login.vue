@@ -53,15 +53,19 @@
 
 <script>
     import Cookie from 'js-cookie'
+    import {hunhe} from '@/mixin/mixin.js'
+
     export default {
         name: 'Login',
         components:{
         },
+        mixins:[hunhe],
         data(){
             return{
                 is_show:true,
                 loading: false,
-
+                userList:[],
+                isIn:null,
                 loginForm: {
                     username: '',
                     password: ''
@@ -109,15 +113,16 @@
                 if(row.row < 4){
                     return 'color:blue';
                 }
-                
             },
             signIn() {
+                this.set
                 this.$refs['loginForm'].validate((valid) => {
                     if (valid) {
                         this.loading = true
                         this.$axios.post('/api/user/login', this.loginForm)
                             .then(res => {
                                 let result = res.data
+                                this.addUserList();
                                 if (result.code === 0) {
                                     Cookie.set('token', result.token)
                                     this.$store.commit('tokens/SETTOKEN', result.token)
@@ -141,7 +146,6 @@
                                 }
                             })
                     } else {
-
                         return false;
                     }
                 });
@@ -170,7 +174,6 @@
                                     });
                                 }
                             })
-
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -182,22 +185,39 @@
             },
             toSignIn() {
                 this.is_show = true;
-            }
-            //背景
+            },
+            addUserList(){
+                // this.getUserList()
+                this.$axios.post('/api/userList/addUserList',this.regForm)
+                .then(()=>{
+                })
             
-            //
+            },
+            //获取所有用户
+            // getUserList(){
+            //     this.$axios.get('/api/userList/userList')
+            //     .then((res)=>{
+            //         this.userList=res.data.data;
+            //         this.userList=this.userList.map((m)=>{
+            //             return m.username
+            //         })
+                    
+            //     })
+            // },
         },
-        //
+        created(){
+            
+        }
     }
 </script>
 
 
 <style lang="scss" scoped>
-
     .container{
         min-height: 100vh;
         // min-height: calc(100vh - 200px);
         background: url('../assets/img/login-img.jpg');
+        background-repeat: round;
         display:flex;
         justify-content: center;
         align-items: center;
@@ -209,6 +229,8 @@
             background:rgba(40,44,52,0.7);
             border: 1px solid;
             border-radius: 5%;
+            //磨砂玻璃
+            backdrop-filter: blur(10px);
             .header{
                 height: 60px;
                 // background-color: aquamarine;

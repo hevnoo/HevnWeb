@@ -70,14 +70,8 @@
                         let times = create_date.split(' ');
                         this.date = times[0].replace('-','年').replace('-','月')+'日';
                         //增加阅读量
-                        if(res.data.data.viewed){
-                            this.cardForm.viewed=res.data.data.viewed;
-                        }else{
-                            this.cardForm.viewed=0;
-                        }
-                        this.cardForm.viewed+=1;
-                        this.upViewed();
-                        // console.log(this.cardForm.viewed)
+                        this.cardForm.viewed=res.data.data.viewed;
+                        this.upViewed(res.data.data.viewed);
                         //
                         if (res.data.data.head_img === '' || res.data.data.head_img === null) {
                             this.imageUrl = null;
@@ -89,31 +83,26 @@
                         console.log(e)
                 })
             },
-            //获取阅读量
-            // getViewed(){
-            //     this.$axios.get('/api/article/getViewed')
-            //     .then((res)=>{
-            //         console.log(res)
-            //     }).catch(()=>{
-                    
-            //     })
-            // },
+
             //更新阅读量
-            upViewed(){
+            upViewed(res){
                 this.$axios.post('/api/article/upViewed',{
                     article_id:this.$route.params.id,
-                    viewed:this.cardForm.viewed
+                    // viewed:++this.cardForm.viewed,
+                    viewed:++res
                 })
                 .then(()=>{
-                    
+                    // console.log(res)
                 }).catch((e)=>{
                     console.log(e)
                 })
             },
+
         },
 
         created(){
             this.getDetail();
+            // this.upViewed();
         }
   }
 

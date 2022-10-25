@@ -15,20 +15,30 @@
   background-color: #e6e6ea;
 }
 
-.router-link-active{
-  color: #139eff;
-  // background-color: #139eff;
-}
+// .router-link-active{
+//   color: #139eff;
+// }
 #nav {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
   }
 }
+//分页
+.page{
+  height: 150px;
+  // background-color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .el-pagination{
+    color: #6bc30d !important;
+  }
+  .el-pagination:hover{
+    color: aquamarine !important;
+  }
+}
+
+
 </style>

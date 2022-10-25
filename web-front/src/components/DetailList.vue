@@ -48,7 +48,6 @@
           }).then(res => {
               if(res.data.code === 0){
                   this.blogDetail = res.data.data;
-                  
               }
             }).catch(e=>{
                 console.log(e)

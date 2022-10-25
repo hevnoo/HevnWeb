@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const querySql = require('../db/index')
 
+//这些标签接口只是影响编写文章时的标签选择内容而已。
+
 //新增标签接口
 router.post('/addLabel', async(req, res, next) => {
     let { label } = req.body

@@ -3,16 +3,19 @@
     <div class="wrapper">
         <h1 class="title">文章列表</h1>
         <div class="article">
+            <el-button class="backBtn">
+                <router-link to="/home">返回首页</router-link>
+            </el-button>
             <el-button class="addBtn" @click="handleAdd">新增+</el-button>
             <el-table :data="articleList" border stripe>
                 <el-table-column
                     prop="title"
                     label="标题"
-                    width="180">
+                    width="450">
                 </el-table-column>
                 <el-table-column
                     label="日期"
-                    width="180">
+                    width="250">
                     <template slot-scope="scope">
                         <i class="el-icon-time"></i>
                         <span>{{ scope.row.create_time }}</span>
@@ -105,10 +108,12 @@
 <style lang="scss" scoped>
     .wrapper{
         // min-height: 100vh;
-        min-height: calc(100vh - 230px);
+        min-height: calc(100vh - 200px);
+        // margin-top: 60px;
     }
     .title {
-        margin: 30px 0;
+        margin: 30px 0 30px 0;
+        // padding-top: 30px;
         text-align: center;
         font-weight: bold;
         font-size: 28px;
@@ -117,12 +122,16 @@
         .addBtn {
             float: right;
             margin-bottom: 20px;
+            margin-right: 20px;
+        }
+        .backBtn{
+            float: right;
+            margin-bottom: 20px;
         }
     }
-    ///deep/ .el-table {
-    .el-table{
+    ::v-deep .el-table{
         .cell {
             text-align: center;
         }
-}
+    }
 </style>

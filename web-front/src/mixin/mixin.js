@@ -1,7 +1,10 @@
 //局部混合
+//Storage-----------------
 export const hunhe={
     data(){
-        
+        return{
+            
+        }
     },
     methods:{
         //封装storage
@@ -15,16 +18,35 @@ export const hunhe={
             localStorage.removeItem(key);
         },
         //
-        
     },
     created(){
         
     }
 }
-
-//2
-export const hunhe1={
+//分页------------------
+export const pages={
     data(){
-        
+        return{
+            //分页
+            pageList:[],
+            pageSize:10,
+            // currentPage:1,
+            currentPage:this.$store.state.search.page_num,
+            //
+        }
+    },
+    methods:{
+        //每页条数改变时触发 选择一页显示多少行
+        handleSizeChange(val) {
+            // console.log(`每页 ${val} 条`);
+            this.currentPage = 1;
+            this.pageSize = val;
+        },
+        //当前页改变时触发 跳转其他页
+        handleCurrentChange(val) {
+            // console.log(`当前页: ${val}`);
+            this.currentPage = val;
+            this.$store.commit('search/DOPAGE',this.currentPage);
+        },
     }
 }
