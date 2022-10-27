@@ -18,7 +18,7 @@ import {hunhe} from '@/mixin/mixin.js'
       data(){
           return{
               navList:[
-                  {id:0,nav:'博客推荐',path:'blog'},
+                  {id:0,nav:'全部文章',path:'blog'},
                   {id:1,nav:'前端',path:'front'},
                   {id:2,nav:'后端',path:'back'},
                   {id:3,nav:'移动开发',path:'mobile'},
@@ -72,9 +72,13 @@ import {hunhe} from '@/mixin/mixin.js'
 ._container{
   height: 70px;
   width:100%;
-  // margin-left: 20px;
-  background-color: #f8f8fd;
-  border-bottom: 1px solid #e6e6ea;
+  // background-color: #f8f8fd;
+  background-color: rgba(247, 247, 252, 0.3);
+  // box-shadow: 0 0 8px 8px #edefee;
+  box-shadow: 0 -0.5px 8px 8px rgba(0, 0, 0, 0.06);
+  border: 0.1px solid transparent;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 3px solid #e6e6ea;
   display: flex;
   align-items: center;
   justify-content: space-around;

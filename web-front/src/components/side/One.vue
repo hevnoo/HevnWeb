@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="one_header">
-        <div class="header_left">用户榜单</div>
+        <div class="header_left">推荐作者</div>
         <div class="header_right" style="color:#139eff">更多<i class="el-icon-arrow-right"></i></div>
     </div>
     <el-divider></el-divider>
@@ -13,6 +13,9 @@
             <div class="name">
                 <span class="nickname">{{item.nickname}}</span>
                 <img src="@/assets/img/level.png" alt="">
+            </div>
+            <div class="guanzhu">
+                <span class="jia">+</span>关注
             </div>
         </div>
     </div>
@@ -51,9 +54,11 @@ export default {
     .container{
         // height: 380px;
         min-height: 200px;
-        background-color: #f7f7fc;
-        // -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
+        background-color: rgba(247, 247, 252, 0.3);
+        // box-shadow: 0 0 8px 8px #edefee;
+        box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
+        border: 0.1px solid transparent;
+        border-radius: 10px;
         .one_header{
             height: 30px;
             // margin-top: 20px;
@@ -109,12 +114,12 @@ export default {
         height: 50px;
         border: 1px solid transparent;
         border-radius: 50%;
-        margin-left: 20px;
+        margin-left: 10px;
     }
     .name{
         display: flex;
         flex-direction: column;
-        margin-left: 10px;
+        margin-left: 7px;
         img{
             width: 50px;
             height: 20px;
@@ -123,6 +128,15 @@ export default {
     .nickname{
         margin: 5px auto 5px auto;
         font-size: 17px;
+    }
+    .guanzhu{
+        font-size: 14px;
+        margin-left: 40px;
+        color: #30b8f5;
+        cursor: pointer;
+    }
+    .jia{
+        font-size: 20px;
     }
 
 

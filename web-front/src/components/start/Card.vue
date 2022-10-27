@@ -10,7 +10,6 @@
                     、而后风生水起
                     <span class="star" :style="{marginLeft:10}">✦</span>
                 </span>
-                
             </h1>
         </header>
         <div class="main">
@@ -106,6 +105,7 @@ export default {
 .blog:hover{
     background-color: transparent;
     border: 2px solid #6bc30d;
+    // border-image: linear-gradient(to bottom right,#6bc30d, #30b8f5) 10;;
     //文字渐变色
     background-image: linear-gradient(135deg,#30b8f5,#6bc30d);
     background-clip:text;

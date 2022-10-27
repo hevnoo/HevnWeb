@@ -53,7 +53,6 @@
             >
             </el-pagination>
         </div>
-        
         <!-- <Page :style="{margin:'100px auto 100px 250px'}"></Page> -->
     </div>
 </template>
@@ -104,13 +103,15 @@
     .container{
         width: 100%;
         min-height: 100vh;
-        background: #f8f8fd;
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
+        background-color: rgba(247, 247, 252, 0.3);
+        // box-shadow: 0 8px 8px 8px #edefee;
+        box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.06);
+        border: 0.1px solid transparent;
+        border-radius: 0 0 10px 10px;
     }
     // 博客列表
     .box{
-        width: 790px;
+        width: 810px;
         display:flex;
         flex-direction: column;
     }
@@ -123,8 +124,8 @@
     }
     //左侧图片
     .img{
-        width: 230px;
-        height: 150px;
+        width: 250px;
+        height: 165px;
         img{
             width: 100%;
             height: 100%;
@@ -157,7 +158,7 @@
     .main{
         height: 40px;
         color: #808080;
-        margin: 20px auto 45px auto;
+        margin: 20px auto 60px auto;
         // 省略号后面内容
         line-height: 20px;
         overflow: hidden;
@@ -200,21 +201,19 @@
 
 @keyframes get{
     0%{
-        box-shadow: 0;
-        // border: 1px solid #e6e6ea;
-        // border-radius: 2%;
+        transform: scale(1);
     }
     50%{
-        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
-        border: 1px solid #e6e6ea;
-        border-radius: 2%;
-        background-color: #f3f3f3;
+        transform: scale(1.01);
+        transform: translateY(-2px);
+        // box-shadow: 0 0 8px 8px #edefee;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
     100%{
-        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
-        border: 1px solid #e6e6ea;
-        border-radius: 2%;
-        background-color: #f3f3f3;
+        transform: scale(1.02);
+        transform: translateY(-5px);
+        // box-shadow: 0 0 8px 8px #edefee;
+        box-shadow: 0 4px 8px 8px rgba(0, 0, 0, 0.06);
     }
 }
 

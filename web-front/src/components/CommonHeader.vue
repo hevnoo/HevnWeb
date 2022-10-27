@@ -1,25 +1,27 @@
 <template>
-    <header>
+    <header class="container">
         <div class="wrapper">
             <el-row>
+                <!--  -->
                 <el-col :span="4">
-                    <router-link to="/" class="logo" active-class="active" style="color: rgb(59, 76, 113);font-weight:bold;">
+                    <router-link to="/" class="logo" >
                         HevnWeb
                     </router-link>
                 </el-col>
                 <!--  -->
                 <el-col :span="20">
-                    <el-menu mode="horizontal" 
-                        class="nav"
-                        :default-active="$route.path" 
-                        @select="hanleSelect" 
-                        active-text-color="#139eff"
-                        text-color="black" >
+                    <el-menu
+                    class="nav"
+                    mode="horizontal" 
+                    :default-active="$route.path" 
+                    @select="hanleSelect" 
+                    active-text-color="#139eff"
+                    text-color="black" >
                         <!-- 搜索栏 -->
-                        <el-menu-item class="input_out">
-                                <el-input class="input" placeholder="请输入内容" v-model="keywards" size="medium" clearable>
-                                    <el-button slot="append" icon="el-icon-search" @click="search()"> </el-button>
-                                </el-input>
+                        <el-menu-item >
+                            <el-input placeholder="请输入内容" v-model="keywards" size="medium" clearable>
+                                <el-button slot="append" icon="el-icon-search" @click="search()"> </el-button>
+                            </el-input>
                         </el-menu-item>
                         <!--  -->
                         <el-menu-item index="/home" style="font-size:17px">
@@ -149,25 +151,29 @@
 
 <style lang="scss" scoped>
 
-    header {
-        // background: #2d2d2d;
+    .container{
+        //整个头部
         background: #fff;
-        color: #9d9d9d;
         box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
-        // margin-bottom: 20px;
+    }
+    .wrapper {
+        //内容区
+        
         .logo {
             line-height: 60px;
-            font-size: 25px;
+            font-size: 26px;
             font-weight: bold;
+            background: url('https://images6.alphacoders.com/110/thumbbig-1103843.webp');
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: logo 6s infinite alternate linear;
         }
         .nav {
             float: right;
             border-bottom: none;
             font-size: 25px;
-            .router-link-active{
-                background: skyblue;
-                font-size: 40px;
-            }
+            // background-color: #6bc30d;
             li {
                 padding: 0;
                 a {
@@ -181,27 +187,58 @@
             }
         }
     }
-    // 修改链接高亮显示
-    // ::v-deep .router-link-active{
-    //     // background: skyblue;
-    //     color: yellow !important;
-    // }
 
     .signBtn {
         // background: #3b99fc !important;
         line-height: 60px;
     }
     // 搜索栏
-    .input_out{
-        margin-right: 30px;
+    .el-input{
+        width: 300px;
+        margin-right: 34px;
     }
+    ::v-deep .el-input__inner{
+        border-radius: 20px 0 0 20px;
+    }
+    ::v-deep .el-input-group__append {
+        border-radius: 0 20px 20px 0;
+    }
+    //
     ::v-deep .el-menu-item:hover {
         background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
         background-clip:text !important;
         -webkit-background-clip:text !important;
         color: transparent !important;
         background-color: transparent !important;
-        font-size: 20px !important;
+        // font-size: 20px !important;
+        animation:change 0.4s linear forwards !important;
 	}
+    
+    @keyframes logo{
+        0%{
+            background-position: 0%;
+        }
+        100%{
+            background-position: 100%;
+        }
+    }
+    @keyframes change{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.01);
 
+    }
+    100%{
+        transform: scale(1.08);
+
+    }
+}
+
+    // 修改链接高亮显示
+    // ::v-deep .router-link-active{
+    //     // background: skyblue;
+    //     color: yellow !important;
+    // }
 </style>

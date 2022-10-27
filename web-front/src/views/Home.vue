@@ -1,14 +1,17 @@
 <template> 
-  <div class="home">
+  <div class="container">
         <!-- 回顶部 -->
         <back-top></back-top>
         <!-- 首页轮播图 -->
-        <div class="carousel_out">
-            <el-carousel class="carousel" trigger="click" :interval="10000" height="15.625rem">
-                <el-carousel-item class="carousel_item" v-for="item in imgList" :key="item.id">
-                    <img class="img" :src="item.idView" alt="">
-                </el-carousel-item>
-            </el-carousel>
+        <div :class= "`${unfold==0?'on':''}${unfold==1?'off':''}`">
+            <Carousel class="carousel_"></Carousel>
+        </div>
+        <div class="icon_box">
+            <div class="icons" @click="or()">
+                <span :class="`${unfold==0?'ison':''}${unfold==1?'isoff':''}`">
+                    <i class="el-icon-arrow-up"></i>
+                </span>
+            </div>
         </div>
         <!-- 音乐 -->
         <Music></Music>
@@ -16,9 +19,7 @@
         <div class="wrapper">
             <div class="blog_list" :key="$store.state.search.page_num">
                 <Nav class="nav_"></Nav>
-                <router-view :key="this.$store.state.search.isKey"></router-view>
-                <!-- <router-view v-if="this.$store.state.search.is_input === true"></router-view>
-                <search-list v-else :key="$store.state.search.input_num"></search-list> -->
+                <router-view class="view" :key="this.$store.state.search.isKey"></router-view>
             </div>
             <div class="list_right">
                 <one class="home_one"></one>
@@ -38,6 +39,7 @@
     import Three from "@/components/side/Three.vue"
     import BackTop from '@/components/others/BackTop.vue'
     import Music from '@/components/others/Music.vue'
+    import Carousel from '@/components/carousel/Carousel.vue'
 
     export default {
         name: "Home",
@@ -46,28 +48,35 @@
             Nav,
             BackTop,
             Music,
-            
+            Carousel,
         },
         data() {
             return {
-
-                imgList:[
-                    {id:0,idView:require("@/assets/img/home-img.png")},
-                    {id:1,idView:require("@/assets/img/8.png")},
-                    {id:2,idView:require('@/assets/img/4.png')},
-                ],
-                val:''
+                val:'',
+                unfold: null, //0为展开，1为收缩
             };
         },
         methods: {
             format(percentage) {
                 return percentage === 100 ? '满' : `${percentage}%`;
             },
-            
-            created(){
- 
+            or() {
+                var unfold = this.unfold
+                if (unfold === null) { //默认为开0
+                    unfold = 0   
+                }
+                if (unfold == 0) {   //点击后改变展开样式
+                    unfold = 1
+                } else {
+                    unfold = 0
+                }
+                //赋值
+                this.unfold = unfold
+                // console.log(this.unfold)
             },
-        }
+
+        },
+        
     }
 </script>
 
@@ -75,15 +84,124 @@
     // 全部文章列表
     .wrapper{
         width: 1130px;
-        // width: 790+300+外边距20+空隙20=1130;
+        // width: 810+300+20=1130;
         display: flex;
         justify-content: space-between;//左右分布在两边
     }
-    .blog_list {
-        width: 790px;
-        // margin: 0 20px;
-        margin-left: 20px;
+    .carousel_{
+        height: 485px;
+        overflow: hidden;
+    }
+    .icon_box{
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icons{
+            width: 50px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            // background-color: aquamarine;
+        }
+        .ison{
+            animation: xia 1s linear forwards;
+        }
+        .isoff{
+            animation: shang 1s linear forwards;
+        }
+        @keyframes shang {
+            0%{
+                transform: rotateZ(0);
+            }
+            100%{
+                transform: rotateZ(180deg);
+            }
+        }
+        @keyframes xia {
+            0%{
+                transform: rotateZ(180deg);
+            }
+            100%{
+                transform: rotateZ(0);
+            }
+        }
+    }
+    .el-icon-arrow-up{
+        font-size: 40px;
+        font-weight: 600;
+        color: rgba(128, 128, 128, 0.7);
+        animation: icon 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes icon {
+        0%{
+            transform: translateY(12px);
+            opacity: 0.4;
+        }
+        100%{
+            transform: translateY(-12px);
+        }
+    }
+    .on {
+        height: 485px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px 8px rgba(0, 0, 0, 0.06);
+        animation: unfold 1.2s ease;
+    }
+    .off {
+        height: 0;
+        overflow: hidden;
+        animation: shrink 1.2s 1 ease-out;
+    }
+    @keyframes unfold {
+        0% {
+            height: 0;
+            transform: translateY(-485px);
+        }
+        // 50% {
+        //     height: 240px;
+        //     transform: translateY(-245px);
+        // }
+        100% {
+            height: 485px;
+            transform: translateY(0);
+        }
+    }
+    @keyframes shrink {
+        0% {
+            height: 485px;
+            transform: translateY(0);
+        }
+        // 50%{
+        //     height: 240px;
+        //     transform: translateY(-245px);
+        // }
+        100% {
+            height: 0;
+            transform: translateY(-485px);
+        }
+    }
 
+    //
+    .blog_list {
+        width: 810px;
+        // margin-left: 20px;
+    }
+    .nav_{
+        // background-color: rgba(247, 247, 252, 0.3);
+        // box-shadow: 0 0 8px 8px #edefee;
+        // border: 0.1px solid transparent;
+        // border-radius: 10px 10px 0 0;
+    }
+    .view{
+        background-color: rgba(247, 247, 252, 0.3);
+        // box-shadow: 0 8px 8px 8px #edefee;
+        box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.06);
+        border: 0.1px solid transparent;
+        border-radius: 0 0 10px 10px;
     }
    
     .list_right{
@@ -102,42 +220,10 @@
         .home_three{
             margin-bottom: 20px;
             position:sticky;
-            top:70px;
+            top:65px;
             z-index:2;
         }
     }
-
-    // 轮播图
-    .carousel_out{
-        // margin-top: 60px;
-        margin-bottom: 20px;
-    }
-    .carousel_item{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index:1;//1<2
-    }
-    .img{
-        //图片自适应
-        max-width: 100%;
-        min-height: 100%;
-    }
-    .el-carousel__item h3 {
-        color: #475669;
-        font-size: 14px;
-        opacity: 0.75;
-        line-height: 150px;
-        margin: 0;
-    }
-    .el-carousel__item:nth-child(2n) {
-        background-color: #99a9bf;
-    }
-    .el-carousel__item:nth-child(2n+1) {
-        background-color: #d3dce6;
-    }
-    // 
 
 
 </style>

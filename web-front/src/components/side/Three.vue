@@ -140,8 +140,11 @@
       .container{
         //   height: 250px;
         min-height: 100px;
-          background-color: #f7f7fc;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
+        background-color: rgba(247, 247, 252, 0.3);
+        // box-shadow: 0 0 8px 8px #edefee;
+        box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
+        border: 0.1px solid transparent;
+        border-radius: 10px;
           .three_header{
             height: 20px;
               // margin-top: 20px;

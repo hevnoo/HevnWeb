@@ -123,9 +123,9 @@ import {pages} from '@/mixin/mixin.js'
     .container{
         width: 100%;
         min-height: 100vh;
-        background: #f8f8fd;
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
+        // background: #f8f8fd;
+        // -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
+        // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
     }
     //
     .navs{
@@ -140,7 +140,7 @@ import {pages} from '@/mixin/mixin.js'
     }
     // 博客列表
     .box{
-        width: 790px;
+        width: 810px;
         display:flex;
         flex-direction: column;
     }
@@ -222,21 +222,19 @@ import {pages} from '@/mixin/mixin.js'
 
 @keyframes get{
     0%{
-        box-shadow: 0;
-        // border: 1px solid #e6e6ea;
-        // border-radius: 2%;
+        transform: scale(1);
     }
     50%{
-        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
-        border: 1px solid #e6e6ea;
-        border-radius: 2%;
-        background-color: #f3f3f3;
+        transform: scale(1.01);
+        transform: translateY(-2px);
+        // box-shadow: 0 0 8px 8px #edefee;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
     100%{
-        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
-        border: 1px solid #e6e6ea;
-        border-radius: 2%;
-        background-color: #f3f3f3;
+        transform: scale(1.02);
+        transform: translateY(-5px);
+        // box-shadow: 0 0 8px 8px #edefee;
+        box-shadow: 0 4px 8px 8px rgba(0, 0, 0, 0.06);
     }
 }
 
