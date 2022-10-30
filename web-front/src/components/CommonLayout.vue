@@ -2,7 +2,7 @@
   <div class="container">
     <common-header class="header" id="nav-bar" :class="navShow?'navOn':'navOff'"></common-header>
     <div class="clone"></div>
-    <router-view></router-view>
+    <router-view :key="$store.state.search.page_num1"></router-view>
     <common-footer class="footer"></common-footer>
   </div>
 </template>
@@ -58,11 +58,11 @@ export default {
     z-index:3;
   }
   .footer {
-    margin-top: 80px;
-    padding: 15px 0;
-    background: #2d2d2d;
-    color: #bbb;
-    box-shadow: 0 -2px 4px 1px rgba(0, 0, 0, 0.5);
+    // margin-top: 80px;
+    // padding: 15px 0;
+    // background: #2d2d2d;
+    // color: #bbb;
+    // box-shadow: 0 -2px 4px 1px rgba(0, 0, 0, 0.5);
   }
   //页面滚动
   .navOn{
@@ -85,6 +85,7 @@ export default {
   .clone{
     //导航栏脱离文档流，用一个div盒子代替高度
     height: 60px;
+    backdrop-filter: blur(30px);
   }
 
 </style>

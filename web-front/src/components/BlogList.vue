@@ -7,7 +7,8 @@
                 <!-- 左侧图片 -->
                 <div class="img">
                     <img v-if="item.img===null" src="@/assets/img/b1.jpg" alt="">
-                    <img v-else :src="item.img" alt="" >
+                    <!-- <img v-else :src="item.img" alt="" > -->
+                    <img v-else v-lazy="item.img" alt="" >
                 </div>
                 <!-- 右侧内容 -->
                 <div class="text">
@@ -103,7 +104,7 @@
     .container{
         width: 100%;
         min-height: 100vh;
-        background-color: rgba(247, 247, 252, 0.3);
+        // background-color: rgba(247, 247, 252, 0.9);
         // box-shadow: 0 8px 8px 8px #edefee;
         box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
@@ -111,16 +112,17 @@
     }
     // 博客列表
     .box{
-        width: 810px;
+        width: 820px;
         display:flex;
         flex-direction: column;
     }
     .card {
+        height: 200px;
         display: flex;
         justify-content: space-between;
-        margin:10px 5px 0 5px;
+        margin:20px 5px 0 5px;
         padding: 15px;
-        border-bottom: 1px solid #e6e6ea;
+        border-bottom: 2px solid #e6e6ea;
     }
     //左侧图片
     .img{
@@ -129,6 +131,7 @@
         img{
             width: 100%;
             height: 100%;
+            border-radius: 3px;
         }
     }
     // 右侧内容

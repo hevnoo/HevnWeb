@@ -2,7 +2,7 @@
     <div class="container">
         <div class="two_header">
             <div class="header_left">热门文章</div>
-            <!-- <div class="header_right">更多</div> -->
+            <div class="header_right"></div>
         </div>
         <el-divider></el-divider>
         <!-- 走马灯 -->
@@ -11,11 +11,11 @@
                 <el-carousel-item class="carousel_item" v-for="res in viewList" :key="res.id">
                     <!-- <img class="img" :src="res.img" alt=""> -->
                     <img v-if="res.img===null" src="@/assets/img/b1.jpg" alt="">
-                    <img v-else :src="res.img" alt="" >
+                    <img v-else v-lazy="res.img" alt="" >
                 </el-carousel-item>
             </el-carousel>
         </div>
-        <el-divider></el-divider>
+        <!-- <el-divider></el-divider> -->
         <!-- 主体文字 -->
         <div class="main_out">
             <div class="two_main" v-for="item in viewList" :key="item.id">
@@ -106,7 +106,7 @@
     .container{
         //   height: 400px;
         min-height: 200px;
-        background-color: rgba(247, 247, 252, 0.3);
+        background-color: rgba(247, 247, 252, 0.85);
         // box-shadow: 0 0 8px 8px #edefee;
         box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
@@ -115,12 +115,12 @@
             height: 20px;
             // margin-top: 20px;
             display: flex;
-            justify-content:space-around;
+            justify-content:space-between;
             align-items: center;
             
             .header_left{
-                // margin: auto;
-                // cursor: pointer;
+                margin-left: 45px;
+                cursor: pointer;
                 padding-top: 20px;//防止外边距塌陷
             }
         //   .header_right{
@@ -137,7 +137,7 @@
                 cursor: pointer;
                 display: flex;
                 &:last-child{
-                    padding-bottom: 10px;
+                    // padding-bottom: 10px;
                 }
                 .button{
                     width: 25px;
@@ -166,7 +166,7 @@
     //   走马灯
     .carousel_out{
         width: 270px;
-        margin: 0 auto 0 auto;
+        margin: -5px auto 18px auto;
         .carousel{
             // width: 270px;
             // height:150px;
@@ -176,8 +176,11 @@
     .carousel_item{
         img{
             //图片自适应
-            max-width: 100%;
-            min-height: 100%;
+            // max-width: 100%;
+            // min-height: 100%;
+            width: 270px;
+            height: 153.5px;
+            border-radius: 4px;
         }
     }
     

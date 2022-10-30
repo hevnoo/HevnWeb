@@ -9,7 +9,6 @@
                 </el-col>
                 <!--  -->
                 <el-col :span="20">
-                    
                     <el-menu 
                     mode="horizontal" 
                     class="nav"
@@ -26,15 +25,31 @@
                                 首页
                             </router-link>
                         </el-menu-item>
-                        <!-- <el-menu-item index="/github" style="font-size:17px">
-                            <router-link to="/github" target="_blank">Github</router-link>
-                        </el-menu-item> -->
+                        <!--  -->
+                        <el-submenu index="2">
+                            <template slot="title">文章</template>
+                            <el-menu-item class="iii" index="/article"  v-if="isSignIn===1">
+                                <router-link to="/article" active-class='active'>我的博客</router-link>
+                            </el-menu-item>
+                            <el-menu-item class="iii" index="/article"  v-else @click="remind()">
+                                <router-link to="#" active-class='active'>我的博客</router-link>
+                            </el-menu-item>
+                            <el-menu-item class="iii" index="3">
+                                <router-link to="#" active-class='active'>归档</router-link>
+                            </el-menu-item>
+                            <el-menu-item class="iii" index="4">
+                                <router-link to="#" active-class='active'>标签</router-link>
+                            </el-menu-item>
+                        </el-submenu>
+                        <el-menu-item index="/words" style="font-size:17px">
+                            <router-link to="/words" active-class="active">留言板</router-link>
+                        </el-menu-item>
                         <el-menu-item index="/about" style="font-size:17px">
-                            <router-link to="/about">About</router-link>
+                            <router-link to="/about">关于</router-link>
                         </el-menu-item>
-                        <el-menu-item index="/article" style="font-size:17px" v-if="isSignIn===1">
+                        <!-- <el-menu-item index="/article" style="font-size:17px" v-if="isSignIn===1">
                             <router-link to="/article">我的博客</router-link>
-                        </el-menu-item>
+                        </el-menu-item> -->
                         <el-menu-item index="/login" style="font-size:17px" v-if="isSignIn===0">
                             <router-link class="signBtn" to="/login" >登录</router-link>
                         </el-menu-item>
@@ -105,7 +120,22 @@
 
             doHome(){
                 this.$store.state.search.is_input = true;
-            }
+            },
+            remind(){
+                this.$confirm('此功能需登录解锁，是否登录?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                    type: 'success',
+                    message: '跳转登录!',
+                    });
+                    this.$router.push({
+                        name:'login'
+                    })
+                })
+            },
         },
         computed: {
             // 是否登录
@@ -156,16 +186,82 @@
         line-height: 60px;
     }
 
-    // ::v-deep .el-menu-item.is-active {
-    //     background-color: transparent !important;
-    // }
     ::v-deep .el-menu-item:hover {
-        background-image: linear-gradient(135deg,#30b8f5,#6bc30d) !important;
+        background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
         background-clip:text !important;
         -webkit-background-clip:text !important;
         color: transparent !important;
         background-color: transparent !important;
-        font-size: 22px !important;
+        // font-size: 20px !important;
+        animation:change 0.4s linear forwards !important;
 	}
+    //文章***********
+    ::v-deep .el-submenu__title{//文章
+        font-size: 17px;
+        padding-top: 1.2px;
+    }
+    ::v-deep .el-submenu__title:hover{//文章
+        background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
+        background-clip:text !important;
+        -webkit-background-clip:text !important;
+        color: transparent !important;
+        background-color: transparent !important;
+        animation:change 0.4s linear forwards !important;
+        // background-color: rgba(234, 234, 234, 0.8) !important;
+    }
+    .iii{
+        height: 40px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 1) !important;
+        background-color: rgba(234, 234, 234, 0.9) !important;
+        &:first-child{
+            margin-top: -5px;
+            padding-top: 5px;
+        }
+        &:nth-child(2){
+            padding-top:3px
+        }
+        &:last-child{
+            margin-bottom: -5px;
+            padding-bottom: 5px;
+        }
+        a:hover{
+            background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
+            background-clip:text !important;
+            -webkit-background-clip:text !important;
+            color: transparent !important;
+            background-color: transparent !important;
+            animation:change 0.4s linear forwards !important;
+        }
+    }
+    ::v-deep .el-submenu__icon-arrow{
+        color: rgba(234, 234, 234, 0.8) !important;
+    }
+    ::v-deep .el-menu--popup{
+        background-color: rgba(234, 234, 234, 0.8) !important;
+        padding: 0;
+    }
+    //************ */
+    @keyframes logo{
+        0%{
+            background-position: 0%;
+        }
+        100%{
+            background-position: 100%;
+        }
+    }
+    @keyframes change{
+        0%{
+            transform: scale(1);
+        }
+        50%{
+            transform: scale(1.01);
+
+        }
+        100%{
+            transform: scale(1.08);
+
+        }
+    }
 
 </style>

@@ -2,13 +2,9 @@
     <header class="container">
         <div class="wrapper">
             <el-row>
-                <!--  -->
                 <el-col :span="4">
-                    <router-link to="/" class="logo" >
-                        HevnWeb
-                    </router-link>
+                    <router-link to="/" class="logo" >HevnWeb</router-link>
                 </el-col>
-                <!--  -->
                 <el-col :span="20">
                     <el-menu
                     class="nav"
@@ -19,44 +15,54 @@
                     text-color="black" >
                         <!-- 搜索栏 -->
                         <el-menu-item >
-                            <el-input placeholder="请输入内容" v-model="keywards" size="medium" clearable>
+                            <el-input placeholder="请输入内容" v-model="keywards" size="medium" clearable @keyup.enter.native="search()">
                                 <el-button slot="append" icon="el-icon-search" @click="search()"> </el-button>
                             </el-input>
                         </el-menu-item>
                         <!--  -->
                         <el-menu-item index="/home" style="font-size:17px">
                             <router-link to="/home" active-class='active'>
-                                <i class="iconfont icon-home"></i>首页
+                                <!-- <i class="iconfont icon-home"></i> -->
+                                首页
                             </router-link>
                         </el-menu-item>
-                        <el-menu-item index="/github" style="font-size:17px">
-                            <router-link to="/github" active-class="active" target="_blank">Github</router-link>
+                        <!--  -->
+                        <el-submenu index="2">
+                            <template slot="title">文章</template>
+                            <el-menu-item class="iii" index="/article"  v-if="isSignIn===1">
+                                <router-link to="/article" active-class='active'>我的博客</router-link>
+                            </el-menu-item>
+                            <el-menu-item class="iii" index="/article"  v-else @click="remind()">
+                                <router-link to="#" active-class='active'>我的博客</router-link>
+                            </el-menu-item>
+                            <el-menu-item class="iii" index="3">
+                                <router-link to="/file" active-class='active'>归档</router-link>
+                            </el-menu-item>
+                            <el-menu-item class="iii" index="4">
+                                <router-link to="/class" active-class='active'>分类</router-link>
+                            </el-menu-item>
+                        </el-submenu>
+                        <el-menu-item index="/words" style="font-size:17px">
+                            <router-link to="/words" active-class="active">留言板</router-link>
                         </el-menu-item>
                         <el-menu-item index="/about" style="font-size:17px">
-                            <router-link to="/about" active-class='active'>About</router-link>
+                            <router-link to="/about" active-class='active'>关于</router-link>
                         </el-menu-item>
-                        <el-menu-item index="/article" style="font-size:17px" v-if="isSignIn===1">
+                        <!-- <el-menu-item index="/article" style="font-size:17px" v-if="isSignIn===1">
                             <router-link to="/article" active-class='active'>我的博客</router-link>
-                        </el-menu-item>
+                        </el-menu-item> -->
                         <el-menu-item index="/login" style="font-size:17px" v-if="isSignIn===0">
                             <router-link class="signBtn" to="/login" active-class='active'>登录</router-link>
                         </el-menu-item>
                         <el-menu-item index="/personal" v-else-if="isSignIn===1">
                             <router-link class="signBtn" to="/personal" active-class='active'>
-                                <img class="nav_img" 
-                                    style="width:30px;
-                                    height: 30px;
-                                    margin-left: 12px;
-                                    border-radius: 50%;"
-                                :src="userinfo.head_img==null?imgDefault:userinfo.head_img" alt="">
+                                <img class="nav_img" :src="userinfo.head_img==null?imgDefault:userinfo.head_img">
                                 {{userinfo.nickname}}
                             </router-link>
                         </el-menu-item>
                     </el-menu>
-                    
                 </el-col>
             </el-row>
-            
         </div>
     </header>
 </template>
@@ -129,6 +135,26 @@
                 }
                 
             },
+            remind(){
+                this.$confirm('此功能需登录解锁，是否登录?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                    type: 'success',
+                    message: '跳转登录!',
+                    });
+                    this.$router.push({
+                        name:'login'
+                    })
+                })
+            },
+            // enter(){
+            //     if(event.KeyCode==13){
+            //         this.search();
+            //     }
+            // },
 
         },
         computed: {
@@ -158,7 +184,6 @@
     }
     .wrapper {
         //内容区
-        
         .logo {
             line-height: 60px;
             font-size: 26px;
@@ -187,6 +212,12 @@
             }
         }
     }
+    .nav_img{
+        width: 30px;
+        height: 30px;
+        margin-left: 12px;
+        border-radius: 50%;
+    }
 
     .signBtn {
         // background: #3b99fc !important;
@@ -213,6 +244,47 @@
         // font-size: 20px !important;
         animation:change 0.4s linear forwards !important;
 	}
+    ::v-deep .el-submenu__title{//文章
+        font-size: 17px;
+        padding-top: 1.2px;
+    }
+    ::v-deep .el-submenu__title:hover{//文章
+        background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
+        background-clip:text !important;
+        -webkit-background-clip:text !important;
+        color: transparent !important;
+        background-color: transparent !important;
+        animation:change 0.4s linear forwards !important;
+        // background-color: rgba(234, 234, 234, 0.8) !important;
+    }
+    .iii{
+        height: 40px;
+        font-size: 16px;
+        background-color: rgba(234, 234, 234, 0.9) !important;
+        &:first-child{
+            margin-top: -5px;
+            padding-top: 5px;
+        }
+        &:nth-child(2){
+            padding-top:3px
+        }
+        &:last-child{
+            margin-bottom: -5px;
+            padding-bottom: 5px;
+        }
+        a:hover{
+            background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
+            background-clip:text !important;
+            -webkit-background-clip:text !important;
+            color: transparent !important;
+            background-color: transparent !important;
+            animation:change 0.4s linear forwards !important;
+        }
+    }
+    ::v-deep .el-menu--popup{
+        background-color: rgba(234, 234, 234, 0.8) !important;
+        padding: 0;
+    }
     
     @keyframes logo{
         0%{
@@ -223,18 +295,18 @@
         }
     }
     @keyframes change{
-    0%{
-        transform: scale(1);
-    }
-    50%{
-        transform: scale(1.01);
+        0%{
+            transform: scale(1);
+        }
+        50%{
+            transform: scale(1.01);
 
-    }
-    100%{
-        transform: scale(1.08);
+        }
+        100%{
+            transform: scale(1.08);
 
+        }
     }
-}
 
     // 修改链接高亮显示
     // ::v-deep .router-link-active{

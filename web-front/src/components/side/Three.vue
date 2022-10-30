@@ -10,7 +10,7 @@
             trigger="click"
             v-model="conVisible" >
                 <h3 :style="{fontSize:'18px',fontWeight:'800'}">增加标签</h3>
-                    <el-input v-model="value" type="text"  placeholder="请输入标签名" :style="{margin:'20px auto'}"></el-input>
+                    <el-input v-model="value" @keyup.enter.native="yes()" type="text"  placeholder="请输入标签名" :style="{margin:'20px auto'}"></el-input>
                 <div>
                     <el-button @click="no()">取 消</el-button>
                     <el-button type="primary" @click="yes()">确 定</el-button>
@@ -48,7 +48,6 @@
                 this.$axios.get('/api/label/allLabel')
                 .then((res)=>{
                     let opt=res.data.data;
-                    // this.$set(this.options,0,opt)
                     opt.map((res)=>{
                         this.options.push(res);
                     })
@@ -86,14 +85,13 @@
                     setTimeout(() => {
                         location.reload()
                         //重加载
-                    }, 500);
+                    }, 100);
                 }).catch((e)=>{
                     console.log(e)
                 })
                 }else{
                     alert('不能为空')
                 }
-                
             },
             //删除标签
             dele(res){
@@ -117,13 +115,13 @@
                         console.log(e)
                     })
                 
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });          
-                });
-
+                })
+                // .catch(() => {
+                //     this.$message({
+                //         type: 'info',
+                //         message: '已取消删除'
+                //     });          
+                // });
             },
 
       },
@@ -140,7 +138,7 @@
       .container{
         //   height: 250px;
         min-height: 100px;
-        background-color: rgba(247, 247, 252, 0.3);
+        background-color: rgba(247, 247, 252, 0.85);
         // box-shadow: 0 0 8px 8px #edefee;
         box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;

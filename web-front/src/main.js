@@ -14,6 +14,13 @@ import setAxios from './setAxios'
 import Cookie from 'js-cookie'
 import store from "./store/index";
 import plugins from './plugins/index'
+// import VueLazyload from 'vue-lazyload'
+//图片懒加载
+import Vant,{Lazyload} from 'vant';
+import 'vant/lib/index.css'
+// 引入阿里图标
+import '../src/assets/iconfont/iconfont.css'
+
 
 setAxios()
 Vue.config.productionTip = false;
@@ -21,6 +28,8 @@ Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 Vue.use(mavonEditor);
 Vue.use(plugins)
+Vue.use(Vant);
+Vue.use(Lazyload);
 
 // 全局前置守卫鉴权
 router.beforeEach((to,from,next)=>{

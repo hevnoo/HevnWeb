@@ -126,16 +126,16 @@ import {hunhe,pages} from '@/mixin/mixin.js'
     }
     // 博客列表
     .box{
-        width: 810px;
+        width: 820px;
         display:flex;
         flex-direction: column;
     }
     .card {
         display: flex;
         justify-content: space-between;
-        margin:10px 5px 0 5px;
+        margin:20px 5px 0 5px;
         padding: 15px;
-        border-bottom: 1px solid #e6e6ea;
+        border-bottom: 2px solid #e6e6ea;
     }
     //左侧图片
     .img{

@@ -12,9 +12,13 @@ export default {
         DOPAGE(state,value){
             state.page_num = value
         },
+        DOPAGE1(state,value){
+            state.page_num1 = value
+        },
     },
     state: {
         isKey:1,
         page_num:1,
+        page_num1:1,
     },
 };

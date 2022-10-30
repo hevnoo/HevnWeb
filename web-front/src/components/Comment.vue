@@ -1,6 +1,8 @@
 <template>
     <div class="comment-box">
-        <div v-if="isSignIn===0" class="signInText">登录留言吧</div>
+        <div v-if="isSignIn===0" class="signInText">
+            <router-link to="/login">登录留言吧</router-link>
+        </div>
         <div v-else class="input-box">
             <el-divider></el-divider>
             <h3 class="_title">开始评论吧</h3>

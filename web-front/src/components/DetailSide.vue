@@ -114,7 +114,7 @@
           min-height: 200px;
           background-color: #fbfbfb;
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
-
+          border-radius: 5px;
           .box{
             display: flex;
             flex-direction: column;

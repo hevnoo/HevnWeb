@@ -46,12 +46,12 @@ import DetailSide from '../components/DetailSide.vue';
     flex-direction: row;
     justify-content: center;
     .box{
-      width: 1200px;
+      width: 1130px;
       // margin: auto 170px;
       display: flex;
       justify-content: space-between;
       .left{
-        width: 900px;
+        width: 830px;
       }
       .right{
         width: 280px;

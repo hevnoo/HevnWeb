@@ -125,16 +125,22 @@
 
 <style lang="scss" scoped>
     .wrapper {
-        min-height: calc(100vh - 200px);
-        // min-height: 100vh;
-        // margin-top: 60px;
+        // min-height: calc(100vh - 200px);
+        min-height: 100vh;
+        color: #e6e6ea;
         .content {
-            width: 40%;
-            margin: 0 auto;
+            // width: 40%;
+            width: 480px;
+            height: 380px;
+            margin: 60px auto auto auto;
             padding: 50px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(50px);
         }
     }
-    
+    ::v-deep .el-form-item__label{
+        color: #e6e6ea !important;
+    }
     .nickname {
         width: 70%;
     }
@@ -167,6 +173,6 @@
     
     .tips {
         font-size: 12px;
-        color: #999;
+        color: #e6e6ea;
     }
 </style>

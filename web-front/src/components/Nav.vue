@@ -73,7 +73,7 @@ import {hunhe} from '@/mixin/mixin.js'
   height: 70px;
   width:100%;
   // background-color: #f8f8fd;
-  background-color: rgba(247, 247, 252, 0.3);
+  background-color: rgba(247, 247, 252, 0.85);
   // box-shadow: 0 0 8px 8px #edefee;
   box-shadow: 0 -0.5px 8px 8px rgba(0, 0, 0, 0.06);
   border: 0.1px solid transparent;

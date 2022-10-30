@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 var commentRouter = require('./routes/comment')
 var labelRouter = require('./routes/label')
 var userListRouter = require('./routes/userList')
+var wordsRouter = require('./routes/words')
 
 var app = express();
 
@@ -46,7 +47,7 @@ app.use(expressJWT({
         '/api/article/upImg',
         // '/api/userList/addUserList',
         '/api/userList/userList',
-        // '/api/userList/upUserList',
+        '/api/words/wordsList',
     ] 
     //白名单,除了这里写的地址，其他的URL都需要验证
 }));
@@ -56,6 +57,7 @@ app.use('/api/user', usersRouter);
 app.use('/api/comment', commentRouter)
 app.use('/api/label',labelRouter)
 app.use('/api/userList',userListRouter)
+app.use('/api/words', wordsRouter)
 
 //------
 // 捕获404并转发到错误处理程序

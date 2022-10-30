@@ -6,7 +6,7 @@
                 <span class="logo" @click="goBack()">HevnWeb</span>
             </header>
             <!--  -->
-            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" key="login" :cell-style="cellStyle" inline status-icon>
+            <el-form :model="loginForm" @keyup.enter.native="signIn()" :rules="loginRules" ref="loginForm" key="login" :cell-style="cellStyle" inline status-icon>
                 <el-form-item prop="username">
                     <span style="color:#e6e6ead3">账号：</span>
                     <el-input type="username" v-model="loginForm.username" placeholder="请输入账号" autocomplete="off"></el-input>
@@ -28,7 +28,7 @@
                 <span class="logo" @click="goBack()">HevnWeb</span>
             </header>
             <!--  -->
-            <el-form :model="regForm" :rules="regRules" ref="regForm" key="register" inline status-icon>
+            <el-form :model="regForm" @keyup.enter.native="signUp()" :rules="regRules" ref="regForm" key="register" inline status-icon>
                 <el-form-item prop="username" >
                     <span style="color:#e6e6ead3">账号：</span>
                     <el-input type="username" v-model="regForm.username" placeholder="请输入账号" autocomplete="off"></el-input>
@@ -256,6 +256,7 @@
             background:rgba(40,44,52,0.7);
             border: 1px solid;
             border-radius: 5%;
+            backdrop-filter: blur(10px);
             .header{
                 height: 60px;
                 border-bottom: 1px solid #e6e6ea7f;

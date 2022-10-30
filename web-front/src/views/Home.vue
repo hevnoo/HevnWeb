@@ -133,13 +133,14 @@
     .el-icon-arrow-up{
         font-size: 40px;
         font-weight: 600;
-        color: rgba(128, 128, 128, 0.7);
+        color: rgba(230, 230, 234, 1);
+        // color: rgba(128, 128, 128, 0.7);
         animation: icon 0.8s ease-in-out infinite alternate;
     }
     @keyframes icon {
         0%{
             transform: translateY(12px);
-            opacity: 0.4;
+            opacity: 0.3;
         }
         100%{
             transform: translateY(-12px);
@@ -149,22 +150,18 @@
         height: 485px;
         overflow: hidden;
         box-shadow: 0 2px 8px 8px rgba(0, 0, 0, 0.06);
-        animation: unfold 1.2s ease;
+        animation: unfold 1s ease-in;
     }
     .off {
         height: 0;
         overflow: hidden;
-        animation: shrink 1.2s 1 ease-out;
+        animation: shrink 1s ease-in;
     }
     @keyframes unfold {
         0% {
             height: 0;
             transform: translateY(-485px);
         }
-        // 50% {
-        //     height: 240px;
-        //     transform: translateY(-245px);
-        // }
         100% {
             height: 485px;
             transform: translateY(0);
@@ -187,7 +184,7 @@
 
     //
     .blog_list {
-        width: 810px;
+        width: 820px;
         // margin-left: 20px;
     }
     .nav_{
@@ -197,7 +194,7 @@
         // border-radius: 10px 10px 0 0;
     }
     .view{
-        background-color: rgba(247, 247, 252, 0.3);
+        background-color: rgba(247, 247, 252, 0.85);
         // box-shadow: 0 8px 8px 8px #edefee;
         box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
@@ -205,7 +202,7 @@
     }
    
     .list_right{
-        width: 300px;
+        width: 290px;
         // height: 1200px;
         // min-height: calc(100vh - 200px);
         // position:sticky;

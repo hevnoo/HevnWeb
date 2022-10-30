@@ -68,6 +68,7 @@
   }
   .wrapper {
     padding: 20px;
+    border-radius: 5px;
     // background: #f8f8fd;
     background-color: #fbfbfb;
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;

@@ -87,6 +87,30 @@ const routes = [
                 ]
             },
             {
+                path: '/file',
+                name: 'file', 
+                component: () => import ('@/views/File.vue'),
+                meta:{
+                    title:'归档',
+                }
+            },
+            {
+                path: '/class',
+                name: 'class', 
+                component: () => import ('@/views/Class.vue'),
+                meta:{
+                    title:'分类',
+                }
+            },
+            {
+                path: '/words',
+                name: 'words', 
+                component: () => import ('@/views/Words.vue'),
+                meta:{
+                    title:'留言板',
+                }
+            },
+            {
                 path: '/about',
                 name: 'about', 
                 component: () => import ('@/views/About.vue'),
@@ -141,6 +165,7 @@ const routes = [
     },
     {
         path: '/login',
+        name:'login',
         component: () => import ('@/views/Login.vue'),
         meta:{
             title:'登录',
