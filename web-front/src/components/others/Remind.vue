@@ -21,9 +21,11 @@
                   <p class="one_text">您即将离开界面，是否要继续？</p>
                 </div>
                 <div class="two">
-                  <el-button type="danger" plain round>
-                    <a href="https://github.com/hevnoo/HevnWeb">继续</a>
-                  </el-button>
+                  <a href="https://github.com/hevnoo/HevnWeb">
+                    <el-button type="danger" plain round>
+                      继续
+                    </el-button>
+                  </a>
                 </div>
               </footer>
             </div>
@@ -34,9 +36,10 @@
   </template>
   
   <script>
+
   export default {
       name:'Remind',
-
+      components:{},
       methods:{
         // go(){
         //   this.$router.replace({
@@ -84,7 +87,7 @@
         align-items: center;
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) outset;
         border: 1px solid #e6e6ea;
-        border-radius: 5%;
+        border-radius: 10px;
         .main{
           width: 360px;
           height: 160px;

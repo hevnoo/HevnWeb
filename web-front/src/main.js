@@ -1,9 +1,9 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
+import Vue from "vue"
+import App from "./App.vue"
+import router from "./router"
 import axios from 'axios'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import '@/assets/scss/reset.scss'
@@ -12,24 +12,29 @@ import '@/assets/scss/common.scss'
 //
 import setAxios from './setAxios'
 import Cookie from 'js-cookie'
-import store from "./store/index";
+import store from "./store/index"
 import plugins from './plugins/index'
-// import VueLazyload from 'vue-lazyload'
+// import utils from './utils/debounce '
 //图片懒加载
-import Vant,{Lazyload} from 'vant';
+import Vant,{Lazyload} from 'vant'
 import 'vant/lib/index.css'
-// 引入阿里图标
-import '../src/assets/iconfont/iconfont.css'
+import '../src/assets/iconfont/iconfont.css'// 引入阿里图标
+import directives from './directives/index'//引入自定义指令
+// import outline from 'vue-outline'
 
 
 setAxios()
+// Vue.use(outline)
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 Vue.use(mavonEditor);
 Vue.use(plugins)
+// Vue.use(utils)
 Vue.use(Vant);
 Vue.use(Lazyload);
+Vue.use(directives)
+
 
 // 全局前置守卫鉴权
 router.beforeEach((to,from,next)=>{
@@ -50,12 +55,13 @@ router.beforeEach((to,from,next)=>{
 //标签名
 router.afterEach((to,from)=>{
   // document.title = to.meta.title;
-  document.title = `HevnWeb ${to.meta.title}`;
+  document.title = `HevnWeb - ${to.meta.title}`;
   if(from == ''){
     console.log(from);
   }
 })
 //
+
 
 new Vue({
   //安装事件总线
@@ -63,9 +69,7 @@ new Vue({
     // 尽量早地执行挂载全局事件总线对象的操作
     Vue.prototype.$bus = this;
   },
-
   router,
   store,
-
   render: h => h(App)
 }).$mount("#app");

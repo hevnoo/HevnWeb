@@ -1,9 +1,13 @@
 <template>
   <div class="_container">
+      <div style="width:35px"></div>
       <div :class="currentIndex==item.id?'active':''" v-for="item in navList" :key="item.id" ref="refInfo" @click="getNav(item)">
-        <span class="item">{{item.nav}}</span>
+        <ul class="item">
+          <li class="li" v-text="item.nav"></li>
+          <!-- {{item.nav}} -->
+        </ul>
       </div>
-      <div class="right"></div>
+      <div style="width:40px"></div>
   </div>
 </template>
 
@@ -77,11 +81,12 @@ import {hunhe} from '@/mixin/mixin.js'
   // box-shadow: 0 0 8px 8px #edefee;
   box-shadow: 0 -0.5px 8px 8px rgba(0, 0, 0, 0.06);
   border: 0.1px solid transparent;
-  border-radius: 10px 10px 0 0;
+  border-radius: 7px 7px 0 0;
   border-bottom: 3px solid #e6e6ea;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  // justify-content: space-around;
 }
 .active{
   background-image: linear-gradient(135deg,#6bc30d,#30b8f5);
@@ -91,14 +96,20 @@ import {hunhe} from '@/mixin/mixin.js'
 }
 .item{
   font-size: 16px;
+  margin-right: 45px;
   cursor: pointer;
+  .li{
+    // height: 42px;
+    // width: 80px;
+    // text-align: center;
+    // line-height: 42px;
+    // background-color: #ffc0cb;
+  }
 }
 .item:hover{
   color: #139eff;
 }
-.right{
-  width: 100px;
-}
+
 //
 
 

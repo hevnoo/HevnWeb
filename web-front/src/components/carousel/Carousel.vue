@@ -1,12 +1,12 @@
 <template>
     <!-- 首页轮播图 -->
     <div class="wrapper_c">
-        <header class="header">博客推荐</header>
-        <div class="main">
+        <header class="header">文章推荐</header>
+        <main class="main">
             <el-carousel 
             class="carousel" 
             trigger="click" 
-            :interval="90000" 
+            :interval="900000" 
             height="330px" 
             @change="change"
             indicator-position="outside">
@@ -22,7 +22,7 @@
                     </div>
                 </el-carousel-item>
             </el-carousel>
-        </div>
+        </main>
         
     </div>
 </template>
@@ -45,7 +45,7 @@ export default {
             .then(res => {
                 if(res.data.code === 0){
                     this.blogList = res.data.data;
-                    this.blogList = this.blogList.slice(1,8)
+                    this.blogList = this.blogList.slice(2,12)
                     this.doList()
                 }
             }).catch(e=>{
@@ -55,7 +55,7 @@ export default {
         doList(){
             if(this.blogList && this.blogList.length>0){
                 for(let i=0;i<=this.blogList.length-1;i++){
-                    if(i%3 !== 0 || i === 0 ){
+                    if(i%4 !== 0 || i === 0 ){
                         if(!this.newDataList[this.current]){
                             this.newDataList.push([this.blogList[i]])
                         }else{
@@ -80,21 +80,21 @@ export default {
 // 轮播图
 .wrapper_c{
     width: 100%;
-    // background-color: rgba(247, 247, 252, 0.85);
+    // background-color: rgba(247, 247, 252, 0.95);
     // background-image: linear-gradient(rgba(242, 242, 242, 0.1),rgba(242, 242, 242, 0.3),rgba(230, 230, 234, 0.3),rgba(250, 250, 250, 0.4),rgba(250, 250, 250, 0.9));
-    box-shadow: 0 2px 8px 8px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 3px 8px 8px rgba(0, 0, 0, 0.1);
     //磨砂玻璃
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(80px);
     display: flex;
     flex-direction: column;
 }
 .header{
     margin-top: 30px;
     color: rgba(250, 250, 250, 1);
-    font-size: 22px;
+    font-size: 21.5px;
     font-weight: 540;
     text-align: center;
-    line-height: 90px;
+    line-height: 60px;
     letter-spacing:5px;
     // background-image: linear-gradient(269deg, #30b8f5 0%, #30b8f5 45%, #6bc30d 60%,#6bc30d 100%);
     // background-clip:text;
@@ -114,30 +114,30 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index:1;//1<2
+    z-index:1;
 }
 .box{
-    width: 1130px;
+    width: 1205px;
     display: flex;
     flex-direction: row;
     // background-color: pink;
 }
 .card{
     // width: 363px;
-    width: 353px;
-    height: 295px;
-    margin-right: 40px;
+    width: 290px;
+    height: 265px;
+    margin-right: 15px;
     padding: 0;
     cursor: pointer;
     // border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    border-radius: 3px;
     box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.1);
-    background-color: rgba(247, 247, 252, 0.7);
+    background-color: rgba(250, 250, 250, 0.95);
 }
 .img{
-    width: 353px;
-    height: 220px;
-    border-radius: 5px;
+    width: 290px;
+    height: 195px;
+    border-radius: 3px;
     // box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.06);
     opacity: 0.9;
     transition: all 0.5s;
@@ -149,9 +149,10 @@ export default {
 }
 .title{
     color: rgba(0, 0, 0, 1);
-    font-size: 18px;
-    font-weight: 530;
-    margin: 20px auto 10px 10px;
+    line-height: 19px;
+    font-size: 16px;
+    font-weight: 525;
+    margin: 15px auto 10px 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -164,8 +165,8 @@ export default {
 .viewed{
     margin-left: 10px;
     margin-bottom: 5px;
-    font-size: 15px;
-    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.4);
     // color: #a4a5a3;
 }
 .el-carousel__item h3 {
@@ -178,9 +179,10 @@ export default {
 ::v-deep .el-carousel__indicators--outside{
     //切换小圆点的最外层
     // margin: 0 auto 10px auto;
+    margin-top: -8px !important;
 }
 ::v-deep .el-carousel__arrow{
-    //切换按钮
+    //两边切换按钮
     width: 80px;
     height: 95px;
     border: 1px solid transparent !important;
@@ -188,12 +190,13 @@ export default {
     margin: auto -20px !important;
 }
 ::v-deep .el-icon-arrow-left{
-    color: #475669;
-    font-size: 40px;
+    // color: rgba(71, 86, 105, 1);
+    color: rgba(250, 250, 250, 0.8);
+    font-size: 37px;
 }
 ::v-deep .el-icon-arrow-right{
-    color: #475669;
-    font-size: 40px;
+    color: rgba(250, 250, 250, 0.8);
+    font-size: 37px;
 }
 ::v-deep .el-carousel__indicator.is-active button{
     width: 10px;
@@ -208,6 +211,10 @@ export default {
     border-radius: 100% !important;
     margin-right: 10px;
     color: #e1e1e1 !important;
+}
+::v-deep .el-carousel__container{
+    height: 310px !important;
+    // margin-top: 10px !important;
 }
 
 </style>

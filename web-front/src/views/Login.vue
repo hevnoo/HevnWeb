@@ -9,7 +9,7 @@
             <el-form :model="loginForm" @keyup.enter.native="signIn()" :rules="loginRules" ref="loginForm" key="login" :cell-style="cellStyle" inline status-icon>
                 <el-form-item prop="username">
                     <span style="color:#e6e6ead3">账号：</span>
-                    <el-input type="username" v-model="loginForm.username" placeholder="请输入账号" autocomplete="off"></el-input>
+                    <el-input type="username" v-model="loginForm.username" placeholder="请输入账号" autocomplete="off" v-focus></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <span style="color:#e6e6ead3">密码：</span>
@@ -31,7 +31,7 @@
             <el-form :model="regForm" @keyup.enter.native="signUp()" :rules="regRules" ref="regForm" key="register" inline status-icon>
                 <el-form-item prop="username" >
                     <span style="color:#e6e6ead3">账号：</span>
-                    <el-input type="username" v-model="regForm.username" placeholder="请输入账号" autocomplete="off"></el-input>
+                    <el-input type="username" v-model="regForm.username" placeholder="请输入账号" autocomplete="off" v-focus></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <span style="color:#e6e6ead3">密码：</span>
@@ -181,7 +181,10 @@
                 });
             },
             toSignUp() {
-                this.is_show = false;
+                setTimeout(()=>{
+                    this.is_show = false;
+                },300)
+                // this.is_show = false;
             },
             toSignIn() {
                 this.is_show = true;
@@ -216,7 +219,7 @@
     .container{
         min-height: 100vh;
         // min-height: calc(100vh - 200px);
-        background: url('../assets/img/login-img.jpg');
+        background: url('../assets/img/clash.jpg');
         background-repeat: round;
         display:flex;
         justify-content: center;
@@ -228,7 +231,7 @@
             // background-color: #120d48;
             background:rgba(40,44,52,0.7);
             border: 1px solid;
-            border-radius: 5%;
+            border-radius: 8px;
             //磨砂玻璃
             backdrop-filter: blur(10px);
             .header{
@@ -289,10 +292,37 @@
         width: 120px;
     }
     .front{
-        margin-left: 30px;
+        position: relative;
+        margin-left: 40px;
+        background-color: rgba(6, 101, 208, 1);
+        border: 1px solid rgba(6, 101, 208, 1);
     }
     .back{
-        margin-left: 50px;
+        position: relative;
+        margin-left: 40px;
+        background-color: rgba(6, 101, 208, 1);
+        border: 1px solid rgba(6, 101, 208, 1);
+    }
+    .front:hover,
+    .back:hover{
+        background-color: rgba(5, 87, 180, 1);
+        border: 1px solid rgba(5, 87, 180, 1);
+    }
+    .front::after,
+    .back::after{
+        position:absolute;
+        content: " ";
+        background-color: rgba(0, 0, 0, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        opacity: 0;
+        top:0px;
+        bottom:0px;
+        left:0px;
+        right:0px;
+    }
+    .front:active::after,
+    .back:active::after{
+        opacity: 0.3;
     }
     ._front{
         margin-left: 40px;

@@ -108,11 +108,11 @@
         // box-shadow: 0 8px 8px 8px #edefee;
         box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
-        border-radius: 0 0 10px 10px;
+        border-radius: 0 0 7px 7px;
     }
     // 博客列表
     .box{
-        width: 820px;
+        width: 830px;
         display:flex;
         flex-direction: column;
     }
@@ -157,6 +157,9 @@
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
+    }
+    .title:hover{
+        text-decoration:underline;
     }
     .main{
         height: 40px;

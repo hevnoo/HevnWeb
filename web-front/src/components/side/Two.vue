@@ -20,7 +20,9 @@
         <div class="main_out">
             <div class="two_main" v-for="item in viewList" :key="item.id">
                 <button class="button" :style="{backgroundColor:item.color}">{{item.newID+1}}</button>
-                <span class="text" >{{item.title}}</span>
+                <span class="text" >
+                    <router-link :to="'/detail/'+item.id">{{item.title}}</router-link>
+                </span>
             </div>
         </div>
     </div>
@@ -110,7 +112,7 @@
         // box-shadow: 0 0 8px 8px #edefee;
         box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
-        border-radius: 10px;
+        border-radius: 7px;
         .two_header{
             height: 20px;
             // margin-top: 20px;
@@ -159,13 +161,16 @@
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                 }
+                .text:hover{
+                    color: #30b8f5;
+                }
             }
         }
 
     }
     //   走马灯
     .carousel_out{
-        width: 270px;
+        width: 260px;
         margin: -5px auto 18px auto;
         .carousel{
             // width: 270px;
@@ -178,7 +183,7 @@
             //图片自适应
             // max-width: 100%;
             // min-height: 100%;
-            width: 270px;
+            width: 260px;
             height: 153.5px;
             border-radius: 4px;
         }

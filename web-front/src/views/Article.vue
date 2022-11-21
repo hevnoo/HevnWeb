@@ -3,26 +3,20 @@
     <div class="wrapper">
         <h1 class="title">文章列表</h1>
         <div class="article">
-            <el-button class="backBtn">
-                <router-link to="/home">返回首页</router-link>
-            </el-button>
+            <router-link to="/home">
+                <el-button class="backBtn">返回首页</el-button>
+            </router-link>
             <el-button class="addBtn" @click="handleAdd">新增+</el-button>
             <el-table :data="articleList" border stripe>
-                <el-table-column
-                    prop="title"
-                    label="标题"
-                    width="450">
+                <el-table-column prop="title" label="标题" width="450">
                 </el-table-column>
-                <el-table-column
-                    label="日期"
-                    width="250">
+                <el-table-column label="日期" width="250">
                     <template slot-scope="scope">
                         <i class="el-icon-time"></i>
                         <span>{{ scope.row.create_time }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column
-                    label="操作">
+                <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button size="mini" type="primary" @click="handleLook(scope.row)">查看</el-button>
                         <el-button size="mini" type="success" @click="handleEdit(scope.row)">编辑</el-button>
@@ -107,8 +101,8 @@
 
 <style lang="scss" scoped>
     .wrapper{
-        // min-height: 100vh;
-        min-height: calc(100vh - 200px);
+        min-height: 100vh;
+        // min-height: calc(100vh - 200px);
         // margin-top: 60px;
     }
     .title {
@@ -117,6 +111,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 28px;
+        color: rgba(250,250,250,0.9);
     }
     .article {
         .addBtn {
@@ -133,5 +128,15 @@
         .cell {
             text-align: center;
         }
+    }
+    .el-table--border{
+        border-radius: 5px;
+    }
+    ::v-deep .el-table__header-wrapper{
+        //首行行高
+        line-height: 50px !important;
+    }
+    ::v-deep .el-table tr{
+        line-height: 50px ;
     }
 </style>

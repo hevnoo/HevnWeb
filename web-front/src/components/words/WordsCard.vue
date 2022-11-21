@@ -46,8 +46,8 @@
         align-items: center;
     }
     .img{
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
         border-radius: 100%;
         margin-top: -70px;
         box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.08);

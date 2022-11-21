@@ -9,15 +9,17 @@
                 <div class="load three"></div>
             </div>
         </div>
+        <button @click="tt()"></button>
+        <!-- <shadow-button btnBgc="#FF8200" @clickBtn="run()">按钮</shadow-button> -->
     </div>
 </template>
 
 <script>
-    
+    // import ShadowButton from '@/components/button/ShadowButton.vue';
     export default {
         name: 'About',
         components:{
-            
+            // ShadowButton,
         },
         data(){
             return{
@@ -25,7 +27,15 @@
             }
         },
         methods:{
-            
+            run(){
+                this.$router.push({
+                    name:'test1'
+                })
+            },
+            tt(){
+                window.toast('ff')
+                // 需引入
+            },
         },
         created(){
             
@@ -39,12 +49,14 @@
         min-height: 100vh;
         // min-height: calc(100vh - 200px);
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        // justify-content: center;
+        align-items: center;
     }
     .card{
         width: 800px;
         height: 400px;
-        margin: 60px auto auto auto;
+        margin: 250px auto auto auto;
         border-radius: 10px;
         box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
         background-color: rgba(247, 247, 252, 0.95);
@@ -52,23 +64,23 @@
         flex-direction: column;
         align-items: center;
         img{
-            width: 280px;
-            height: 100px;
-            margin-top: 50px;
+            width: 250px;
+            height: 70px;
+            margin-top: 70px;
         }
     }
     .text{
         font-size: 25px;
         font-weight: 500;
         color: rgba(0,0,0,0.9);
-        margin: 80px auto 40px auto ;
+        margin: 80px auto 80px auto ;
     }
 
     //
     .load {
         display: inline-block;
-        width: 45px;
-        height: 45px;
+        width: 30px;
+        height: 30px;
         background: orange;
         border-radius: 50%;
         animation: loading 1s linear infinite;

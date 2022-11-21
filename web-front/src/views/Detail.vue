@@ -1,13 +1,19 @@
 <!-- 文章详情页 -->
 <template>
-  <div class="container">
+  <div class="container" >
+    <!-- 回顶部 -->
+    <back-top></back-top>
     <div class="box_out">
       <div class="box">
         <div class="left">
           <detail-list></detail-list>
+          <div :style="{height:'15px'}"></div>
+          <Comment></Comment>
         </div>
         <div class="right">
-          <detail-side class="side"></detail-side>
+          <Info class="info"></Info>
+          <Hot class="hot"></Hot>
+          <Catalogue class="catalogue"></Catalogue>
         </div>
       </div>
     </div>
@@ -16,9 +22,13 @@
 </template>
 
 <script>
-import DetailList from '../components/DetailList.vue'
-import DetailSide from '../components/DetailSide.vue';
+  import BackTop from '@/components/others/BackTop.vue'
+  import DetailList from '@/components/detail/DetailList.vue'
+  import Info from '@/components/detail/Info.vue';
   // import Comment from '@/components/Comment.vue'
+  import Hot from '@/components/detail/Hot.vue'
+  import Comment from '@/components/Comment.vue'
+  import Catalogue from '../components/detail/Catalogue.vue';
   export default {
     name:'Detail',
     data() {
@@ -27,8 +37,12 @@ import DetailSide from '../components/DetailSide.vue';
       }
     },
     components:{
+        BackTop,
         DetailList,
-        DetailSide
+        Info,
+        Hot,
+        Comment,
+        Catalogue,
     },
  
     methods:{
@@ -54,14 +68,23 @@ import DetailSide from '../components/DetailSide.vue';
         width: 830px;
       }
       .right{
-        width: 280px;
+        width: 285px;
         margin-top: 30px;
       }
     }
   }
-  .side{
+  .info{
+    // position:sticky;
+    // top:70px;
+    // z-index:2;
+  }
+  .hot{
+    margin-top: 15px;
+  }
+  .catalogue{
+    margin-top: 15px;
     position:sticky;
-    top:70px;
+    top:63px;
     z-index:2;
   }
 

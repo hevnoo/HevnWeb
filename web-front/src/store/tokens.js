@@ -15,4 +15,5 @@ export default {
         isSignIn: 0,
         token:''
     },
+    
 };

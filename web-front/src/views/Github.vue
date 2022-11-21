@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Remind from '../components/Remind.vue';
+import Remind from '@/components/others/Remind.vue';
 export default {
   name:'Github',
   components:{

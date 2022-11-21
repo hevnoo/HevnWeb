@@ -7,19 +7,19 @@
     <el-divider></el-divider>
     <!--  -->
     <div class="main">
-        <div class="qq item">
+        <div class="qq item" draggable="true">
             <i class="iconfont icon-QQ iii"></i>
             <span>961584775</span>
         </div>
-        <div class="git item">
+        <div class="git item" draggable="true">
             <i class="iconfont icon-github iii"></i>
-            <span>https://github.com/hevnoo</span>
+            <span><a href="https://github.com/hevnoo">https://github.com/hevnoo</a></span>
         </div>
-        <div class="mail item">
+        <div class="mail item" draggable="true">
             <i class="iconfont icon-email iii"></i>
             <span>961584775@qq.com</span>
         </div>
-        <div class="bili item">
+        <div class="bili item" draggable="true">
             <i class="iconfont icon-bilibili-line iii"></i>
             <span>space.bilibili.com</span>
         </div>
@@ -36,6 +36,7 @@ export default {
     },
     data(){
         return{
+            list:null,
             
         }
     },
@@ -56,7 +57,7 @@ export default {
         // box-shadow: 0 0 8px 8px #edefee;
         box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
-        border-radius: 10px;
+        border-radius: 7px;
         .one_header{
             height: 30px;
             // margin-top: 20px;
@@ -88,7 +89,18 @@ export default {
         display: flex;
         align-items: center;
         cursor: pointer;
+        &:nth-child(1){
+            margin-top: -10px;
+        }
     }
+    .item:hover{
+        box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.1);
+    }
+    // .item.moving{
+    //     background: transparent;
+    //     color: transparent;
+    //     border: 1px dashed #cccc;
+    // }
     .iii{
         font-size: 30px;
         color: #eaeaea;

@@ -26,7 +26,7 @@
                             </router-link>
                         </el-menu-item>
                         <!--  -->
-                        <el-submenu index="2">
+                        <!-- <el-submenu index="2">
                             <template slot="title">文章</template>
                             <el-menu-item class="iii" index="/article"  v-if="isSignIn===1">
                                 <router-link to="/article" active-class='active'>我的博客</router-link>
@@ -40,17 +40,15 @@
                             <el-menu-item class="iii" index="4">
                                 <router-link to="#" active-class='active'>标签</router-link>
                             </el-menu-item>
-                        </el-submenu>
+                        </el-submenu> -->
                         <el-menu-item index="/words" style="font-size:17px">
                             <router-link to="/words" active-class="active">留言板</router-link>
                         </el-menu-item>
                         <el-menu-item index="/about" style="font-size:17px">
                             <router-link to="/about">关于</router-link>
                         </el-menu-item>
-                        <!-- <el-menu-item index="/article" style="font-size:17px" v-if="isSignIn===1">
-                            <router-link to="/article">我的博客</router-link>
-                        </el-menu-item> -->
-                        <el-menu-item index="/login" style="font-size:17px" v-if="isSignIn===0">
+
+                        <!-- <el-menu-item index="/login" style="font-size:17px" v-if="isSignIn===0">
                             <router-link class="signBtn" to="/login" >登录</router-link>
                         </el-menu-item>
                         <el-menu-item index="/personal" v-else-if="isSignIn===1">
@@ -63,7 +61,7 @@
                                 :src="userinfo.head_img==null?imgDefault:userinfo.head_img" alt="">
                                 {{userinfo.nickname}}
                             </router-link>
-                        </el-menu-item>
+                        </el-menu-item> -->
                         
                     </el-menu>
                     
@@ -155,7 +153,7 @@
 
     header {
         // background: #2d2d2d;
-        box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2);
         .logo {
             line-height: 60px;
             font-size: 25px;

@@ -2,9 +2,9 @@ import axios from 'axios'
 import store from './store/index'
 // 引入路由
 // import router from '@/router'
-axios.defaults.baseURL = 'http://127.0.0.1:8087/';
 
-// axios.defaults.baseURL = 'http://39.108.87.202:7070/';
+axios.defaults.baseURL = 'http://127.0.0.1:8087/';
+// axios.defaults.baseURL = 'http://43.139.143.221:7070/';
 
 export default function setAxios() {
 

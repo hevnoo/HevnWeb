@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <common-header class="header" id="nav-bar" :class="navShow?'navOn':'navOff'"></common-header>
-    <div class="clone"></div>
+    <div class="nulls"></div>
     <router-view :key="$store.state.search.page_num1"></router-view>
     <common-footer class="footer"></common-footer>
   </div>
@@ -19,7 +19,8 @@ export default {
   data(){
     return {
       top:'',
-      navShow:'true',
+      navShow:true,
+      look:false
     }
   },
   methods:{
@@ -38,7 +39,21 @@ export default {
 					// console.log('向上滚动')
 				}
 			}
-		}
+		},
+    // 监听,当路由发生变化的时候执行
+    // $route(to){
+    //   if(to.path){
+    //     this.look = true
+    //     console.log(to.path);
+    //   }
+    // },
+    // $route: {
+    //   handler: function(val, oldVal){
+    //     console.log(val,oldVal);
+    //   },
+    //   // 深度观察监听
+    //   deep: true
+    // },
 
   },
   mounted(){
@@ -50,12 +65,18 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss" scoped>
+
   .header{
     position:sticky;
     top:0px;
-    z-index:3;
+    z-index:999;
+  }
+  .nulls{
+    //导航栏脱离文档流，用一个div盒子代替高度
+    height: 59px;
+    width: 100%;
+    // backdrop-filter: blur(80px);
   }
   .footer {
     // margin-top: 80px;
@@ -82,10 +103,5 @@ export default {
 		transform: translate3d(0,-100%,0);
 	}
   //
-  .clone{
-    //导航栏脱离文档流，用一个div盒子代替高度
-    height: 60px;
-    backdrop-filter: blur(30px);
-  }
 
 </style>

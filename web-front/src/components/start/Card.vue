@@ -4,10 +4,10 @@
         <header class="header">
             <h1 class="h1">
                 <div class="i">
-                    <span class="_hh">日益努力</span>
+                    <span class="_hh">Hevn</span>
                 </div>
                 <span>
-                    、而后风生水起
+                    、个人博客
                     <span class="star" :style="{marginLeft:10}">✦</span>
                 </span>
             </h1>
@@ -15,18 +15,22 @@
         <div class="main">
             <h2 class="h2">
                 <div class="i">
-                    <span class="_hh">Never</span>
+                    <span class="_hh">Hevn</span>
                 </div>
-                <span>、say never</span>
+                <span>'s blog</span>
             </h2>
         </div>
         <footer class="footer">
-            <el-button class="git but" type="primary" round>
-                <router-link to="/github" active-class="active" target="_blank">Github</router-link>
-            </el-button>
-            <el-button class="blog but" type="primary" plain round>
-                <router-link to="/home" active-class="active">进入博客</router-link>
-            </el-button>
+            <router-link to="/github" active-class="active" target="_blank">
+                <el-button class="git but" type="primary" round>
+                    Github
+                </el-button>
+            </router-link>
+            <router-link to="/home" active-class="active">
+                <el-button class="blog but" type="primary" plain round>
+                    进入博客
+                </el-button>
+            </router-link>
         </footer>
     </div>
   </div>

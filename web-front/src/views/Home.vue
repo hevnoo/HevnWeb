@@ -89,7 +89,7 @@
         justify-content: space-between;//左右分布在两边
     }
     .carousel_{
-        height: 485px;
+        height: 435px;
         overflow: hidden;
     }
     .icon_box{
@@ -147,7 +147,7 @@
         }
     }
     .on {
-        height: 485px;
+        height: 435px;
         overflow: hidden;
         box-shadow: 0 2px 8px 8px rgba(0, 0, 0, 0.06);
         animation: unfold 1s ease-in;
@@ -160,16 +160,16 @@
     @keyframes unfold {
         0% {
             height: 0;
-            transform: translateY(-485px);
+            transform: translateY(-435px);
         }
         100% {
-            height: 485px;
+            height: 435px;
             transform: translateY(0);
         }
     }
     @keyframes shrink {
         0% {
-            height: 485px;
+            height: 435px;
             transform: translateY(0);
         }
         // 50%{
@@ -178,13 +178,13 @@
         // }
         100% {
             height: 0;
-            transform: translateY(-485px);
+            transform: translateY(-435px);
         }
     }
 
     //
     .blog_list {
-        width: 820px;
+        // width: 830px;
         // margin-left: 20px;
     }
     .nav_{
@@ -194,28 +194,29 @@
         // border-radius: 10px 10px 0 0;
     }
     .view{
+        // width: 830px;
         background-color: rgba(247, 247, 252, 0.85);
         // box-shadow: 0 8px 8px 8px #edefee;
         box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
-        border-radius: 0 0 10px 10px;
+        border-radius: 0 0 7px 7px;
     }
    
     .list_right{
-        width: 290px;
+        width: 285px;
         // height: 1200px;
         // min-height: calc(100vh - 200px);
         // position:sticky;
         // -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
         // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
         .home_one{
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .home_two{
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .home_three{
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             position:sticky;
             top:65px;
             z-index:2;

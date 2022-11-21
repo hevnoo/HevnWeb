@@ -1,75 +1,59 @@
 <template>
-    <header class="container">
-        <div class="wrapper">
-            <el-row>
-                <el-col :span="4">
-                    <router-link to="/" class="logo" >HevnWeb</router-link>
-                </el-col>
-                <el-col :span="20">
-                    <el-menu
-                    class="nav"
-                    mode="horizontal" 
-                    :default-active="$route.path" 
-                    @select="hanleSelect" 
-                    active-text-color="#139eff"
-                    text-color="black" >
-                        <!-- 搜索栏 -->
-                        <el-menu-item >
-                            <el-input placeholder="请输入内容" v-model="keywards" size="medium" clearable @keyup.enter.native="search()">
-                                <el-button slot="append" icon="el-icon-search" @click="search()"> </el-button>
-                            </el-input>
-                        </el-menu-item>
-                        <!--  -->
-                        <el-menu-item index="/home" style="font-size:17px">
-                            <router-link to="/home" active-class='active'>
-                                <!-- <i class="iconfont icon-home"></i> -->
-                                首页
-                            </router-link>
-                        </el-menu-item>
-                        <!--  -->
-                        <el-submenu index="2">
-                            <template slot="title">文章</template>
-                            <el-menu-item class="iii" index="/article"  v-if="isSignIn===1">
-                                <router-link to="/article" active-class='active'>我的博客</router-link>
-                            </el-menu-item>
-                            <el-menu-item class="iii" index="/article"  v-else @click="remind()">
-                                <router-link to="#" active-class='active'>我的博客</router-link>
-                            </el-menu-item>
-                            <el-menu-item class="iii" index="3">
-                                <router-link to="/file" active-class='active'>归档</router-link>
-                            </el-menu-item>
-                            <el-menu-item class="iii" index="4">
-                                <router-link to="/class" active-class='active'>分类</router-link>
-                            </el-menu-item>
-                        </el-submenu>
-                        <el-menu-item index="/words" style="font-size:17px">
-                            <router-link to="/words" active-class="active">留言板</router-link>
-                        </el-menu-item>
-                        <el-menu-item index="/about" style="font-size:17px">
-                            <router-link to="/about" active-class='active'>关于</router-link>
-                        </el-menu-item>
-                        <!-- <el-menu-item index="/article" style="font-size:17px" v-if="isSignIn===1">
-                            <router-link to="/article" active-class='active'>我的博客</router-link>
-                        </el-menu-item> -->
-                        <el-menu-item index="/login" style="font-size:17px" v-if="isSignIn===0">
-                            <router-link class="signBtn" to="/login" active-class='active'>登录</router-link>
-                        </el-menu-item>
-                        <el-menu-item index="/personal" v-else-if="isSignIn===1">
-                            <router-link class="signBtn" to="/personal" active-class='active'>
-                                <img class="nav_img" :src="userinfo.head_img==null?imgDefault:userinfo.head_img">
-                                {{userinfo.nickname}}
-                            </router-link>
-                        </el-menu-item>
-                    </el-menu>
-                </el-col>
-            </el-row>
+    <div class="wrappers">
+        <div class="_wrappers">
+            <div  class="front">
+                <router-link to="/" class="logo">HevnWeb</router-link>
+                <div class="search">
+                    <el-input placeholder="请输入内容" v-model="keywards" size="medium" clearable @keyup.enter.native="search()">
+                        <el-button slot="append" icon="el-icon-search" v-debounce="search"> </el-button>
+                    </el-input>
+                </div>
+            </div>
+            <el-menu
+            :default-active="$route.path"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="hanleSelect"
+            background-color="rgba(250, 250, 250, 1)"
+            text-color="rgba(0, 0, 0, 0.9)"
+            active-text-color="#30b8f5">
+                <el-menu-item index="/home"><router-link to="/home" class="home router">首页</router-link></el-menu-item>
+                <el-submenu index="2" class="the_sub">
+                    <template slot="title">文章</template>
+                    <el-menu-item index="/article" v-if="isSignIn===1"><router-link to="/article" class="_router">我的文章</router-link></el-menu-item>
+                    <el-menu-item index="/article" v-else @click="remind()"><router-link to="" class="_router">我的文章</router-link></el-menu-item>
+                    <el-menu-item index="/file"><router-link to="/file" class="_router">归档</router-link></el-menu-item>
+                    <el-menu-item index="/class"><router-link to="/class" class="_router">分类</router-link></el-menu-item>
+                    <!-- <el-submenu index="2-4">
+                        <template slot="title">其他</template>
+                        <el-menu-item index="2-4-1">1</el-menu-item>
+                    </el-submenu> -->
+                </el-submenu>
+                <el-menu-item index="/words"><router-link to="/words" class="words router" active-class="active">留言板</router-link></el-menu-item>
+                <el-menu-item index="/about"><router-link to="/about" class="about router" active-class="active">关于</router-link></el-menu-item>
+                <el-menu-item index="/login" v-if="isSignIn===0">
+                    <router-link to="/login" class="about router">登录</router-link>
+                </el-menu-item>
+                <!--  -->
+                <el-submenu index="5" class="last_sub" v-else-if="isSignIn===1">
+                    <template slot="title">
+                        <img class="nav_img" :src="userinfo.head_img==null?imgDefault:userinfo.head_img">
+                        {{userinfo.nickname}}
+                    </template>
+                    <el-menu-item index="/personal"><router-link to="/personal" class="_router">个人中心</router-link></el-menu-item>
+                    <el-menu-item index="5-2"><router-link to="/home" class="_router">首页</router-link></el-menu-item>
+                    <el-menu-item index="/article/edit"><router-link to="/article/edit" class="_router">发布文章</router-link></el-menu-item>
+                    <el-divider></el-divider>
+                    <el-menu-item index="5-4" @click="outLogin()"><span class="_router">退出登录</span></el-menu-item>
+                </el-submenu>
+            </el-menu>
         </div>
-    </header>
+    </div>
 </template>
 
 <script>
     import imgDefault from '@/assets/logo.jpg'
-
+    import Cookie from 'js-cookie'
     export default {
         name:'CommonHeader',
         data() {
@@ -150,11 +134,14 @@
                     })
                 })
             },
-            // enter(){
-            //     if(event.KeyCode==13){
-            //         this.search();
-            //     }
-            // },
+            outLogin(){
+                Cookie.remove('token')
+                this.$store.commit('tokens/SETTOKEN', '')
+                this.$store.commit('tokens/ISSIGNIN', 0)
+                this.$router.push({
+                    name: 'home'
+                })
+            },
 
         },
         computed: {
@@ -176,116 +163,119 @@
 </script>
 
 <style lang="scss" scoped>
-
-    .container{
-        //整个头部
-        background: #fff;
-        box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
+    .wrappers{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        background-color: rgba(250, 250, 250, 1);
+        box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.05);
     }
-    .wrapper {
-        //内容区
-        .logo {
-            line-height: 60px;
-            font-size: 26px;
-            font-weight: bold;
-            background: url('https://images6.alphacoders.com/110/thumbbig-1103843.webp');
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: logo 6s infinite alternate linear;
-        }
-        .nav {
-            float: right;
-            border-bottom: none;
-            font-size: 25px;
-            // background-color: #6bc30d;
-            li {
-                padding: 0;
-                a {
-                    display: inline-block;
-                    padding: 0 20px;
-                    .iconfont {
-                        vertical-align: top;
-                        margin: 0 5px 0 0;
-                    }
-                }
-            }
-        }
+    ._wrappers{
+        width: 1200px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
-    .nav_img{
-        width: 30px;
-        height: 30px;
-        margin-left: 12px;
-        border-radius: 50%;
+    .front{
+        display: flex;
+        align-items: center;
     }
-
-    .signBtn {
-        // background: #3b99fc !important;
+    //logo
+    .logo {
+        display: inline-block;
+        height: 60px;
         line-height: 60px;
+        font-size: 25px;
+        font-weight: bold;
+        background: url('https://images6.alphacoders.com/110/thumbbig-1103843.webp');
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: logo 7s infinite alternate linear;
     }
     // 搜索栏
+    .search{
+        display: inline-block;
+    }
     .el-input{
         width: 300px;
-        margin-right: 34px;
+        height: 35px;
+        margin-left: 300px;
     }
     ::v-deep .el-input__inner{
         border-radius: 20px 0 0 20px;
     }
     ::v-deep .el-input-group__append {
         border-radius: 0 20px 20px 0;
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+    ::v-deep .el-input-group__append:hover{
+        color: rgba(0, 0, 255, 0.9);
     }
     //
-    ::v-deep .el-menu-item:hover {
-        background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
-        background-clip:text !important;
-        -webkit-background-clip:text !important;
-        color: transparent !important;
-        background-color: transparent !important;
-        // font-size: 20px !important;
-        animation:change 0.4s linear forwards !important;
-	}
-    ::v-deep .el-submenu__title{//文章
+    // ::v-deep .el-menu--popup{
+    //     min-width: 100px !important;
+    // }
+    .el-menu.el-menu--horizontal{//清除溢出
+        border: 0;
+    }
+    ::v-deep .el-menu-item {
+        //设置右边所有项
+        padding: 0;
+    }
+    .router{
+        display: inline-block;
+        font-size: 17px;
+        text-align: center;
+        // padding: auto 20px;
+    }
+    ._router{
+        //二级导航栏
+        display: inline-block;
+        width: 100%;
+        font-size: 14px;
+    }
+    .the_sub{
+        width: 85px;
+    }
+    .home,.about{
+        width: 74px;
+    }
+    .words{
+        width: 85px;
+    }
+     ::v-deep .el-submenu__title{
+        //下拉框标题 文章
         font-size: 17px;
         padding-top: 1.2px;
     }
-    ::v-deep .el-submenu__title:hover{//文章
-        background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
-        background-clip:text !important;
-        -webkit-background-clip:text !important;
-        color: transparent !important;
-        background-color: transparent !important;
-        animation:change 0.4s linear forwards !important;
-        // background-color: rgba(234, 234, 234, 0.8) !important;
+    //用户
+    .nav_img{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
     }
-    .iii{
-        height: 40px;
-        font-size: 16px;
-        background-color: rgba(234, 234, 234, 0.9) !important;
-        &:first-child{
-            margin-top: -5px;
-            padding-top: 5px;
-        }
-        &:nth-child(2){
-            padding-top:3px
-        }
-        &:last-child{
-            margin-bottom: -5px;
-            padding-bottom: 5px;
-        }
-        a:hover{
-            background-image: linear-gradient(135deg,#6bc30d,#30b8f5) !important;
-            background-clip:text !important;
-            -webkit-background-clip:text !important;
-            color: transparent !important;
-            background-color: transparent !important;
-            animation:change 0.4s linear forwards !important;
+    // .li:hover{
+    //     color: rgba(107, 195, 13, 1);
+    //     background-color: rgba(0, 0, 0, 0.1);
+    // }
+    .last_sub{
+        width: 100px;
+        ::v-deep .el-submenu__icon-arrow{
+            //隐藏用户箭头
+            visibility: hidden;
+            width: 0;
         }
     }
-    ::v-deep .el-menu--popup{
-        background-color: rgba(234, 234, 234, 0.8) !important;
-        padding: 0;
+    .el-divider{
+        margin: 5px auto;
     }
-    
+
+
     @keyframes logo{
         0%{
             background-position: 0%;
@@ -294,7 +284,7 @@
             background-position: 100%;
         }
     }
-    @keyframes change{
+    @keyframes big{
         0%{
             transform: scale(1);
         }
@@ -308,9 +298,4 @@
         }
     }
 
-    // 修改链接高亮显示
-    // ::v-deep .router-link-active{
-    //     // background: skyblue;
-    //     color: yellow !important;
-    // }
 </style>

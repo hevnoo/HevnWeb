@@ -32,7 +32,7 @@
   </template>
   
   <script>
-  import imgDefault from '../assets/logo.jpg'
+  import imgDefault from '@/assets/logo.jpg'
 
   export default {
         name:'DetailSide',

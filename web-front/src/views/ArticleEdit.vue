@@ -72,8 +72,8 @@
             },
             // 更新博客和添加博客
             save(){
-                if(this.labelValue==''||this.title==''||this.content==''){
-                    alert('请确保标题、标签和内容不能为空')
+                if(this.labelValue==''||this.title==''||this.content==''||this.dialogImageUrl==''){
+                    alert('请确保内容不为空')
                 }else{
                     if(this.$route.params.id){
                         // 更新
@@ -116,6 +116,7 @@
                                 });
                                 setTimeout(() => {
                                     this.$router.push({name:'article'})
+                                    // this.$router.go(-1)
                                 }, 1000);
                             }
                         }).catch(e => {

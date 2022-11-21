@@ -184,6 +184,9 @@ import {pages} from '@/mixin/mixin.js'
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
     }
+    .title:hover{
+        text-decoration:underline;
+    }
     .main{
         height: 40px;
         color: #808080;

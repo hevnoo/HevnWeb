@@ -15,7 +15,7 @@
                     <el-button @click="no()">取 消</el-button>
                     <el-button type="primary" @click="yes()">确 定</el-button>
                 </div>
-                <div slot="reference" class="header_right" style="color:#139eff">管理</div>
+                <div slot="reference" class="header_right" style="color:#139eff">自定义</div>
             </el-popover>
           <!--  -->
       </div>
@@ -90,7 +90,7 @@
                     console.log(e)
                 })
                 }else{
-                    alert('不能为空')
+                    // alert('不能为空')
                 }
             },
             //删除标签
@@ -142,7 +142,7 @@
         // box-shadow: 0 0 8px 8px #edefee;
         box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.06);
         border: 0.1px solid transparent;
-        border-radius: 10px;
+        border-radius: 7px;
           .three_header{
             height: 20px;
               // margin-top: 20px;

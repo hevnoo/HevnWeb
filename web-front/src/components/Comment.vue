@@ -4,7 +4,7 @@
             <router-link to="/login">登录留言吧</router-link>
         </div>
         <div v-else class="input-box">
-            <el-divider></el-divider>
+            <!-- <el-divider></el-divider> -->
             <h3 class="_title">开始评论吧</h3>
             <div class="input-top">
                 <div class="img">
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="input-bottom">
-                <a href="javascript:void(0)" class="submit" @click="publicComment">发表评论</a>
+                <a href="javascript:void(0)" class="submit" v-debounce="publicComment">发表评论</a>
             </div>
         </div>
         <!-- 全部评论列表 -->
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import imgDefault from '../assets/logo.jpg'
+import imgDefault from '@/assets/logo.jpg'
     export default {
         name:'Comment',
         data() {
@@ -78,18 +78,21 @@ import imgDefault from '../assets/logo.jpg'
             },
             //发表评论
             publicComment() {
-                this.$axios.post('/api/comment/public',{
-                    article_id:this.$route.params.id,
-                    content:this.submitText
-                }).then((res)=>{
-                    // console.log(res)
-                    if(res.data.code === 0){
-                        this.submitText = ''
-                        this.getCommentList()
-                    }
-                }).catch(e=>{
-                    console.log(e)
-                })
+                if(this.submitText!==''){
+                    this.$axios.post('/api/comment/public',{
+                        article_id:this.$route.params.id,
+                        content:this.submitText
+                    }).then((res)=>{
+                        // console.log(res)
+                        if(res.data.code === 0){
+                            this.submitText = ''
+                            this.getCommentList()
+                        }
+                    }).catch(e=>{
+                        console.log(e)
+                    })
+                }
+                
             },
             //获取评论列表
             getCommentList() {
@@ -120,6 +123,7 @@ import imgDefault from '../assets/logo.jpg'
     // -webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.157), 0 0px 3px rgba(0, 0, 0, 0.227);
     // box-shadow: 0 0px 3px rgba(0, 0, 0, 0.157), 0 0px 3px rgba(0, 0, 0, 0.227);
     background: #fafafa;
+    border-radius: 5px;
     .signInText {
         text-align: center;
         color: #3b99fc;
@@ -128,7 +132,7 @@ import imgDefault from '../assets/logo.jpg'
     }
 }
 ._title{
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 50px;
     font-size: 20px;
     font-weight: bold;
@@ -215,8 +219,8 @@ import imgDefault from '../assets/logo.jpg'
                 text-align: center;
                 .avatar{
                         display: inline-block;
-                        width: 60px;
-                        height: 60px;
+                        width: 50px;
+                        height: 50px;
                         border-radius: 50%;
                         border: 1px solid #000;
                         margin-bottom: 20px;

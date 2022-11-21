@@ -125,7 +125,7 @@ import {hunhe,pages} from '../../mixin/mixin.js'
     }
     // 博客列表
     .box{
-        width: 820px;
+        width: 830px;
         display:flex;
         flex-direction: column;
     }
@@ -168,6 +168,9 @@ import {hunhe,pages} from '../../mixin/mixin.js'
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
+    }
+    .title:hover{
+        text-decoration:underline;
     }
     .main{
         height: 40px;

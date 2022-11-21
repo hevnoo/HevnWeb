@@ -13,13 +13,13 @@
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload"
                         name="head_img">
-                        <img :src="imageUrl!=null?imageUrl:imgDefault" class="avatar">
+                        <img v-lazy="imageUrl!=null?imageUrl:imgDefault" class="avatar">
                     </el-upload>
                     <p class="tips">tips:请上传2M以内JPG/PNG格式的图片，比例最好1:1</p>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="save">保存</el-button>
-                    <el-button @click="signOut">退出登录</el-button>
+                    <el-button type="primary" @click="save()">保存</el-button>
+                    <el-button @click="signOut()">退出登录</el-button>
                 </el-form-item>
             </el-form>
             
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import imgDefault from '../assets/logo.jpg'
+    import imgDefault from '@/assets/logo.jpg'
     import Cookie from 'js-cookie'
 
     export default {
@@ -139,7 +139,7 @@
         }
     }
     ::v-deep .el-form-item__label{
-        color: #e6e6ea !important;
+        color: rgba(250, 250, 250, 1) !important;
     }
     .nickname {
         width: 70%;
