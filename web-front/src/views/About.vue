@@ -9,7 +9,9 @@
                 <div class="load three"></div>
             </div>
         </div>
-        <button @click="tt()"></button>
+        <!-- <button>
+            <router-link to="/test1">test1</router-link>
+        </button> -->
         <!-- <shadow-button btnBgc="#FF8200" @clickBtn="run()">按钮</shadow-button> -->
     </div>
 </template>
@@ -32,10 +34,7 @@
                     name:'test1'
                 })
             },
-            tt(){
-                window.toast('ff')
-                // 需引入
-            },
+
         },
         created(){
             

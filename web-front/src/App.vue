@@ -32,20 +32,19 @@
     color: #2c3e50;
   }
 }
-//分页
+//分页器
 .page{
   height: 150px;
-  // background-color: pink;
   display: flex;
   justify-content: center;
   align-items: center;
   .el-pager li.active {
     // color: #6bc30d;
-    color: #139eff;
-    background-color: #f0f9eb;
+    // color: #139eff;
+    // background-color: #f0f9eb;
   }
   .el-pagination{
-    color: #6bc30d !important;
+    // color: #6bc30d !important;
   }
 }
 

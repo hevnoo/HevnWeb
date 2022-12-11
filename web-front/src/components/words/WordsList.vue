@@ -98,7 +98,6 @@
                 if(this.text!='' && this.$store.state.tokens.isSignIn==1){
                     this.$axios.post('/api/words/addWords',{
                         words:this.text,
-                        father_words_id:0,
                     }).then((res)=>{
                         if(res.data.code === 0){
                             this.text = ''
@@ -114,10 +113,11 @@
                 // console.log('触发')
                 if(this.reText!='' && this.$store.state.tokens.isSignIn==1){
                     if(item.father_words_id==0){//判断当前为父级，将要发布子级1级
-                        this.$axios.post('/api/words/addWords',{
+                        this.$axios.post('/api/words/addReWords',{
                             words:this.reText,
                             father_words_id:id,
-                            to_user_id:null
+                            to_user_id:null,
+                            to_user_nickname:null,
                         }).then((res)=>{
                             if(res.data.code === 0){
                                 // console.log('一级')
@@ -128,7 +128,7 @@
                             console.log(e)
                         })
                     }else{//判断当前为子级1级，将要发布子2级
-                        this.$axios.post('/api/words/addWords',{
+                        this.$axios.post('/api/words/addReWords',{
                             words:this.reText,
                             father_words_id:item.father_words_id,
                             to_user_id:id,

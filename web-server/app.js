@@ -50,6 +50,7 @@ app.use(expressJWT({
         '/api/words/wordsList',
         '/api/words/fList',
         '/api/words/sList',
+        '/api/article/fileList',
     ] 
     //白名单,除了这里写的地址，其他的URL都需要验证
 }));

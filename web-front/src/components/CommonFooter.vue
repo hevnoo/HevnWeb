@@ -4,7 +4,7 @@
             © 2022 Hevn . All Rights Reserved.
         </div>
         <footer class="footer">
-            赣ICP备13113338-1号
+            赣ICP备2022010422号
         </footer>
     </div>
 </template>

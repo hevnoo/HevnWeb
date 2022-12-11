@@ -26,13 +26,31 @@ router.post('/add', async(req, res, next) => {
     }
 });
 
-// 获取全部博客列表接口
+
+//获取全部博客列表接口
 router.get('/allList', async(req, res, next) => {
     try {
         // let sql = 'select * from article group by create_time desc'
-        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,label,viewed,img from article group by create_time desc'
+        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,label,viewed,img from article order by create_time desc'
+        
         let result = await querySql(sql)
         res.send({ code: 0, msg: '获取成功', data: result })
+    } catch (e) {
+        console.log(e)
+        next(e)
+    }
+});
+// 归档分页, page:当前页，
+router.get('/fileList', async(req, res, next) => {
+    let page = Number(req.query.page || 1)
+    try {
+        let all = 'select count(*) from article'
+        let total = all.length
+        // console.log('总数***',all)
+        let pageSet = (page-1)*10
+        let sql = 'select id,title,content,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time,label,viewed,img from article order by create_time desc limit 10 offset ?'
+        let result = await querySql(sql,[pageSet])
+        res.send({ code: 0, msg: '获取成功', data: result, total: total, pageSize: 10 })
     } catch (e) {
         console.log(e)
         next(e)

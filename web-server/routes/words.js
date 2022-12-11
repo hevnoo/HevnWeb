@@ -5,6 +5,22 @@ const querySql = require('../db/index')
 
 //发表留言接口
 router.post('/addWords',async(req,res,next) => {
+  let {words} = req.body
+  let {username} = req.user
+  try {
+    let userSql = 'select id,head_img,nickname from user where username = ?'
+    let user = await querySql(userSql,[username])
+    let {id:user_id,head_img,nickname} = user[0]
+    let sql = 'insert into words(user_id,words,nickname,head_img,create_time) values(?,?,?,?,NOW())'
+    let result = await querySql(sql,[user_id,words,nickname,head_img])
+    res.send({code:0,msg:'发表成功',data:null})
+  }catch(e){
+    console.log(e)
+    next(e)
+  } 
+})
+//发表回复接口
+router.post('/addReWords',async(req,res,next) => {
   let {words,father_words_id,to_user_id,to_user_nickname} = req.body
   let {username} = req.user
   try {
@@ -28,17 +44,6 @@ router.get('/wordsList',async(req,res,next) => {
       // let sql = 'select * from words'
       // let father = 'select id,head_img,nickname,words,father_words_id,to_user_id,to_user_nickname,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time from words where father_words_id = 0'
       // let son = 'select id,head_img,nickname,words,father_words_id,to_user_id,to_user_nickname,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") AS create_time from words where father_words_id is != 0 order by id asc'
-      // for(let i=0;i<father.length;i++){
-      //     //这里改变father也会同时改变newList,因为浅拷贝
-      //     for(let j=0;j<son.length;j++){
-      //         if(father[i].id==son[j].father_words_id){
-      //             father.splice(i++,0,son[j])
-      //         }
-      //     }
-      // }
-      // father.reverse()
-      // sql=father
-      //
       let result = await querySql(sql)
       res.send({code:0,msg:'成功',data:result})
     }catch(e){

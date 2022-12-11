@@ -57,7 +57,6 @@
                     nickname: this.form.nickname,
                     head_img: this.imageUrl
                 }).then(res => {
-                    console.log(res)
                     this.upUserList();
                     if (res.data.code === 0) {
                         this.$message({

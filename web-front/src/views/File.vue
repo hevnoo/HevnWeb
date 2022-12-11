@@ -9,82 +9,89 @@
             </header>
             <div class="main">
                 <div class="top">
-                    <span>共计{{pageList.length}}篇文章</span>
+                    <span>共计{{total}}篇文章</span>
                 </div>
                 <div class="content">
                     <div class="dates">
-                        {{dates[0]}}
+                        {{year[0]}}
                     </div>
                     <div class="text" v-for="item in blogList" :key="item.id">
-                        <span class="time">{{item.create_time.split(' ')[0].slice(5,10)}}</span>
+                        <span class="time">{{item.create_time.slice(5,10)}}</span>
                         <router-link :to="'/detail/'+item.id">
                             <span class="ii">{{item.title}}</span>
                         </router-link>
                     </div>
                 </div>
                 <!-- 分页 -->
-                <div class="page">
-                    <el-pagination
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="pageList.length"
-                    :page-size="pageSize"
-                    :current-page="currentPage"
-                    @size-change="handleSizeChange" 
-                    @current-change="handleCurrentChange"
-                    >
-                    </el-pagination>
-                </div>
+                <Pages :total="total" :pageSize="pageSize" @currentChange="pageChange" />
             </div>
         </div>
         
     </div>
-</template>
+  </template>
+  
+  <script>
+    import Pages from '@/components/others/Pages.vue'
 
-<script>
-    import {pages1} from '@/mixin/mixin.js'
     export default {
-        name: 'File',
         components:{
-            
+            Pages,
         },
-        mixins:[pages1],
+        // mixins:[],
         data(){
             return{
                 blogList:[],
                 list:[],
-                dates:[],
+                year:[],
+                currentPage:1,
+                total:null,
+                pageSize:null,
             }
         },
         methods:{
+            //分页器事件，val:收到分页子组件的当前页码currentPage
+            pageChange(val){
+                this.currentPage = val;
+                this.getBlogList();
+            },
             // 获取文章
             getBlogList () {
-                this.$axios.get('/api/article/allList')
-                .then(res => {
+                this.$axios.get('/api/article/fileList',{
+                  params:{
+                    page:this.currentPage
+                  }
+                }).then(res => {
                     if(res.data.code === 0){
                         this.blogList = res.data.data;
-                        //去重时间
-                        this.dates = res.data.data;
-                        this.dates = this.dates.map((m)=>{
-                            return m.create_time.split(' ')[0].split('-')[0]
-                        });
-                        this.dates = Array.from(new Set(this.dates))
+                        this.total = res.data.total;
+                        this.pageSize = res.data.pageSize;
+                        // console.log(res.data)
+                        //去重年份
+                        this.dealYear(res.data.data);
                         
-                        // 分页截取
-                        this.pageList = this.blogList
-                        this.blogList = this.blogList.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)
                     }
                 }).catch(e=>{
                     console.log(e)
                 })
             },
+            
+            //去重年份
+            dealYear(result){
+                this.year = result;
+                this.year = this.year.map((m)=>{
+                    return m.create_time.split(' ')[0].split('-')[0]
+                });
+                this.year = Array.from(new Set(this.year))
+            },
+            
         },
         created(){
             this.getBlogList();
         }
     }
-</script>
-
-<style lang="scss" scoped>
+  </script>
+  
+  <style lang="scss" scoped>
     .container{
         min-height: 100vh;
         display: flex;
@@ -187,5 +194,5 @@
             opacity: 1;
         }
     }
-
-</style>
+  
+  </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="container_">
         <div class="card">
-                <img class="img" src="@/assets/img/words.jpg" alt="">
+                <img class="img" src="../../assets/img/myLogo.png" alt="">
                 <h1 class="name">Hevn</h1>
                 <div class="tips">有空进来坐坐~</div>
                 <div class="icon">

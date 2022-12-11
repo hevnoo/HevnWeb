@@ -2,7 +2,8 @@
   <div class="container">
     <common-header class="header" id="nav-bar" :class="navShow?'navOn':'navOff'"></common-header>
     <div class="nulls"></div>
-    <router-view :key="$store.state.search.page_num1"></router-view>
+    <!-- <router-view :key="$store.state.search.page_num1"></router-view> -->
+    <router-view></router-view>
     <common-footer class="footer"></common-footer>
   </div>
 </template>
